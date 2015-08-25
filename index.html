@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+<head>
+<meta charset="UTF-8">
+<title>ErlangMS Microservices :: Analytics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portal do ErlangMS Microservices">
+<meta name="author" content="ErlangMS Team">
+<link rel="stylesheet" href="static/css/fpc_concat.css">
+<link rel="stylesheet" href="static/js/jqplot/jquery.jqplot.css" />
+<link rel="stylesheet" type="text/css" href="static/js/jqplot/examples.min.css" />
+<link type="text/css" rel="stylesheet" href="static/js/jqplot/syntaxhighlighter/styles/shCoreDefault.min.css" />
+<link type="text/css" rel="stylesheet" href="static/js/jqplot/syntaxhighlighter/styles/shThemejqPlot.min.css" />
+
+</head>
+<body class="home-page"> 
+
+	<div id="loading">
+		<p><img src="static/img/loading.gif" style="heigth:32px; width:32px" /> &nbsp;Aguarde...</p>
+	</div>
+
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+		  <div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a id="nome_sistema"
+                    class="navbar-brand" href="#">
+				<span class="glyphicon glyphicon-home"> 
+				</span><strong> ErlangMS - Erlang Microservices</strong></a>
+			</div>
+			<div id="fpc_menu" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="catalogo.html"><span
+							class="glyphicon glyphicon-list"></span> Catalogo de serviços</a></li>
+					<li><a href="sobre.html"><span
+							class="glyphicon glyphicon-list"></span> Sobre</a></li>
+					<li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</div>
+    
+	<div id="painel_conteudo" class="container" style="margin-top:65px;">
+
+		<div id="f_breadcrumb">
+			<ol class="breadcrumb">
+				<li><a href="portal/index.html"><i class="glyphicon glyphicon-home"></i></a></li>
+				<li>Analytics</li>
+				<li onclick="location.href='/eliot/sistema/?ts=56'">Serviços mais acessados</li>
+			</ol>
+		</div>
+   
+		<ul id="tab_analytic" class="nav nav-tabs">
+		  <li role="presentation" class="active">
+ 			   <a class="fpc_tab" 
+					id="htab_top_services" 
+					onclick="ems_analytics.exibeGraficos('top_services')" href="#tab_top_services" 
+					data-toggle="tab">Serviços mais acessados
+			   </a>
+		  </li>
+		  <li role="presentation">
+ 			   <a class="fpc_tab" 
+					id="htab_top_services" 
+					onclick="ems_analytics.exibeGraficos('qtd_req')" href="#tab_qtd_req" 
+					data-toggle="tab">Quantidade de requisições diárias
+			   </a>
+		  </li>
+		  <li role="presentation">
+ 			   <a class="fpc_tab" 
+					id="htab_top_services" 
+					onclick="ems_analytics.exibeGraficos('end_points_req')" href="#tab_end_points_req" 
+					data-toggle="tab">End points requests
+			   </a>
+		  </li>
+		</ul>       
+
+		<div class="tab-content">  
+			<div class="tab-pane active in" id="tab_top_services">
+				
+                <div class="row item" style="margin-left:8px;">
+                    <div>
+                        <dl>
+						  <dt style="padding-bottom:10px">Serviços mais acessados</dt>
+						  <dd>
+							<div>
+							
+								<div style="float:left; margin-left:20px">
+									<div id="top_10_hour"  style="width:350px; height:300px;"></div>
+									<hr>
+								</div>
+
+								<div style="float:left; margin-left:20px">
+									<div id="top_10_day"   style="width:350px; height:300px;"></div>
+									<hr>
+								</div>
+
+								<div style="float:left; margin-left:20px">
+									<div id="top_10_month" style="width:350px; height:300px;"></div>  
+									<hr>
+								</div>
+							</div>
+						  </dd>
+						</dl>
+                    </div>
+                </div>
+				
+			</div>
+			
+			<div class="tab-pane active in" id="tab_qtd_req">
+
+                <div class="row item" style="margin-left:8px;">
+                    <div>
+                        <dl>
+						  <dt style="padding-bottom:10px">Quantidade de requisições diárias</dt>
+						  <dd>
+							<div>
+								<div style="float:left; margin-right:178px">
+									<div id="qtd_req_mes" style="width:auto; height:300px;"></div>
+									<hr>
+								</div>
+								<div style="float:left;">
+									<div id="qtd_req_mes_ant" style="width:auto; height:300px;"></div>
+									<hr>
+								</div>
+							</div>
+						  </dd>
+						</dl>
+                    </div>
+                </div>
+			
+			</div>
+
+		</div>
+
+
+	</div>
+
+
+	<div id="footer">
+      <div class="container">
+        <div class="col-lg-12" style="text-align:center;">
+			<p class="pull-right"><a href="#">Voltar ao Topo</a></p>
+			<p style="font-weight:bold">Copyright 2015 ErlangMS Team - Todos os Direitos Reservados.<br>
+				<small>Powered by <a href="https://github.com/erlangMS">ErlangMS</a></small>
+			</p>
+		</div>
+    </div> 
+	
+	<script src="static/js/fpc_concat.js"></script>
+	<script src="static/js/jqplot/jquery.jqplot.min.js"></script>
+	<script src="static/js/jqplot/jqplot.logAxisRenderer.js"></script>
+	<script src="static/js/jqplot/example.min.js"></script>
+
+    <script class="include" type="text/javascript" src="static/js/jqplot/jquery.jqplot.min.js"></script>
+    <script type="text/javascript" src="static/js/jqplot/syntaxhighlighter/scripts/shCore.min.js"></script>
+    <script type="text/javascript" src="static/js/jqplot/syntaxhighlighter/scripts/shBrushJScript.min.js"></script>
+    <script type="text/javascript" src="static/js/jqplot/syntaxhighlighter/scripts/shBrushXml.min.js"></script>
+
+	<script class="include" type="text/javascript" src="static/js/jqplot/jqplot.barRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="static/js/jqplot/jqplot.pieRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="static/js/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
+	<script class="include" type="text/javascript" src="static/js/jqplot/jqplot.pointLabels.min.js"></script>
+    <script class="include" type="text/javascript" src="static/js/jqplot/jqplot.logAxisRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="static/js/jqplot/jqplot.canvasTextRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="static/js/jqplot/jqplot.canvasAxisLabelRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="static/js/jqplot/jqplot.canvasAxisTickRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="static/js/jqplot/jqplot.dateAxisRenderer.min.js"></script>
+
+
+	<script src="static/js/analytics.js"></script>
+
+	<script>
+
+		$(document).ajaxStart(function(){
+			$('#loading').show();
+		 }).ajaxStop(function(){
+			$('#loading').hide();
+		});
+		 
+		$(this).ready(function(){
+
+			h_tab = $("#tab_analytic li[class='active'").children().first(); 
+			h_tab.click();
+
+		});
+
+	</script>
+
+	
+</body>
+</html>
+

@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="pt-Br">
+<head>
+<meta charset="UTF-8">
+<title>ErlangMS API Management Plataform :: Sobre...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Acesso">
+<meta name="author" content="ErlangMS Team">
+<link rel="stylesheet" href="static/css/fpc_concat.css">
+<link rel="shortcut icon" href="static/img/favicon.ico">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+    href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
+<script type='text/javascript'
+    src="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.js"></script>
+<script type='text/javascript'>
+    //<![CDATA[ 
+     $('#table').hide();
+     $('#tableD').hide();
+    $.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null){
+       return null;
+    }
+    else{
+       return results[1] || 0;
+    }
+    }           
+    var id = $.urlParam('id');
+    $(window)
+    .load(
+            function() {
+             
+                $.getJSON("/catalogo",
+                                function(data) {
+                                    var dataF = data.filter(function (el) {
+                                           return el.id == id;
+                                    });
+                                    $('#table').bootstrapTable({data : dataF});
+                                    $('#tableD').bootstrapTable({data : dataF});
+                                    $('#nome_registro').text('Nome: '+dataF[0].name);
+
+               });
+                $('#table').show();
+                $('#tableD').show();
+               
+            });//]]>
+</script>
+
+</head>
+<body>
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a id="nome_sistema" class="navbar-brand" href="#">
+          <span
+                            class="glyphicon glyphicon-book"></span>
+             <strong>
+                Registro em serviço
+             </strong>
+          </a>
+        </div>
+        <div id="fpc_menu" class="navbar-collapse collapse">
+          
+
+    
+
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.html"><span class="glyphicon glyphicon-home"></span> Barramento de serviços</a></li>
+			<li><a href="catalogo.html"><span class="glyphicon glyphicon-home"></span> Catálogo de serviços</a></li>
+			<li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			<li><a href="cadastro.html"><span
+							class="glyphicon glyphicon-user"></span> Faça seu Cadastro</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div id="painel_conteudo" class="container" style="text-align:center">
+    <div id="msgsucess" class="alert alert-success" style="display:none" role="alert">
+    <h4>Parabéns você acaba de efetuar o registro no serviço !!!</h4></div>
+    <div id="msgkey" class="alert alert-info" style="display:none" role="alert">
+    <h4 id="acesskey">Sua chave de acesso é : <strong>AXSDCFG12345JKRO</strong></h4></div>
+    
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 id="nome_registro"></h4>
+                </h4>
+            </div>
+            
+                <div class="panel-body">
+                   <table class="table-striped " id="table"
+        style="text-align: left;display:none">
+
+        <thead>
+            <tr>
+                <th data-field="comment">Comentário</th>
+                <th data-field="owner">Proprietário</th>               
+
+            </tr>
+        </thead>
+    </table>
+    <table class="table-striped " id="tableD"
+        style="text-align: left;display:none" >
+
+        <thead>
+            <tr>
+                <th data-field="service">Serviço</th>
+                <th data-field="type">Tipo</th>
+                <th data-field="url">Url</th>
+                  <th data-field="querystring">Parâmetros</th>
+                <th data-field="version">Versão</th>
+                <th data-field="async">Assíncrono</th>
+
+            </tr>
+        </thead>
+    </table>
+            </div>
+        </div>
+        
+    </div>
+
+    
+    <hr/>
+     <a class="btn-primary btn-lg" href="catalogo.html" role="button">Voltar</a>
+    <a class="btn-primary btn-lg" href="#" role="button" onclick="$('#msgsucess').show();$('#msgkey').show();">Registrar</a>
+
+   	<div id="footer">
+      <div class="container">
+        <div class="col-lg-12" style="text-align:center;">
+			<p class="pull-right"><a href="#">Voltar ao Topo</a></p>
+			<p style="font-weight:bold">Copyright 2015 PPCA Team - Todos os Direitos Reservados.<br>
+				<small>Powered by <a href="https://github.com/erlangMS">ErlangMS</a></small>
+			</p>
+		</div>
+      </div>
+    </div> 
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+<head>
+<meta charset="UTF-8">
+<title>ErlangMS Microservices :: Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portal do ErlangMS Microservices">
+<meta name="author" content="ErlangMS Team">
+<link rel="stylesheet" href="static/css/fpc_concat.css">
+<link rel="shortcut icon" href="static/img/favicon.ico">
+
+
+<script type="text/javascript" src="static/js/jquery/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="static/js/scroll.js"></script>
+<script type="application/javascript" async src="static/js/fpc_concat.js"></script>
+</head>
+<body>
+	
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a id="nome_sistema"
+                    class="navbar-brand" href="login.html">
+				<span class="glyphicon glyphicon-log-in"> 
+				</span><strong> Login </strong></a>
+
+			</div>
+					<ul class="nav navbar-nav navbar-right">
+                    <li><a href="index.html"><span class="glyphicon glyphicon-home"></span> Barramento de Serviços</a></li>
+					<li><a href="catalogo.html"><span
+							class="glyphicon glyphicon-list"></span> Catalogo de serviços</a></li>
+					
+                    
+					<li><a href="cadastro.html"><span
+							class="glyphicon glyphicon-user"></span> Faça seu Cadastro</a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</div>
+    
+   
+    <div id="painel_conteudo" class="container" style="text-align:center; margin-top:20px;">
+    
+    <section class="signup-section access-section section">
+      <form id="f_login" class="form-signin" style="text-align:center">
+      
+      	<input type='hidden' name='csrfmiddlewaretoken' value='Y43XZFrAMtm8Zy7tHqlSSe3R7fslAMwx' />
+       <img src="static/img/user.png" alt="Usuário">
+       
+	 	<div class="form-group email">
+                                            <label class="sr-only" for="firstname">email</label>
+                                            
+                                                <input type="text" class="form-control login-email" name="email" placeholder="Email">
+                                                </div>
+	 	<span class="fpc_nl"></span>
+	 	 <div class="form-group password">
+                                            <label class="sr-only" for="password1">Senha (com no mínimo 6 caracteres)</label>
+                                            
+                                                <input type="password" class="form-control login-password" name="password1" placeholder="Senha">
+                                         
+                                        </div>
+	 	<span class="fpc_nl"></span>
+	 	<div class="checkbox">
+          <label>
+            <input id="b_remember" value="remember-me" type="checkbox"> Lembrar senha
+          </label>
+          
+          <label>
+                <a href="cadastro.html">Criar uma Conta</a>
+        </div>
+        <button id="b_entrar" class="btn-cta btn-cta-secondary" type="button" onclick="fpc.login()" size="30">Entrar</button>
+      </form>
+        </section>
+
+    </div>
+
+	<div id="footer">
+      <div class="container">
+        <div class="col-lg-12" style="text-align:center;">
+			<p class="pull-right"><a href="#">Voltar ao Topo</a></p>
+			<p style="font-weight:bold">Copyright 2015 ErlangMS Team - Todos os Direitos Reservados.<br>
+				<small>Powered by <a href="https://github.com/erlangMS">ErlangMS</a></small>
+			</p>
+		</div>
+    </div> 
+   
+   
+     
+   
+	
+	
+</body>
+</html>
