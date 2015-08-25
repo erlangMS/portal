@@ -8,7 +8,7 @@ Portal ErlangMS Api Management
 
 Objetivos do Portal
 ------------------------
-* Prover uma interface simples para o gerenciamento do catálogo de serviços do barramento ErlangMS
+* Prover uma interface para o gerenciamento do catálogo de serviços
 * Apresentar informações sobre o ambiente de execução do barramento
  
 
