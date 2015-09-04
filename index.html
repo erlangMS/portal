@@ -45,6 +45,8 @@
 			
 		</div>
 	</div>
+	
+	
     
 	<div id="painel_conteudo" class="container" style="margin-top:65px;">
 
@@ -138,6 +140,18 @@
 
 		</div>
 
+		<div id="chart3" style="width: 220px; height: 210px; position: relative;" >
+		
+		</div>
+
+
+		<div id="chart4" style="width: 420px; height: 310px; position: relative;">
+		
+		</div>
+
+		<div id="chart5" style="width: 520px; height: 290px; position: relative;">
+		
+		</div>
 
 	</div>
 
@@ -172,6 +186,9 @@
     <script class="include" type="text/javascript" src="static/js/jqplot/jqplot.canvasAxisTickRenderer.min.js"></script>
     <script class="include" type="text/javascript" src="static/js/jqplot/jqplot.dateAxisRenderer.min.js"></script>
 
+    <script class="include" type="text/javascript" src="static/js/jqplot/jqplot.meterGaugeRenderer.min.js"></script>
+
+
 
 	<script src="static/js/analytics.js"></script>
 
@@ -188,8 +205,115 @@
 			h_tab = $("#tab_analytic li[class='active'").children().first(); 
 			h_tab.click();
 
-		});
 
+
+
+
+
+			   s1 = [322];
+			   plot3 = $.jqplot('chart3',[s1],{
+				   seriesDefaults: {
+					   renderer: $.jqplot.MeterGaugeRenderer,
+					   rendererOptions: {
+						   min: 100,
+						   max: 500,
+						   intervals:[200, 300, 400, 500],
+						   intervalColors:['#66cc66', '#93b75f', '#E7E658', '#cc6666']
+					   }
+				   }
+			   });
+
+
+
+
+
+
+
+
+
+
+					data = [[10,' '],[100,', Test1'],[250,'Test2'],[62,' Test3'],[95,'Test4'],
+							[20,'Test5'],[66,'Test6'],[25,'Test7'],[0,'Test8']];
+
+
+					$.jqplot.config.enablePlugins = true;     
+
+					$('chart4').jqplot([data], {
+						seriesDefaults: {
+							renderer:$.jqplot.BarRenderer,
+							shadowAngle: 135,
+							rendererOptions: {
+								 barDirection: 'horizontal',
+								 barWidth:15,
+								 barMargin: 25,
+								 varyBarColor: true
+							}
+						},                  
+						axesDefaults: {
+							//tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+							tickOptions: {                       
+							fontSize: '8pt'
+							}
+						},
+						axes: {
+							yaxis: {
+							renderer: $.jqplot.CategoryAxisRenderer,
+							tickOptions:{
+							showGridline:true, 
+							markSize:0
+							}
+						},
+						xaxis: {
+							//ticks:[0,100],
+							tickOptions:{formatString:'%d', fontSize: '8pt'}                        
+							}
+						}
+					});
+					
+					
+					
+					
+					
+					
+				
+				$.jqplot.config.enablePlugins = true;     
+
+				plot = $.jqplot('chart5', [[[60,'/catalogo'],[50,'/health/top_services/:id'],[30,'/hello_world'],[230,'/pessoa'],[130,'/orgaointerno']]], {
+					seriesDefaults:{
+						renderer:$.jqplot.BarRenderer,
+						shadowAngle: 135,
+						rendererOptions: {
+							barDirection: 'horizontal',
+							barWidth:24,
+							barMargin: 10
+						}
+					},
+					axesDefaults: {
+							//tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+							tickOptions: {                       
+							fontSize: '10pt'
+							}
+						},					
+					axes: {
+						yaxis: {
+							renderer: $.jqplot.CategoryAxisRenderer,
+							tickOptions:{
+								showGridline:true, 
+								markSize:0
+							}
+						},
+						xaxis:{
+							ticks:[0,1000],
+							tickOptions:{formatString:'%d\%'}
+						}
+					}
+				});
+				// this line would append the % sign on the end of the values
+				$('.jqplot-point-label').append('%');
+
+							
+
+		});
 	</script>
 
 	
