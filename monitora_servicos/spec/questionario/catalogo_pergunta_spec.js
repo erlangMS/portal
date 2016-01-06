@@ -23,10 +23,12 @@ describe("Pergunta", function() {
 
 
  
- it("Verifica se consegue incluir, modificar e excluir um cadastro de pergunta", function() {
+ it("Verifica se consegue incluir, modificar, pesquisar e excluir um cadastro de pergunta", function() {
+
+	var testeId = Math.floor(Math.random() * 99999999);
 
 	// vamos precisar de uma categoria para a pergunta
-	var objCategoria = {"denominacao" : "Dados Familiares Teste"};
+	var objCategoria = {"denominacao" : "Dados Familiares Teste "+ testeId};
 	
 	// tenta incluir categoria da pergunta
 	var result = $.ajax({
@@ -38,16 +40,16 @@ describe("Pergunta", function() {
 					crossDomain: true,
 					async: false
 				});
-	expect(result.status).toBe(200);
+	expect(result.status).toBe(201);
 	expect(result.responseJSON).toBeDefined();
 	
 	var idCategoria = result.responseJSON.id;
 	
 	// Se conseguiu cadastrar uma categoria, seque adiante para cadastrar a pergunta...
-	if (result.status == 200 && idCategoria != undefined){
+	if (result.status == 201 && idCategoria != undefined){
 
 		// define os dados do cadastro
-		var objPergunta = {"enunciado":"Voce tem moradia própria teste?", 
+		var objPergunta = {"enunciado":"Voce tem moradia própria? Teste "+ testeId, 
 						   "tipoResposta":1, 
 						   "categoria": idCategoria}
 
@@ -62,23 +64,22 @@ describe("Pergunta", function() {
 						crossDomain: true,
 						async: false
 					});
-
-		// é esperado retorno HTTP 200 e um objeto inserido (verifica a presentaça do id)
-		expect(result.status).toBe(200);
+		expect(result.status).toBe(201);
 		expect(result.responseJSON).toBeDefined();
 
 		var objInserido = result.responseJSON;
 
 		// se incluiu, tenta modificar o registro
-		if (result.status == 200 && objInserido.id != undefined){
+		if (result.status == 201 && objInserido.id != undefined){
 			
 				// vamos fazer uma modificação no registro
 				objUpdate = objInserido;
-				objUpdate.enunciado = "Voce tem moradia própria teste modificado!!!";
+				objUpdate.enunciado = objUpdate.enunciado + "(update)";
+				objUpdate.categoria = idCategoria;
 				objUpdate.tipoResposta = 2;
 
-				// tenta incluir		   
-				var result = $.ajax({
+				// tenta modificar
+				result = $.ajax({
 								url:  "http://localhost:2301/questionario/pergunta/"+ objUpdate.id,
 								data : JSON.stringify(objUpdate),
 								type: "PUT",
@@ -89,8 +90,20 @@ describe("Pergunta", function() {
 							});
 				expect(result.status).toBe(200);
 
+				// faz a pesquisa
+				result = $.ajax({
+								url:  "http://localhost:2301/questionario/pergunta/"+ objInserido.id,
+								type: "GET",
+								contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+								dataType: "json",
+								crossDomain: true,
+								async: false
+							});
+				expect(result.status).toBe(200);
+
+
 				// vamos apagar o registro do teste da pergunta
-				var result = $.ajax({
+				result = $.ajax({
 								url:  "http://localhost:2301/questionario/pergunta/"+ objInserido.id,
 								type: "DELETE",
 								contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -114,24 +127,6 @@ describe("Pergunta", function() {
 	}
  });
 
-
-
- it("Verifica se consegue pesquisar um cadastro de pergunta pelo id", function() {
-
-	// faz a pesquisa
-	var result = $.ajax({
-					url:  "http://localhost:2301/questionario/pergunta/1",
-					type: "GET",
-					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-					dataType: "json",
-					crossDomain: true,
-					async: false
-				});
-	
-	// é esperado o retorno de um registro ou 404 (not found)
-	expect(result.status).toBe(200);
-	
- });
 
  
 });

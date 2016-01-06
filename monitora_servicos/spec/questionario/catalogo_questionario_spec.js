@@ -25,8 +25,10 @@ describe("Questionario", function() {
  
  it("Verifica se consegue incluir, modificar e excluir um cadastro de questionário", function() {
 
+	var testeId = Math.floor(Math.random() * 99999999);
+
 	// define os dados do cadastro
-	var obj = {"denominacao":"questionário de teste",
+	var obj = {"denominacao":"questionário de teste "+ testeId,
 			   "dataInicio":"01/12/2015", 
 			   "dataFim":"30/12/2015"}
 	
@@ -41,21 +43,20 @@ describe("Questionario", function() {
 					async: false
 				});
 
-	// é esperado retorno HTTP 200 e um objeto inserido (verifica a presentaça do id)
-	expect(result.status).toBe(200);
+	expect(result.status).toBe(201);
 	expect(result.responseJSON).toBeDefined();
 
 	var objInserido = result.responseJSON;
 
 	// se incluiu, tenta modificar o registro
-	if (result.status == 200 && objInserido.id != undefined){
+	if (result.status == 201 && objInserido.id != undefined){
 		
 			// vamos fazer uma modificação no registro
 			objUpdate = objInserido;
-			objUpdate.denominacao = "questionário de teste modificado!!!";
-			objUpdate.dataFim = "15/12/2015";
+			objUpdate.denominacao = objUpdate.denominacao + "(update)";
+			objUpdate.dataFim = "31/12/2015";
 
-			// tenta incluir		   
+			// tenta modificar
 			var result = $.ajax({
 							url:  "http://localhost:2301/questionario/questionario/"+ objUpdate.id,
 							data : JSON.stringify(objUpdate),
@@ -86,9 +87,32 @@ describe("Questionario", function() {
 
  it("Verifica se consegue pesquisar um cadastro do questionário pelo id", function() {
 
+	var testeId = Math.floor(Math.random() * 99999999);
+
+	// define os dados do cadastro
+	var obj = {"denominacao":"questionário de teste "+ testeId,
+			   "dataInicio":"01/12/2015", 
+			   "dataFim":"30/12/2015"}
+	
+	// tenta incluir		   
+	var result = $.ajax({
+					url:  "http://localhost:2301/questionario/questionario",
+					data : JSON.stringify(obj),
+					type: "POST",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					dataType: "json",
+					crossDomain: true,
+					async: false
+				});
+
+	expect(result.status).toBe(201);
+	expect(result.responseJSON).toBeDefined();
+
+	var idQuestionario = result.responseJSON.id;
+
 	// faz a pesquisa
 	var result = $.ajax({
-					url:  "http://localhost:2301/questionario/questionario/1",
+					url:  "http://localhost:2301/questionario/questionario/"+ idQuestionario,
 					type: "GET",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "json",
@@ -96,7 +120,18 @@ describe("Questionario", function() {
 					async: false
 				});
 	
-	// é esperado o retorno de um registro ou 404 (not found)
+	// é esperado o retorno de um registro
+	expect(result.status).toBe(200);
+
+	// vamos apagar o registro do teste
+	var result = $.ajax({
+					url:  "http://localhost:2301/questionario/questionario/"+ idQuestionario,
+					type: "DELETE",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					dataType: "json",
+					crossDomain: true,
+					async: false
+				});
 	expect(result.status).toBe(200);
 	
  });
@@ -109,7 +144,7 @@ describe("Questionario", function() {
 	// define os dados do cadastro
 	var objQuestionario = {"denominacao":"questionário de teste para vincular pergunta. TesteId "+ testeId,
 						   "dataInicio":"30/03/1983", 
-						   "dataFim":"30/06/1983"}
+						   "dataFim":"30/12/1983"}
 	
 	// tenta incluir o questionário		   
 	var result = $.ajax({
@@ -122,16 +157,15 @@ describe("Questionario", function() {
 					async: false
 				});
 
-	// é esperado retorno HTTP 200 e um questionário inserido (verifica a presentaça do id)
-	expect(result.status).toBe(200);
+	expect(result.status).toBe(201);
 	expect(result.responseJSON).toBeDefined();
 
 	var idQuestionario = result.responseJSON.id;
 
 	// se incluiu o questionário, vamos vincular duas perguntas ao questionário
-	if (result.status == 200 && idQuestionario != undefined){
+	if (result.status == 201 && idQuestionario != undefined){
 		
-			// precisamos cadastrar uma categoria de pergunta
+			// precisamos cadastrar primeiramente uma categoria de pergunta
 			var objCategoria = {"denominacao" : "Dados Familiares Teste. TesteId " + testeId};
 			
 			// tenta incluir categoria da pergunta
@@ -144,7 +178,7 @@ describe("Questionario", function() {
 							crossDomain: true,
 							async: false
 						});
-			expect(result.status).toBe(200);
+			expect(result.status).toBe(201);
 			expect(result.responseJSON).toBeDefined();
 			
 			var idCategoria = result.responseJSON.id;
@@ -157,12 +191,12 @@ describe("Questionario", function() {
 				//
 				
 				// define os dados da pergunta
-				var objPergunta = {"enunciado":"Voce tem moradia própria? pergunta 1 do teste. Testeid "+ testeId, 
+				var objPergunta = {"enunciado":"Voce tem moradia própria? pergunta 01 do teste. Testeid "+ testeId, 
 								   "tipoResposta":1, 
 								   "categoria": idCategoria}
 
 
-				// tenta incluir pergunta		   
+				// tenta incluir pergunta 01
 				result = $.ajax({
 								url:  "http://localhost:2301/questionario/pergunta",
 								data : JSON.stringify(objPergunta),
@@ -173,15 +207,14 @@ describe("Questionario", function() {
 								async: false
 							});
 
-				// é esperado retorno HTTP 200 e um objeto inserido (verifica a presentaça do id)
-				expect(result.status).toBe(200);
+				expect(result.status).toBe(201);
 				expect(result.responseJSON).toBeDefined();
 				
 				var idPergunta1 = result.responseJSON.id;
 				
 				
-				// define os dados da pergunta
-				var objPergunta2 = {"enunciado":"Qual a sua escolaridade? pergunta 2 do teste. TesteId "+ testeId, 
+				// define os dados da pergunta 02
+				var objPergunta2 = {"enunciado":"Qual a sua escolaridade? pergunta 02 do teste. TesteId "+ testeId, 
 								    "tipoResposta":1, 
 								    "categoria": idCategoria}
 
@@ -197,8 +230,7 @@ describe("Questionario", function() {
 								async: false
 							});
 
-				// é esperado retorno HTTP 200 e um objeto inserido (verifica a presentaça do id)
-				expect(result.status).toBe(200);
+				expect(result.status).toBe(201);
 				expect(result.responseJSON).toBeDefined();
 				
 				var idPergunta2 = result.responseJSON.id;
@@ -206,7 +238,7 @@ describe("Questionario", function() {
 			
 				if (idPergunta1 != undefined && idPergunta2 != undefined){
 
-					// finalmente, tenta vincular a pergunta 1 ao questionário
+					// finalmente, tenta vincular a pergunta 01 ao questionário
 					result = $.ajax({
 									url:  "http://localhost:2301/questionario/questionario/" + idQuestionario +  "/pergunta",
 									data : JSON.stringify({"pergunta" : idPergunta1}),
@@ -216,11 +248,11 @@ describe("Questionario", function() {
 									crossDomain: true,
 									async: false
 								});
-					expect(result.status).toBe(200);
+					expect(result.status).toBe(201);
 					expect(result.responseJSON).toBeDefined();
 					
 
-					// vamos vinvular a pergunta 2..
+					// vamos vinvular a pergunta 02..
 					result = $.ajax({
 									url:  "http://localhost:2301/questionario/questionario/" + idQuestionario +  "/pergunta",
 									data : JSON.stringify({"pergunta" : idPergunta2}),
@@ -230,14 +262,14 @@ describe("Questionario", function() {
 									crossDomain: true,
 									async: false
 								});
-					expect(result.status).toBe(200);
+					expect(result.status).toBe(201);
 					expect(result.responseJSON).toBeDefined();
 
 					// 
-					// vamos apagar o questionário, desvincular as perguntas, apagar a pergunta e a categoria da pergunta...
+					// vamos apagar o questionário, desvincular as perguntas, apagar as perguntas e a categoria da pergunta...
 					//
 
-					// desvincular a primeira pergunta do questionário
+					// desvincular a pergunta 01 do questionário
 					result = $.ajax({
 									url:  "http://localhost:2301/questionario/questionario/" + idQuestionario +  "/pergunta/"+ idPergunta1,
 									type: "DELETE",
@@ -249,7 +281,7 @@ describe("Questionario", function() {
 					expect(result.status).toBe(200);
 					expect(result.responseJSON).toBeDefined();
 
-					// desvincular a segunda pergunta do questionário
+					// desvincular a pergunta 02 do questionário
 					result = $.ajax({
 									url:  "http://localhost:2301/questionario/questionario/" + idQuestionario +  "/pergunta/"+ idPergunta2,
 									type: "DELETE",
@@ -308,8 +340,6 @@ describe("Questionario", function() {
 				}
 			}
 		}
-	
-	
  });
 
 
