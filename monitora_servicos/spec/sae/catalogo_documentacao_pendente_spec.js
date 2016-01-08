@@ -23,7 +23,10 @@ describe("DocumentacaoPendente", function() {
 
 
  
- it("Verifica se consegue incluir, modificar e excluir um cadastro de documentação pendente no SAE", function() {
+ it("Verifica se consegue incluir, modificar, pesquisar e excluir um cadastro de documentação pendente no SAE", function() {
+
+	var idDocumentacao = 1;
+	var idEstudo = 1;
 
 	// define os dados do cadastro documentação pendente
 	var objDocPendente = {"dataHora":"01/10/2015 15:00",
@@ -50,11 +53,11 @@ describe("DocumentacaoPendente", function() {
 	if (result.status == 201 && objInserido.id != undefined){
 
 			objUpdate = objInserido;
-			objUpdate."dataHora":"01/10/2015 15:10";
+			objUpdate.ebntregue = false;
 
 			// tenta modificar		   
-			var result = $.ajax({
-							url:  "http://localhost:2301/sae/documentacao_pendente/"+ objUpdate.id,
+			result = $.ajax({
+							url:  "http://localhost:2301/sae/documentacao_pendente/"+ objInserido.id,
 							data : JSON.stringify(objUpdate),
 							type: "PUT",
 							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -65,8 +68,20 @@ describe("DocumentacaoPendente", function() {
 			expect(result.status).toBe(200);
 
 
+			// faz a pesquisa
+			result = $.ajax({
+							url:  "http://localhost:2301/sae/documentacao_pendente/"+ objInserido.id,
+							type: "GET",
+							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+							dataType: "json",
+							crossDomain: true,
+							async: false
+						});
+			expect(result.status).toBe(200);
+
+
 			// modificação feita, vamos apagar o registro do teste
-			var result = $.ajax({
+			result = $.ajax({
 							url:  "http://localhost:2301/sae/documentacao_pendente/"+ objInserido.id,
 							type: "DELETE",
 							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -80,23 +95,6 @@ describe("DocumentacaoPendente", function() {
 	
  });
 
-
- it("Verifica se consegue pesquisar um cadastro documentação pendente pelo id no SAE", function() {
-
-	// faz a pesquisa
-	var result = $.ajax({
-					url:  "http://localhost:2301/sae/documentacao_pendente/1",
-					type: "GET",
-					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-					dataType: "json",
-					crossDomain: true,
-					async: false
-				});
-	
-	// é esperado o retorno de um registro ou 404 (not found)
-	expect(result.status).toBe(200);
-	
- });
 
  
 });

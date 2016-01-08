@@ -1,13 +1,13 @@
-describe("EstudoPreliminar", function() {
+describe("EstudoSocioEconomico", function() {
  
  beforeEach(function() {
 
  });
 
  
- it("Verifica se consegue obter uma lista de estudo preliminar do SAE", function() {
+ it("Verifica se consegue obter uma lista de estudo socioeconomico do SAE", function() {
 	var result = $.ajax({
-					url:  "http://localhost:2301/sae/estudo/preliminar",
+					url:  "http://localhost:2301/sae/estudo/socioeconomico",
 					data : {},
 					type: "GET",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -23,7 +23,7 @@ describe("EstudoPreliminar", function() {
 
 
  
- it("Verifica se consegue incluir, modificar e excluir um cadastro de estudo preliminar no SAE", function() {
+ it("Verifica se consegue incluir, modificar, pesquisar e excluir um cadastro de estudo socioeconomico no SAE", function() {
 
 	var testeId = Math.floor(Math.random() * 99999999);
 
@@ -66,15 +66,16 @@ describe("EstudoPreliminar", function() {
 	expect(result.responseJSON).toBeDefined();
 	var idQuestionario = result.responseJSON.id;
 
-	// define os dados do cadastro estudo preliminar
+
+	// define os dados do cadastro estudo socioeconomico
 	var obj = {"periodo":"20141", 
 			   "dataHora":"01/01/2014", 
 			   "aluno":idAluno, 
 			   "questionario":idQuestionario}
 	
-	// tenta incluir estudo preliminar	   
+	// tenta incluir estudo		   
 	var result = $.ajax({
-					url:  "http://localhost:2301/sae/estudo/preliminar",
+					url:  "http://localhost:2301/sae/estudo/socioeconomico",
 					data : JSON.stringify(obj),
 					type: "POST",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -96,10 +97,9 @@ describe("EstudoPreliminar", function() {
 			objUpdate.aluno = idAluno; 
 			objUpdate.questionario = idQuestionario;
 
-
-			// tenta incluir		   
+			// tenta modificar		   
 			result = $.ajax({
-							url:  "http://localhost:2301/sae/estudo/preliminar/"+ objInserido.id,
+							url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ objInserido.id,
 							data : JSON.stringify(objUpdate),
 							type: "PUT",
 							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -109,9 +109,10 @@ describe("EstudoPreliminar", function() {
 						});
 			expect(result.status).toBe(200);
 
-			// faz a pesquisa
+			// tenta pesquisar
 			result = $.ajax({
-							url:  "http://localhost:2301/sae/estudo/preliminar/"+ objInserido.id,
+							url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ objInserido.id,
+							data : JSON.stringify(objUpdate),
 							type: "GET",
 							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 							dataType: "json",
@@ -122,7 +123,7 @@ describe("EstudoPreliminar", function() {
 
 			// modificação feita, vamos apagar o registro do estudo de teste
 			result = $.ajax({
-							url:  "http://localhost:2301/sae/estudo/preliminar/"+ objInserido.id,
+							url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ objInserido.id,
 							type: "DELETE",
 							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 							dataType: "json",
@@ -130,8 +131,6 @@ describe("EstudoPreliminar", function() {
 							async: false
 						});
 			expect(result.status).toBe(200);
-			
-			
 	}
 
 	// vamos apagar o registro do aluno de teste
@@ -156,9 +155,7 @@ describe("EstudoPreliminar", function() {
 				});
 	expect(result.status).toBe(200);
 	
-	
  });
-
 
 
  
