@@ -23,7 +23,7 @@ describe("EstudoPreliminar", function() {
 
 
  
- it("Verifica se consegue incluir, modificar e excluir um cadastro de estudo preliminar no SAE", function() {
+ it("Verifica se consegue incluir, modificar, pesquisar e excluir um cadastro de estudo preliminar no SAE", function() {
 
 	var testeId = Math.floor(Math.random() * 99999999);
 

@@ -28,7 +28,7 @@ describe("Documentacao", function() {
 	var testeId = Math.floor(Math.random() * 99999999);
 
 	// define os dados do cadastro documentação
-	var obj = {"denominacao": "denominacao "+ testeId};
+	var obj = {"denominacao": "Denominacao Teste "+ testeId};
 	
 	// tenta incluir		   
 	var result = $.ajax({

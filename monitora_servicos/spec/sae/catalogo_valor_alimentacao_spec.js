@@ -108,7 +108,7 @@ describe("ValorAlimentacao", function() {
 	var idValorAlimentacao = result.responseJSON.id;
 
 	// faz a pesquisa
-	var result = $.ajax({
+	result = $.ajax({
 					url:  "http://localhost:2301/sae/valoralimentacao/"+ idValorAlimentacao,
 					type: "GET",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -121,7 +121,7 @@ describe("ValorAlimentacao", function() {
 	expect(result.status).toBe(200);
 	
 	// vamos apagar o registro do valor alimentacao de teste
-	var result = $.ajax({
+	result = $.ajax({
 					url:  "http://localhost:2301/sae/valoralimentacao/"+ idValorAlimentacao,
 					type: "DELETE",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
