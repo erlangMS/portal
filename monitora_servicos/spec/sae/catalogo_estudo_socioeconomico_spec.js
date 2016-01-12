@@ -47,7 +47,6 @@ describe("EstudoSocioEconomico", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
 	var idAluno = result.responseJSON.id;
 
 	//
@@ -56,7 +55,7 @@ describe("EstudoSocioEconomico", function() {
 
 	// define os dados do cadastro de questionário
 	var objQuestionario = {"denominacao":"questionário de teste "+ testeId,
-						   "dataInicio":"01/12/2015", 
+						   "dataInicio":"1/12/2015", 
 						   "dataFim":"30/12/2015"}
 	
 	// tenta incluir questionario		   
@@ -70,8 +69,12 @@ describe("EstudoSocioEconomico", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
 	var idQuestionario = result.responseJSON.id;
+
+	//
+	// Cadastro categoria para pergunta
+	//
+
 
 	// precisamos cadastrar primeiramente uma categoria de pergunta
 	var objCategoria = {"denominacao" : "Dados Familiares Teste. TesteId " + testeId};
@@ -87,20 +90,23 @@ describe("EstudoSocioEconomico", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
 	var idCategoria = result.responseJSON.id;
 	
-	// precisamos criar duas peguntas de teste para vincular ao questionário
+	
+	//
+	// Cadastro pergunta 1 para o questionário
+	//
+
 	// define os dados da pergunta
-	var objPergunta = {"enunciado":"Voce tem moradia própria? pergunta 01 do teste. Testeid "+ testeId, 
-					   "tipoResposta":1, 
-					   "categoria": idCategoria}
+	var objPergunta01 = {"enunciado":"Voce tem moradia própria? pergunta 1 do teste. Testeid "+ testeId, 
+					     "tipoResposta":2,  // pergunta de uma escolha
+					     "categoria": idCategoria}
 
 
-	// tenta incluir pergunta 01
+	// tenta incluir pergunta 1
 	result = $.ajax({
 					url:  "http://localhost:2301/questionario/pergunta",
-					data : JSON.stringify(objPergunta),
+					data : JSON.stringify(objPergunta01),
 					type: "POST",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "json",
@@ -108,13 +114,56 @@ describe("EstudoSocioEconomico", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
 	var idPergunta1 = result.responseJSON.id;
+	
+	
+	//
+	// Cadastra as respostas sim e não da pergunta 1 (tipo escolha uma)
+	//
+
+	var objRespostaSim = {"descricao":"Sim", 
+						  "pergunta":idPergunta1,
+						  "valorResposta": 1}
+
+	var objRespostaNao = {"descricao":"Não", 
+						  "pergunta":idPergunta1,
+						  "valorResposta": 2}
+
+	// tenta incluir resposta sim
+	result = $.ajax({
+					url:  "http://localhost:2301/questionario/pergunta/"+ idPergunta1 + "/resposta",
+					data : JSON.stringify(objRespostaSim),
+					type: "POST",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					dataType: "json",
+					crossDomain: true,
+					async: false
+				});
+	expect(result.status).toBe(201);
+	var idRespostaSim = result.responseJSON.id;
+
+	// tenta incluir resposta não
+	result = $.ajax({
+					url:  "http://localhost:2301/questionario/pergunta/"+ idPergunta1 + "/resposta",
+					data : JSON.stringify(objRespostaNao),
+					type: "POST",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					dataType: "json",
+					crossDomain: true,
+					async: false
+				});
+	expect(result.status).toBe(201);
+	var idRespostaNao = result.responseJSON.id;
 		
 		
-	// define os dados da pergunta 02
-	var objPergunta2 = {"enunciado":"Qual a sua escolaridade? pergunta 02 do teste. TesteId "+ testeId, 
-						"tipoResposta":1, 
+	//
+	// Cadastro pergunta 2 para o questionário
+	//
+		
+		
+	// define os dados da pergunta 2
+	var objPergunta2 = {"enunciado":"Porque você deve receber auxílio socioeconomico? TesteId "+ testeId, 
+						"tipoResposta":1,  // eh pergunta subjetiva
 						"categoria": idCategoria}
 
 
@@ -129,10 +178,14 @@ describe("EstudoSocioEconomico", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
 	var idPergunta2 = result.responseJSON.id;
+
+
+	//
+	// Vincular pergunta 1 e 2 ao questionário
+	//
 	
-	// finalmente, tenta vincular a pergunta 01 ao questionário
+	// vincular a pergunta 1 ao questionário
 	result = $.ajax({
 					url:  "http://localhost:2301/questionario/questionario/" + idQuestionario +  "/pergunta",
 					data : JSON.stringify({"pergunta" : idPergunta1}),
@@ -143,10 +196,9 @@ describe("EstudoSocioEconomico", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
 			
 
-	// vamos vinvular a pergunta 02..
+	// vincular a pergunta 2 ao questionário
 	result = $.ajax({
 					url:  "http://localhost:2301/questionario/questionario/" + idQuestionario +  "/pergunta",
 					data : JSON.stringify({"pergunta" : idPergunta2}),
@@ -157,7 +209,6 @@ describe("EstudoSocioEconomico", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
 
 
 	//
@@ -166,15 +217,15 @@ describe("EstudoSocioEconomico", function() {
 	
 
 	// define os dados do cadastro estudo socioeconomico
-	var obj = {"periodo":"20141", 
-			   "dataHora":"01/01/2014", 
-			   "aluno":idAluno, 
-			   "questionario":idQuestionario}
+	var objEstudo = {"periodo":"20141", 
+					 "dataHora":"15/1/2015", 
+					 "aluno":idAluno, 
+					 "questionario":idQuestionario}
 	
 	// tenta incluir estudo		   
 	var result = $.ajax({
 					url:  "http://localhost:2301/sae/estudo/socioeconomico",
-					data : JSON.stringify(obj),
+					data : JSON.stringify(objEstudo),
 					type: "POST",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "json",
@@ -182,19 +233,19 @@ describe("EstudoSocioEconomico", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
-	var objInserido = result.responseJSON;
+	var objEstudoInserido = result.responseJSON;
+	var idEstudo = objEstudoInserido.id;
 
-	objUpdate = objInserido;
-	objUpdate.dataHora = "01/01/2015";
-	objUpdate.periodo = "20151";
-	objUpdate.aluno = idAluno; 
-	objUpdate.questionario = idQuestionario;
+	objEstudoUpdate = objEstudoInserido;
+	objEstudoUpdate.dataHora = "1/1/2015";
+	objEstudoUpdate.periodo = "20151";
+	objEstudoUpdate.aluno = idAluno; 
+	objEstudoUpdate.questionario = idQuestionario;
 
 	// tenta modificar		   
 	result = $.ajax({
-					url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ objInserido.id,
-					data : JSON.stringify(objUpdate),
+					url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ idEstudo,
+					data : JSON.stringify(objEstudoUpdate),
 					type: "PUT",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "json",
@@ -205,8 +256,8 @@ describe("EstudoSocioEconomico", function() {
 
 	// tenta pesquisar
 	result = $.ajax({
-					url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ objInserido.id,
-					data : JSON.stringify(objUpdate),
+					url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ idEstudo,
+					data : JSON.stringify(objEstudoUpdate),
 					type: "GET",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "json",
@@ -215,16 +266,59 @@ describe("EstudoSocioEconomico", function() {
 				});
 	expect(result.status).toBe(200);
 
-	// responder a pergunta 01
-	var objResposta01 = {"estudo":idEstudo, 
-				         "dataHora":"01/01/2014", 
-						 "pergunta":idPergunta01, 
-						 "resposta":idResposta01}
+
+	//
+	// responder as duas perguntas do estudo socioeconomico
+	// 
+
+	// responder a pergunta 1 que eh uma escolha
+	var objResposta1Estudo = {"estudo":idEstudo, 
+							   "dataHora":"1/1/2014", 
+							   "pergunta":idPergunta1, 
+							   "resposta":idRespostaNao,
+							   "assistenteSocial":"Everton"}
 
 	result = $.ajax({
-					url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ objInserido.id + "/resposta",
-					data : JSON.stringify(objUpdate),
+					url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ idEstudo + "/resposta",
+					data : JSON.stringify(objResposta1Estudo),
 					type: "POST",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					dataType: "json",
+					crossDomain: true,
+					async: false
+				});
+	expect(result.status).toBe(201);
+	var idResposta1Estudo = result.responseJSON.id;
+
+
+	// responder a pergunta 2 que eh uma escolha
+	var objResposta2Estudo = {"estudo":idEstudo, 
+							   "dataHora":"1/1/2014", 
+							   "pergunta":idPergunta2, 
+							   "respostaSubjetiva":"Deve receber beneficio porque...",
+							   "assistenteSocial":"Everton"}
+
+	result = $.ajax({
+					url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ idEstudo + "/resposta",
+					data : JSON.stringify(objResposta2Estudo),
+					type: "POST",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					dataType: "json",
+					crossDomain: true,
+					async: false
+				});
+	expect(result.status).toBe(201);
+	var idResposta2Estudo = result.responseJSON.id;
+
+
+	//
+	// Vamos apagar os registros do estudo socioeconomico
+	//
+	
+	// vamos apagar a resposta 1 do estudo de teste
+	result = $.ajax({
+					url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ idEstudo + "/resposta/"+ idResposta1Estudo,
+					type: "DELETE",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "json",
 					crossDomain: true,
@@ -232,13 +326,20 @@ describe("EstudoSocioEconomico", function() {
 				});
 	expect(result.status).toBe(200);
 
-	//
-	// Vamos apagar os registros do estudo socioeconomico
-	//
-	
-	// modificação feita, vamos apagar o registro do estudo de teste
+	// vamos apagar a resposta 2 do estudo de teste
 	result = $.ajax({
-					url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ objInserido.id,
+					url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ idEstudo + "/resposta/"+ idResposta2Estudo,
+					type: "DELETE",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					dataType: "json",
+					crossDomain: true,
+					async: false
+				});
+	expect(result.status).toBe(200);
+
+	// vamos apagar o registro do estudo de teste
+	result = $.ajax({
+					url:  "http://localhost:2301/sae/estudo/socioeconomico/"+ idEstudo,
 					type: "DELETE",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "json",
@@ -249,10 +350,10 @@ describe("EstudoSocioEconomico", function() {
 
 
 	// 
-	// vamos apagar o questionário, desvincular as perguntas, apagar as perguntas e a categoria da pergunta...
+	// vamos desvincular as perguntas do questionário
 	//
 
-	// desvincular a pergunta 01 do questionário
+	// desvincular a pergunta 1 do questionário
 	result = $.ajax({
 					url:  "http://localhost:2301/questionario/questionario/" + idQuestionario +  "/pergunta/"+ idPergunta1,
 					type: "DELETE",
@@ -262,9 +363,8 @@ describe("EstudoSocioEconomico", function() {
 					async: false
 				});
 	expect(result.status).toBe(200);
-	expect(result.responseJSON).toBeDefined();
 
-	// desvincular a pergunta 02 do questionário
+	// desvincular a pergunta 2 do questionário
 	result = $.ajax({
 					url:  "http://localhost:2301/questionario/questionario/" + idQuestionario +  "/pergunta/"+ idPergunta2,
 					type: "DELETE",
@@ -274,11 +374,42 @@ describe("EstudoSocioEconomico", function() {
 					async: false
 				});
 	expect(result.status).toBe(200);
-	expect(result.responseJSON).toBeDefined();
+
+
+	// 
+	// vamos apagar o questionário
+	//
 
 	// apagar o questionário
 	result = $.ajax({
 					url:  "http://localhost:2301/questionario/questionario/"+ idQuestionario,
+					type: "DELETE",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					dataType: "json",
+					crossDomain: true,
+					async: false
+				});
+	expect(result.status).toBe(200);
+
+
+	// 
+	// vamos apagar as perguntas
+	//
+
+	// apagar a resposta sim da pergunta 1
+	result = $.ajax({
+					url:  "http://localhost:2301/questionario/pergunta/"+ idPergunta1 + "/resposta/"+ idRespostaSim,
+					type: "DELETE",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					dataType: "json",
+					crossDomain: true,
+					async: false
+				});
+	expect(result.status).toBe(200);
+
+	// apagar a resposta não da pergunta 1
+	result = $.ajax({
+					url:  "http://localhost:2301/questionario/pergunta/"+ idPergunta1 + "/resposta/"+ idRespostaNao,
 					type: "DELETE",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "json",
@@ -308,6 +439,12 @@ describe("EstudoSocioEconomico", function() {
 					async: false
 				});
 	expect(result.status).toBe(200);
+
+
+	// 
+	// vamos apagar a categoria de pergunta
+	//
+
 
 	// apagar a categoria da pergunta
 	result = $.ajax({

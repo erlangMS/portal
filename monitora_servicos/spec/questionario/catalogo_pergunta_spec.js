@@ -28,7 +28,7 @@ describe("Pergunta", function() {
 	var testeId = Math.floor(Math.random() * 99999999);
 
 	//
-	// Cadastrar categoria de teste
+	// Cadastrar categoria de pergunta de teste
 	//
 
 	// vamos precisar de uma categoria para a pergunta
@@ -45,7 +45,6 @@ describe("Pergunta", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
 	var idCategoria = result.responseJSON.id;
 
 	//
@@ -69,13 +68,12 @@ describe("Pergunta", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
 	var idPergunta = result.responseJSON.id;
-	var objInserido = result.responseJSON;
+	var objPerguntaInserido = result.responseJSON;
 
 
 	//
-	// Cadastra as respostas sim e não
+	// Cadastra as respostas sim e não da pergunta
 	//
 
 	var objRespostaSim = {"descricao":"Sim", 
@@ -97,7 +95,6 @@ describe("Pergunta", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
 	var idRespostaSim = result.responseJSON.id;
 
 	// tenta incluir resposta não
@@ -111,7 +108,6 @@ describe("Pergunta", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
 	var idRespostaNao = result.responseJSON.id;
 		
 
@@ -120,15 +116,15 @@ describe("Pergunta", function() {
 	//
 
 	// vamos fazer uma modificação na pergunta
-	objUpdate = objInserido;
-	objUpdate.enunciado = objUpdate.enunciado + "(update)";
-	objUpdate.categoria = idCategoria;
-	objUpdate.tipoResposta = 2;
+	objPerguntaUpdate = objPerguntaInserido;
+	objPerguntaUpdate.enunciado = objPerguntaUpdate.enunciado + "(update)";
+	objPerguntaUpdate.categoria = idCategoria;
+	objPerguntaUpdate.tipoResposta = 2;
 
 	// tenta modificar
 	result = $.ajax({
-					url:  "http://localhost:2301/questionario/pergunta/"+ objUpdate.id,
-					data : JSON.stringify(objUpdate),
+					url:  "http://localhost:2301/questionario/pergunta/"+ objPerguntaUpdate.id,
+					data : JSON.stringify(objPerguntaUpdate),
 					type: "PUT",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "json",
@@ -139,7 +135,7 @@ describe("Pergunta", function() {
 
 	// faz a pesquisa
 	result = $.ajax({
-					url:  "http://localhost:2301/questionario/pergunta/"+ objInserido.id,
+					url:  "http://localhost:2301/questionario/pergunta/"+ objPerguntaInserido.id,
 					type: "GET",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "json",
@@ -172,7 +168,7 @@ describe("Pergunta", function() {
 
 	// vamos apagar o registro do teste da pergunta
 	result = $.ajax({
-					url:  "http://localhost:2301/questionario/pergunta/"+ objInserido.id,
+					url:  "http://localhost:2301/questionario/pergunta/"+ objPerguntaInserido.id,
 					type: "DELETE",
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "json",
