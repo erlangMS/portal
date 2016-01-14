@@ -5,7 +5,7 @@ describe("Pergunta", function() {
  });
 
  
- it("Verifica se consegue obter uma lista de perguntas", function() {
+ it("Verifica se consegue obter uma lista de perguntas no Questionario", function() {
 	var result = $.ajax({
 					url:  "http://localhost:2301/questionario/pergunta",
 					data : {},
@@ -23,7 +23,7 @@ describe("Pergunta", function() {
 
 
  
- it("Verifica se consegue incluir, modificar, pesquisar e excluir um cadastro de pergunta", function() {
+ it("Verifica se consegue incluir, modificar, pesquisar e excluir um cadastro de pergunta no Questionario", function() {
 
 	var testeId = Math.floor(Math.random() * 99999999);
 

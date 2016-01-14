@@ -5,7 +5,7 @@ describe("Aluno", function() {
  });
 
  
- it("Verifica se consegue obter uma lista de aluno do SAE", function() {
+ it("Verifica se consegue obter uma lista de alunos cadastrados no Sigra", function() {
 	var result = $.ajax({
 					url:  "http://localhost:2301/sigra/aluno",
 					data : {},
@@ -20,7 +20,7 @@ describe("Aluno", function() {
 
 
  
- it("Verifica se consegue incluir, modificar e excluir um cadastro de aluno no SAE", function() {
+ it("Verifica se consegue incluir, modificar e excluir um cadastro de aluno no Sigra", function() {
 	var testeId = Math.floor(Math.random() * 99999999);
 
 	// define os dados do cadastro aluno
@@ -39,21 +39,19 @@ describe("Aluno", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
-
-	var objInserido = result.responseJSON;
+	var objAlunoInserido = result.responseJSON;
 
 	// se incluiu, tenta modificar o registro
-	if (result.status == 201 && objInserido.id != undefined){
+	if (result.status == 201 && objAlunoInserido.id != undefined){
 
-			objUpdate = objInserido;
-			objUpdate.senha = "6546546";
-			objUpdate.cpf = "22222222222";
+			objAlunoUpdate = objAlunoInserido;
+			objAlunoUpdate.senha = "6546546";
+			objAlunoUpdate.cpf = "22222222222";
 
 			// tenta modificar
 			var result = $.ajax({
-							url:  "http://localhost:2301/sigra/aluno/"+ objUpdate.id,
-							data : JSON.stringify(objUpdate),
+							url:  "http://localhost:2301/sigra/aluno/"+ objAlunoUpdate.id,
+							data : JSON.stringify(objAlunoUpdate),
 							type: "PUT",
 							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 							dataType: "json",
@@ -65,7 +63,7 @@ describe("Aluno", function() {
 
 			// modificação feita, vamos apagar o registro do teste
 			var result = $.ajax({
-							url:  "http://localhost:2301/sigra/aluno/"+ objInserido.id,
+							url:  "http://localhost:2301/sigra/aluno/"+ objAlunoInserido.id,
 							type: "DELETE",
 							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 							dataType: "json",
@@ -79,7 +77,7 @@ describe("Aluno", function() {
  });
 
 
- it("Verifica se consegue pesquisar um cadastro aluno pelo id no SAE", function() {
+ it("Verifica se consegue pesquisar um aluno pelo id no Sigra", function() {
 
 	var testeId = Math.floor(Math.random() * 99999999);
 
@@ -99,8 +97,6 @@ describe("Aluno", function() {
 					async: false
 				});
 	expect(result.status).toBe(201);
-	expect(result.responseJSON).toBeDefined();
-
 	var idAluno = result.responseJSON.id;
 
 	// faz a pesquisa
