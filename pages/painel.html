@@ -1,0 +1,18 @@
+{% if breadcrumb %} 
+	{% include "breadcrumb.html" %}
+{% endif %}
+<div class="bs-docs-section">
+  <div class="bs-glyphicons">
+    <ul class="bs-glyphicons-list">
+		{% for sistema in lista_sistemas %}
+		  <li onclick="{{ sistema.url }}">
+		        <img style="height:90%;width: 100%" src="img/sistemas/{{ sistema.image_url }}" />
+				<span class="glyphicon-class">
+				    <strong>{{ sistema.titulo }}</strong>
+				</span>
+	      </li>
+		{% endfor %}
+    </ul>
+  </div>
+</div>
+

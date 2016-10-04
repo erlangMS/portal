@@ -1,0 +1,8 @@
+<div id="f_breadcrumb">
+	<ol class="breadcrumb">
+		<li><a href="/portal/dashboard"><i class="glyphicon glyphicon-home"></i></a></li>
+		{% for item in breadcrumb reversed %}
+		<li onclick="{% if item.tipoTransacao == 'S' %}location.href='{% url 'exibe_sistema' %}?ts={{ item.id }}'{% else %}fpc.execTs({{ item.id }}) {% endif %}">{{ item.titulo }}</li>
+		{% endfor %}
+	</ol>
+</div>
