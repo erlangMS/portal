@@ -4,11 +4,11 @@
 <div class="bs-docs-section">
   <div class="bs-glyphicons">
     <ul class="bs-glyphicons-list">
-		{% for sistema in lista_sistemas %}
+		{% for app in webapps %}
 		  <li onclick="{{ sistema.url }}">
-		        <img style="height:90%;width: 100%" src="img/sistemas/{{ sistema.image_url }}" />
+		        <img src="{{ app.image_url }}" />
 				<span class="glyphicon-class">
-				    <strong>{{ sistema.titulo }}</strong>
+				    <strong>{{ app.titulo }}</strong>
 				</span>
 	      </li>
 		{% endfor %}
