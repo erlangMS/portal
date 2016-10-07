@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-Br"{% if html5_cache %} manifest="fpc.manifest" {% endif %}>
+<html lang="pt-Br" manifest="manifest">
 <head>
 	<meta charset="UTF-8">
 	<title>ErlangMS Portal API Management Plataform</title>
@@ -7,7 +7,25 @@
 	<meta name="description" content="Acesso">
 	<meta name="author" content="Everton de Vargas Agilar">
 	<link rel="stylesheet" href="css/fpc_concat.css">
-{% block head %}{% endblock %}
+
+    <script src="js/es6-shim.min.js"></script>
+    <script src="js/system-polyfills.js"></script>
+    <script src="js/angular2-polyfills.js"></script>
+    <script src="js/system.js"></script>
+    <script src="js/typescript_1.7.3.js"></script>
+    <script src="js/rx.js"></script>
+    <script src="js/angular2dev.js"></script>
+
+	<!-- 2. Configure SystemJS -->
+    <script>
+      System.config({
+        transpiler: 'typescript', 
+        typescriptOptions: { emitDecoratorMetadata: true }, 
+        packages: {'app': {defaultExtension: 'ts'}} 
+      });
+  	  {% block imports %}{% endblock %}
+    </script>
+	
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -20,18 +38,11 @@
             <span class="icon-bar"></span>
           </button>
           <a id="nome_sistema" class="navbar-brand" href="#">
-             <strong>
-                {{ nome_sistema }}
-             </strong>
+             <strong>{{ nome_sistema }}</strong>
           </a>
         </div>
         <div id="fpc_menu" class="navbar-collapse collapse">
-          {% block barra_nav %}
-          <ul id="barra_nav" class="nav navbar-nav">
-            <li class="active"><a href="/portal/dashboard">Dashboard</a></li>
-            <li><a href="/portal/sobre">Sobre</a></li>
-          </ul>
-          {% endblock %}
+          {% block barra_nav %}{% endblock %}
           <ul class="nav navbar-nav navbar-right">
 			<li><a href="fpc.views.fpc_logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
           </ul>
@@ -39,9 +50,7 @@
       </div>
     </div>
     <div id="painel_conteudo" class="container">
-    {% block conteudo %}
-		{% include "painel.html" %}
-    {% endblock %}
+    {% block conteudo %}{% endblock %}
     </div>
     <div style="height: 90px"></div>
 	<div id="footer">
@@ -54,8 +63,7 @@
 		</div>
       </div>
     </div> 
-   <a id="btn_abrir_dialog" href="#openModal" style="display:none"></a>
+    <a id="btn_abrir_dialog" href="#openModal" style="display:none"></a>
 	<div id="f_dialog"></div>
-	<script type="application/javascript" async src="js/fpc_concat.js"></script>
 </body>
 </html>

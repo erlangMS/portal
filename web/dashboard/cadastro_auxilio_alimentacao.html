@@ -1,0 +1,35 @@
+Você está {{getStatusCaption()}} 	
+<h1>Cadastro valor alimentacao {{filtro.nome}}</h1>		
+<button type="button" (click) = "acaoBotao()">{{getButtonCaption()}}</button> 
+<button type="button" (click) = "acaoInclui()">Novo item</button> 
+<button type="button" (click) = "acaoRemove()">Excluir item</button> 
+
+<style>
+table, th , td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style>
+
+<table>
+  <tr>
+	<th>Id</th>
+	<th>Nome</th>
+	<th>Cidade</th>
+	<th>Acoes</th>
+  </tr>
+  <tr *ngFor="#item of lista">
+    <td>{{ item.id }}</td>
+    <td>{{ item.nome }}</td>
+    <td>{{ item.cidade }}</td>
+    <td><button type="button" (click) = "acaoRemove(1)"  >Excluir item</button> </td>
+  </tr>
+</table>
+
