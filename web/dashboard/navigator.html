@@ -1,13 +1,13 @@
 <div id="f_breadcrumb">
 	<ol class="breadcrumb">
 		<li><a href="/portal/dashboard"><i class="glyphicon glyphicon-home"></i></a></li>
-		<li *ngFor="#item of current.breadcrumb" onclick="">{{ item }}</li>
+		<li *ngFor="#item of breadcrumb" (click)="go(item)">{{ item.title }}</li>
 	</ol>
 </div>
 <div class="bs-docs-section">
 	<div class="bs-glyphicons">
 		<ul class="bs-glyphicons-list">
-			  <li *ngFor="#item of current.items" onclick="{{ item.url }}">
+			  <li *ngFor="#item of current.items" (click)="go(item)">
 					<img src="{{ item.image_url }}" />
 					<span class="glyphicon-class">
 						<strong>{{ item.title }}</strong>
