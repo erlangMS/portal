@@ -2,19 +2,14 @@ import {Component} from 'angular2/core';
 
 @Component({
 	selector: 'auxilio-alimentacao-controller',
-	templateUrl: 'web/cadastro_auxilio_alimentacao.html'
+	templateUrl: 'web/dashboard/cadastro_auxilio_alimentacao.html'
 })
-export class AuxilioAlimentacaoController { 
+export class Breadcrumb { 
 	constructor(){
 		this.status = "insert";
-		this.filtro = {"id":1,
-					   "nome" : "Everton Agilar",
-					   "cidade" : "Brasilia"
-			  };
-
 		this.lista= [{"id":1,
-					   "nome" : "Everton Agilar",
-					   "cidade" : "Brasilia"
+					   "titulo" : "SIMAR",
+					   "cidade" : "simar/simar.html"
 					  },
 					  {"id":2,
 							   "nome" : "Joao",
@@ -91,4 +86,4 @@ export class AuxilioAlimentacaoController {
 
 }
 
-export { AuxilioAlimentacaoController };
+

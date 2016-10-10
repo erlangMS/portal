@@ -1,4 +1,6 @@
 import {bootstrap}    from 'angular2/platform/browser'
-import {AuxilioAlimentacaoController} from './auxilio_alimentacao_controller'
+import {Breadcrumb} from './breadcrumb'
+import {Navigator} from './navigator'
 
-bootstrap(AuxilioAlimentacaoController);
+bootstrap(Navigator);
+
