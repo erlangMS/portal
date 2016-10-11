@@ -1,0 +1,22 @@
+{% extends "template.html" %}
+
+{% block imports %}
+
+	System.import('../dashboard').catch(function(err){ console.error(err); });
+
+{% endblock %}
+
+
+{% block barra_nav %}
+
+    <ul id="barra_nav" class="nav navbar-nav">
+      <li class="active"><a href="/portal/dashboard">Dashboard</a></li>
+      <li><a href="/portal/sobre">Sobre</a></li>
+    </ul>
+
+{% endblock %}
+
+
+{% block conteudo %}
+	<navigator></navigator>
+{% endblock %}

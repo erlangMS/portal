@@ -1,4 +1,5 @@
-import {bootstrap}    from 'angular2/platform/browser'
-import {AuxilioAlimentacaoController} from './auxilio_alimentacao_controller'
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-bootstrap(AuxilioAlimentacaoController);
+import { AppModule } from './app.module';
+
+platformBrowserDynamic().bootstrapModule(AppModule);
