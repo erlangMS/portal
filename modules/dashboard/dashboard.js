@@ -10,15 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
-var navigator_controller_1 = require('./controller/navigator_controller');
 var DashboardModule = (function () {
     function DashboardModule() {
     }
     DashboardModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule],
-            declarations: [navigator_controller_1.NavigatorController],
-            bootstrap: [navigator_controller_1.NavigatorController]
+            declarations: [],
+            bootstrap: []
         }), 
         __metadata('design:paramtypes', [])
     ], DashboardModule);

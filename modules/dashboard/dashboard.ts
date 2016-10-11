@@ -6,8 +6,8 @@ import { NavigatorController } from './controller/navigator_controller'
 
 @NgModule({
   imports: [ BrowserModule ],
-  declarations: [ NavigatorController ],
-  bootstrap: [ NavigatorController ]
+  declarations: [  ],
+  bootstrap: [  ]
 })
 export class DashboardModule { }
 

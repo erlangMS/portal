@@ -23,7 +23,7 @@ var SitemapService = (function () {
                     "image_url": "modules/dashboard/img/item.png",
                     "items": [{ "name": "simar",
                             "title": "SIMAR",
-                            "url": "/portal/dashboard/meu_portal/aplicativos/simar",
+                            "url": "/portal/modules/simar/index.html",
                             "image_url": "modules/dashboard/img/pedidos.png"
                         },
                         { "name": "sitab",
