@@ -21,7 +21,18 @@
       System.config({
         transpiler: 'typescript', 
         typescriptOptions: { emitDecoratorMetadata: true }, 
-        packages: {'app': {defaultExtension: 'ts'}} 
+        packages: {'app': {defaultExtension: 'ts'}},
+        ngPackageNames : [
+				'common',
+				'compiler',
+				'core',
+				'http',
+				'platform-browser',
+				'platform-browser-dynamic',
+				'router',
+				'router-deprecated',
+				'upgrade'
+			  ]
       });
   	  {% block imports %}{% endblock %}
     </script>

@@ -1,11 +1,17 @@
+import { Injectable }     from 'angular2/core';
 import {Component} from 'angular2/core';
+import { Injectable }     from 'angular2/core';
+import { Http, Response, Headers, RequestOptions } from 'angular2/core';
+import { Observable }     from 'rxjs/Observable';
+import { SitemapService } from './sitemap_service';
 
 @Component({
 	selector: 'navigator',
+	providers: [SitemapService],
 	templateUrl: 'web/dashboard/navigator.html'
 })
 export class Navigator { 
-	constructor(){
+	constructor(private sitemapService: SitemapService) {
 		this.sitemap = this.get_site_map();
 		this.current = this.sitemap;
 		this.breadcrumb = this.get_breadcrumb(this.current);
@@ -18,36 +24,7 @@ export class Navigator {
 	
 	
 	get_site_map(){
-		var sitemap = {"name" : "dashboard",
-					   "title" : "Dashboard",
-					   "url" : "/portal/dashboard",
-					   "image_url" : "img/pedidos.png",
-					   "items" : [{"name" : "aplicativos",
-								   "title" : "Aplicativos",
-								   "url" : "/portal/dashboard/meu_portal/aplicativos",
-								   "image_url" : "img/item.png",
-								   "items" : [{"name" : "simar",
-											   "title" : "SIMAR",
-											   "url" : "/portal/dashboard/meu_portal/aplicativos/simar",
-											   "image_url" : "img/pedidos.png",
-											  },
-											  {"name" : "sitab",
-											   "title" : "SITAB",
-											   "url" : "/portal/dashboard/meu_portal/aplicativos/sitab",
-											   "image_url" : "img/item.png"
-											  },
-											  {"name" : "siger",
-											   "title" : "SIGER",
-											   "url" : "/portal/dashboard/meu_portal/aplicativos/siger",
-											    "image_url" : "img/relatorios.png"
-											 }]
-									},
-									{"name" : "configuracoes",
-									 "title" : "Configurações",
-									 "url" : "/portal/dashboard/meu_portal/configuracoes",
-									 "image_url" : "img/item.png"
-									}]
-					  };
+		var sitemap = this.sitemapService.getSitemap();
 		this.make_pointers(null, sitemap);
 		return sitemap;
 	}
