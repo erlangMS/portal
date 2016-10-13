@@ -6,12 +6,14 @@
 %% @copyright ErlangMS Team
 %%********************************************************************
 
--module(ems_portal_dashboard).
+-module(simar_application).
 
--export([dashboard/1, sobre/1, titulo/1, image_url/1]).
+-export([start/1, dashboard/1, sobre/1, titulo/1, image_url/1]).
 
 -record(?MODULE, {titulo, image_url}).
     
+
+start(_Request) -> ok.    
     
 dashboard(_Request) -> 
 	[{nome_sistema, "Portal ErlangMS"},
