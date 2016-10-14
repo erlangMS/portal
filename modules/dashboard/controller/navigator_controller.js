@@ -13,10 +13,22 @@ var sitemap_service_js_1 = require('../service/sitemap_service.js');
 var NavigatorController = (function () {
     function NavigatorController(sitemapService) {
         this.sitemapService = sitemapService;
-        this.sitemap = this.sitemapService.getSitemap();
-        this.current = this.sitemap;
-        this.breadcrumb = this.get_breadcrumb(this.current);
+        this.sitemap = { "name": "dashboard",
+            "title": "Dashboard",
+            "url": "/portal/dashboard",
+            "image_url": "modules/dashboard/img/pedidos.png",
+            "items": [] };
+        this.current = [];
     }
+    NavigatorController.prototype.ngOnInit = function () {
+        var _this = this;
+        console.log("sitemap...");
+        this.sitemapService.getSitemap().subscribe(function (res) {
+            _this.sitemap = res;
+            _this.current = _this.sitemap;
+            _this.breadcrumb = _this.get_breadcrumb(_this.current);
+        });
+    };
     NavigatorController.prototype.go = function (item) {
         this.current = item;
         this.breadcrumb = this.get_breadcrumb(this.current);

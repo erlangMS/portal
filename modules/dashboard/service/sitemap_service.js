@@ -9,42 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
+require('rxjs/Rx');
 var SitemapService = (function () {
-    function SitemapService() {
+    function SitemapService(http) {
+        this.http = http;
     }
     SitemapService.prototype.getSitemap = function () {
-        var sitemap = { "name": "dashboard",
-            "title": "Dashboard",
-            "url": "/portal/dashboard",
-            "image_url": "modules/dashboard/img/pedidos.png",
-            "items": [{ "name": "aplicativos",
-                    "title": "Aplicativos",
-                    "url": "/portal/dashboard/meu_portal/aplicativos",
-                    "image_url": "modules/dashboard/img/item.png",
-                    "items": [{ "name": "simar",
-                            "title": "SIMAR",
-                            "url": "/portal/modules/simar/index.html",
-                            "image_url": "modules/dashboard/img/pedidos.png"
-                        },
-                        { "name": "sitab",
-                            "title": "SITAB",
-                            "url": "/portal/dashboard/meu_portal/aplicativos/sitab",
-                            "image_url": "modules/dashboard/img/item.png"
-                        },
-                        { "name": "siger",
-                            "title": "SIGER",
-                            "url": "/portal/dashboard/meu_portal/aplicativos/siger",
-                            "image_url": "modules/dashboard/img/relatorios.png"
-                        }]
-                },
-                { "name": "configuracoes",
-                    "title": "Configurações",
-                    "url": "/portal/dashboard/meu_portal/configuracoes",
-                    "image_url": "modules/dashboard/img/item.png"
-                }]
-        };
-        this.make_pointers(null, sitemap);
-        return sitemap;
+        var _this = this;
+        return this.http.get("/portal/sitemap.json")
+            .map(function (res) {
+            var sitemap = res.json();
+            _this.make_pointers(null, sitemap);
+            return sitemap;
+        });
     };
     SitemapService.prototype.make_pointers = function (owner, item) {
         item.owner = owner;
@@ -57,7 +35,7 @@ var SitemapService = (function () {
     };
     SitemapService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], SitemapService);
     return SitemapService;
 }());

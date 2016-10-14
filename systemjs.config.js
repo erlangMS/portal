@@ -34,9 +34,6 @@
         main: './main.js',
         defaultExtension: 'js'
       },
-      dashboard: {
-        defaultExtension: 'js'
-      },
       rxjs: {
         defaultExtension: 'js'
       },

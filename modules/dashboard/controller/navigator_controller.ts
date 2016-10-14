@@ -8,12 +8,25 @@ import { SitemapService } from '../service/sitemap_service.js';
 	templateUrl: 'modules/dashboard/web/navigator.html'
 })
 export class NavigatorController { 
-	constructor(private sitemapService: SitemapService) {
-		this.sitemap = this.sitemapService.getSitemap();
-		this.current = this.sitemap;
-		this.breadcrumb = this.get_breadcrumb(this.current);
-	}
+	public sitemap = { "name": "dashboard",
+					   "title": "Dashboard",
+						"url": "/portal/dashboard",
+						"image_url": "modules/dashboard/img/pedidos.png",
+						"items": []};
+	public current = [];
 	
+	constructor(private sitemapService: SitemapService) {}
+
+	ngOnInit() {
+		console.log("sitemap...");
+		this.sitemapService.getSitemap().subscribe(res => {
+				this.sitemap = res;
+				this.current = this.sitemap;
+				this.breadcrumb = this.get_breadcrumb(this.current);
+
+		});
+    }
+  	
 	go(item){
 		this.current = item;
 		this.breadcrumb = this.get_breadcrumb(this.current);
