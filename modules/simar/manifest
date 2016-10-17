@@ -1,0 +1,15 @@
+CACHE MANIFEST
+#2014-04-05 12:54:21.465244
+CACHE:
+img/glyphicons-halflings.png
+fonts/glyphicons-halflings-regular.woff2
+css/fpc_concat.css
+js/es6-shim.min.js
+js/system-polyfills.js
+js/angular2-polyfills.js
+js/system.js
+js/typescript_1.7.3.js
+js/rx.js
+js/angular2dev.js
+NETWORK:
+*

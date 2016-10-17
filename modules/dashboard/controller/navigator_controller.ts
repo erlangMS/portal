@@ -14,7 +14,7 @@ export class NavigatorController {
 						"image_url": "modules/dashboard/img/pedidos.png",
 						"items": []};
 	public current = [];
-	
+	public current_page = 1;
 	constructor(private sitemapService: SitemapService) {}
 
 	ngOnInit() {
@@ -42,6 +42,10 @@ export class NavigatorController {
 		}		
 		result.push(item);
 		return result;
+	}
+	
+	setCurrentPage(page){
+		this.current_page = parseInt(page);
 	}
 
 }

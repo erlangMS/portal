@@ -19,6 +19,7 @@ var NavigatorController = (function () {
             "image_url": "modules/dashboard/img/pedidos.png",
             "items": [] };
         this.current = [];
+        this.current_page = 1;
     }
     NavigatorController.prototype.ngOnInit = function () {
         var _this = this;
@@ -42,6 +43,9 @@ var NavigatorController = (function () {
         }
         result.push(item);
         return result;
+    };
+    NavigatorController.prototype.setCurrentPage = function (page) {
+        this.current_page = parseInt(page);
     };
     NavigatorController = __decorate([
         core_1.Component({

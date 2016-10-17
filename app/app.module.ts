@@ -5,6 +5,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent }  from './app.component';
 import { NavigatorController } from '../modules/dashboard/controller/navigator_controller.js'
+import { Sobre } from '../modules/dashboard/controller/sobre.js'
 
 @NgModule({
   imports: [
@@ -13,7 +14,7 @@ import { NavigatorController } from '../modules/dashboard/controller/navigator_c
     HttpModule,
     JsonpModule // if used
   ],
-  declarations: [ AppComponent, NavigatorController ],
+  declarations: [ AppComponent, NavigatorController, Sobre ],
   bootstrap: [ AppComponent, NavigatorController ]
 })
 export class AppModule { }

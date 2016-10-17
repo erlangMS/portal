@@ -14,7 +14,7 @@
 	<div id="fpc_menu" class="navbar-collapse collapse">
 	  <ul id="barra_nav" class="nav navbar-nav">
 			<li *ngFor="let item of sitemap.left_menu">
-				<a href="{{ item.url }}">{{ item.title }}</a>
+				<a  (click)="setCurrentPage(item.url)" style="cursor:pointer">{{ item.title }}</a>
 			</li>
 	  </ul>
 	  <ul class="nav navbar-nav navbar-right">
@@ -24,24 +24,34 @@
   </div>
 </div>
 <div id="painel_conteudo" class="container">
-	<div id="f_breadcrumb">
-		<ol class="breadcrumb">
-			<li><a href="/portal/index.html"><i class="glyphicon glyphicon-home"></i></a></li>
-			<li *ngFor="let item of breadcrumb" (click)="go(item)">{{ item.title }}</li>
-		</ol>
-	</div>
-	<div class="bs-docs-section">
-		<div class="bs-glyphicons">
-			<ul class="bs-glyphicons-list">
-				  <li *ngFor="let item of current.items" (click)="go(item)">
-						<img src="{{ item.image_url }}" />
-						<span class="glyphicon-class">
-							<strong>{{ item.title }}</strong>
-						</span>
-				  </li>
-			</ul>
+
+		<div [ngSwitch]="current_page">
+		  <template [ngSwitchCase]="2">
+				<sobre></sobre>
+		  </template>
+		  <template ngSwitchDefault>
+			<div id="f_breadcrumb">
+				<ol class="breadcrumb">
+					<li><a href="/portal/index.html"><i class="glyphicon glyphicon-home"></i></a></li>
+					<li *ngFor="let item of breadcrumb" (click)="go(item)">{{ item.title }}</li>
+				</ol>
+			</div>
+			<div class="bs-docs-section">
+				<div class="bs-glyphicons">
+					<ul class="bs-glyphicons-list">
+						  <li *ngFor="let item of current.items" (click)="go(item)">
+								<img src="{{ item.image_url }}" />
+								<span class="glyphicon-class">
+									<strong>{{ item.title }}</strong>
+								</span>
+						  </li>
+					</ul>
+				</div>
+			</div>
+		  </template>
 		</div>
-	</div>
+
+
 </div>
 <div style="height: 90px"></div>
 <div id="footer">

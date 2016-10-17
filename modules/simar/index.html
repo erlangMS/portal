@@ -1,41 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<title>SIMAR :: Sistema de Pedidos</title>
+	<title>SIMAR - Sistema de Materiais</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="ErlangMS">
+	<meta name="description" content="SIMAR">
 	<meta name="author" content="Everton de Vargas Agilar">
-	<link rel="stylesheet" href="/portal/modules/dashboard/css/fpc_concat.css">
-    <script src="/portal/node_modules/core-js/client/shim.min.js"></script>
-    <script src="/portal/node_modules/zone.js/dist/zone.js"></script>
-    <script src="/portal/node_modules/reflect-metadata/Reflect.js"></script>
-    <script src="/portal/node_modules/systemjs/dist/system.src.js"></script>
-    <script src="/portal/systemjs.config.js"></script>
+	<link rel="stylesheet" href="css/fpc_concat.css">
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
     <script>
-      System.import('simar.js').catch(function(err){ console.error(err); });
+      System.import('app').catch(function(err){ console.error(err); });
     </script>
-    
-    <style>
-		#loadingDiv {
-			  position:absolute;
-			  top:0px;
-			  right:0px;
-			  width:100%;
-			  height:25%;
-			  background-image:url('/portal/modules/dashboard/img/loading.gif');
-			  background-repeat:no-repeat;
-			  background-position:center;
-			  z-index:10000000;
-			  opacity: 0.4;
-			  filter: alpha(opacity=40); /* For IE8 and earlier */		
-		}
-    </style>
   </head>
 
   <body>
-    <my-app>
-		<div id="loadingDiv" >Carregando, aguarde...</div>
-	</my-app>
+    <my-app>Carregando</my-app>
   </body>
 </html>

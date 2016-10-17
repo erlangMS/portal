@@ -14,6 +14,7 @@ var forms_1 = require("@angular/forms");
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var navigator_controller_js_1 = require('../modules/dashboard/controller/navigator_controller.js');
+var sobre_js_1 = require('../modules/dashboard/controller/sobre.js');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -25,7 +26,7 @@ var AppModule = (function () {
                 http_1.HttpModule,
                 http_1.JsonpModule // if used
             ],
-            declarations: [app_component_1.AppComponent, navigator_controller_js_1.NavigatorController],
+            declarations: [app_component_1.AppComponent, navigator_controller_js_1.NavigatorController, sobre_js_1.Sobre],
             bootstrap: [app_component_1.AppComponent, navigator_controller_js_1.NavigatorController]
         }), 
         __metadata('design:paramtypes', [])
