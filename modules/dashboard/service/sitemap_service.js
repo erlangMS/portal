@@ -10,7 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-require('rxjs/Rx');
+// Import RxJs required methods
+require('rxjs/add/operator/map');
 var SitemapService = (function () {
     function SitemapService(http) {
         this.http = http;
