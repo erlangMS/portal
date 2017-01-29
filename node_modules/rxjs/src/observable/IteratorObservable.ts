@@ -13,7 +13,7 @@ import { Subscriber } from '../Subscriber';
 export class IteratorObservable<T> extends Observable<T> {
   private iterator: any;
 
-  static create<T>(iterator: any, scheduler?: Scheduler) {
+  static create<T>(iterator: any, scheduler?: Scheduler): IteratorObservable<T> {
     return new IteratorObservable(iterator, scheduler);
   }
 
@@ -36,6 +36,9 @@ export class IteratorObservable<T> extends Observable<T> {
     state.index = index + 1;
 
     if (subscriber.closed) {
+      if (typeof iterator.return === 'function') {
+        iterator.return();
+      }
       return;
     }
 
@@ -71,6 +74,9 @@ export class IteratorObservable<T> extends Observable<T> {
           subscriber.next(result.value);
         }
         if (subscriber.closed) {
+          if (typeof iterator.return === 'function') {
+            iterator.return();
+          }
           break;
         }
       } while (true);

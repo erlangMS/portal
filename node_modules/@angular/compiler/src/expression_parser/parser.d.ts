@@ -4,7 +4,8 @@ import { Lexer, Token } from './lexer';
 export declare class SplitInterpolation {
     strings: string[];
     expressions: string[];
-    constructor(strings: string[], expressions: string[]);
+    offsets: number[];
+    constructor(strings: string[], expressions: string[], offsets: number[]);
 }
 export declare class TemplateBindingParseResult {
     templateBindings: TemplateBinding[];
@@ -22,7 +23,7 @@ export declare class Parser {
     private _reportError(message, input, errLocation, ctxLocation?);
     private _parseBindingAst(input, location, interpolationConfig);
     private _parseQuote(input, location);
-    parseTemplateBindings(input: string, location: any): TemplateBindingParseResult;
+    parseTemplateBindings(prefixToken: string, input: string, location: any): TemplateBindingParseResult;
     parseInterpolation(input: string, location: any, interpolationConfig?: InterpolationConfig): ASTWithSource;
     splitInterpolation(input: string, location: string, interpolationConfig?: InterpolationConfig): SplitInterpolation;
     wrapLiteralPrimitive(input: string, location: any): ASTWithSource;
@@ -34,14 +35,16 @@ export declare class Parser {
 export declare class _ParseAST {
     input: string;
     location: any;
-    tokens: any[];
+    tokens: Token[];
+    inputLength: number;
     parseAction: boolean;
     private errors;
+    private offset;
     private rparensExpected;
     private rbracketsExpected;
     private rbracesExpected;
     index: number;
-    constructor(input: string, location: any, tokens: any[], parseAction: boolean, errors: ParserError[]);
+    constructor(input: string, location: any, tokens: Token[], inputLength: number, parseAction: boolean, errors: ParserError[], offset: number);
     peek(offset: number): Token;
     next: Token;
     inputIndex: number;

@@ -1,0 +1,87 @@
+<div class="container-fluid">
+	
+<div class="navbar navbar-default navbar-fixed-top fpc-top-bar" role="navigation" >
+  <div class="container">
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	  </button>
+	  <a id="nome_sistema" class="navbar-brand" href="#">
+		 <span class="fpc_titulo_app">{{ sitemap.title }}</span>
+	  </a>
+	</div>
+	<div id="fpc_menu" class="navbar-collapse collapse">
+	  <ul id="barra_nav" class="nav navbar-nav">
+			<li *ngFor="let item of sitemap.left_menu">
+				<a  (click)="go(item)" style="cursor:pointer">{{ item.title }}</a>
+			</li>
+
+	  </ul>
+	  <ul class="nav navbar-nav navbar-right">
+		  <li>
+			  <app-navigation></app-navigation>
+		  </li>
+			<li *ngFor="let item of sitemap.right_menu">
+				<a  (click)="go(item)" style="cursor:pointer">{{ item.title }}</a>
+			</li>
+	  </ul>
+	</div>
+  </div>
+</div>
+<div id="painel_conteudo" class="container">
+		<div id="f_breadcrumb" *ngIf="current.breadcrumb" style="width:90%; display: inline-block">
+			<ol class="breadcrumb">
+				<li *ngIf="current != sitemap"><a href="#" (click)="go(sitemap)"><i class="glyphicon glyphicon-home"></i></a></li>
+				<li *ngFor="let item of breadcrumb" (click)="go(item)">{{ item.title }}</li>
+			</ol>
+		</div>
+		<div class="fpc_spinner" [ngClass]="{ 'hidden': !loading }"></div>
+
+	<div [ngSwitch]="current.name">
+		<template [ngSwitchCase]="'sobre'">
+			<sobre></sobre>
+		</template>
+		<template [ngSwitchCase]="'catalogo'">
+			<catalogo></catalogo>
+		</template>
+		<template [ngSwitchCase]="'login'">
+			<login></login>
+		</template>
+		<template ngSwitchDefault>
+			<div class="bs-docs-section">
+				<div class="bs-glyphicons">
+					<ul class="bs-glyphicons-list">
+						<li *ngFor="let item of current.items" (click)="go(item)">
+							<img src="{{ item.image_url }}" width="68" height="48" *ngIf="item.image_url" />
+							<div class="fpc-img" ngClass="{{ item.image_class }}" width="68" height="48" *ngIf="item.image_class"></div>
+								<span class="glyphicon-class">
+									<label class="fpc_titulo_item_dashboard">{{ item.title }}</label>
+								</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</template>
+	</div>
+
+</div>
+<div style="height: 90px"></div>
+<div id="footer">
+  <div class="container">
+	<div class="col-lg-12" style="text-align:center;">
+		<p class="pull-right"><a href="#">Voltar ao Topo</a></p>
+		<p style="font-weight:bold">Copyright 2015 - 2016 ErlangMS Team<br>
+			<small>Powered by <a href="https://github.com/erlangMS">ErlangMS</a></small>
+		</p>
+	</div>
+  </div>
+</div> 
+<a id="btn_abrir_dialog" href="#openModal" style="display:none"></a>
+<div id="f_dialog"></div>
+
+</div>
+
+

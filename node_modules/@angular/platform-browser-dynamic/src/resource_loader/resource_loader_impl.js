@@ -5,7 +5,6 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 import { ResourceLoader } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { isPresent } from '../facade/lang';
 export var ResourceLoaderImpl = (function (_super) {
     __extends(ResourceLoaderImpl, _super);
     function ResourceLoaderImpl() {
@@ -25,7 +24,7 @@ export var ResourceLoaderImpl = (function (_super) {
             // responseText is the old-school way of retrieving response (supported by IE8 & 9)
             // response/responseType properties were introduced in ResourceLoader Level2 spec (supported
             // by IE10)
-            var response = isPresent(xhr.response) ? xhr.response : xhr.responseText;
+            var response = xhr.response || xhr.responseText;
             // normalize IE9 bug (http://bugs.jquery.com/ticket/1450)
             var status = xhr.status === 1223 ? 204 : xhr.status;
             // fix status code when it is 0 (0 status is undocumented).
@@ -49,7 +48,7 @@ export var ResourceLoaderImpl = (function (_super) {
         { type: Injectable },
     ];
     /** @nocollapse */
-    ResourceLoaderImpl.ctorParameters = [];
+    ResourceLoaderImpl.ctorParameters = function () { return []; };
     return ResourceLoaderImpl;
 }(ResourceLoader));
 //# sourceMappingURL=resource_loader_impl.js.map

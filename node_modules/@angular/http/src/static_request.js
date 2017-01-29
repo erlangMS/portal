@@ -10,64 +10,63 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-import { StringWrapper, isPresent } from '../src/facade/lang';
 import { Body } from './body';
 import { ContentType } from './enums';
 import { Headers } from './headers';
 import { normalizeMethodName } from './http_utils';
 import { URLSearchParams } from './url_search_params';
-// TODO(jeffbcross): properly implement body accessors
 /**
- * Creates `Request` instances from provided values.
- *
- * The Request's interface is inspired by the Request constructor defined in the [Fetch
- * Spec](https://fetch.spec.whatwg.org/#request-class),
- * but is considered a static value whose body can be accessed many times. There are other
- * differences in the implementation, but this is the most significant.
- *
- * `Request` instances are typically created by higher-level classes, like {@link Http} and
- * {@link Jsonp}, but it may occasionally be useful to explicitly create `Request` instances.
- * One such example is when creating services that wrap higher-level services, like {@link Http},
- * where it may be useful to generate a `Request` with arbitrary headers and search params.
- *
- * ```typescript
- * import {Injectable, Injector} from '@angular/core';
- * import {HTTP_PROVIDERS, Http, Request, RequestMethod} from '@angular/http';
- *
- * @Injectable()
- * class AutoAuthenticator {
- *   constructor(public http:Http) {}
- *   request(url:string) {
- *     return this.http.request(new Request({
- *       method: RequestMethod.Get,
- *       url: url,
- *       search: 'password=123'
- *     }));
- *   }
- * }
- *
- * var injector = Injector.resolveAndCreate([HTTP_PROVIDERS, AutoAuthenticator]);
- * var authenticator = injector.get(AutoAuthenticator);
- * authenticator.request('people.json').subscribe(res => {
- *   //URL should have included '?password=123'
- *   console.log('people', res.json());
- * });
- * ```
- *
- * @experimental
+ *  Creates `Request` instances from provided values.
+  * *
+  * The Request's interface is inspired by the Request constructor defined in the [Fetch
+  * Spec](https://fetch.spec.whatwg.org/#request-class),
+  * but is considered a static value whose body can be accessed many times. There are other
+  * differences in the implementation, but this is the most significant.
+  * *
+  * `Request` instances are typically created by higher-level classes, like {@link Http} and
+  * {@link Jsonp}, but it may occasionally be useful to explicitly create `Request` instances.
+  * One such example is when creating services that wrap higher-level services, like {@link Http},
+  * where it may be useful to generate a `Request` with arbitrary headers and search params.
+  * *
+  * ```typescript
+  * import {Injectable, Injector} from '@angular/core';
+  * import {HTTP_PROVIDERS, Http, Request, RequestMethod} from '@angular/http';
+  * *
+  * class AutoAuthenticator {
+  * constructor(public http:Http) {}
+  * request(url:string) {
+  * return this.http.request(new Request({
+  * method: RequestMethod.Get,
+  * url: url,
+  * search: 'password=123'
+  * }));
+  * }
+  * }
+  * *
+  * var injector = Injector.resolveAndCreate([HTTP_PROVIDERS, AutoAuthenticator]);
+  * var authenticator = injector.get(AutoAuthenticator);
+  * authenticator.request('people.json').subscribe(res => {
+  * //URL should have included '?password=123'
+  * console.log('people', res.json());
+  * });
+  * ```
+  * *
  */
 export var Request = (function (_super) {
     __extends(Request, _super);
+    /**
+     * @param {?} requestOptions
+     */
     function Request(requestOptions) {
         _super.call(this);
         // TODO: assert that url is present
         var url = requestOptions.url;
         this.url = requestOptions.url;
-        if (isPresent(requestOptions.search)) {
+        if (requestOptions.search) {
             var search = requestOptions.search.toString();
             if (search.length > 0) {
                 var prefix = '?';
-                if (StringWrapper.contains(this.url, '?')) {
+                if (this.url.indexOf('?') != -1) {
                     prefix = (this.url[this.url.length - 1] == '&') ? '' : '&';
                 }
                 // TODO: just delete search-query-looking string in url?
@@ -78,14 +77,14 @@ export var Request = (function (_super) {
         this.method = normalizeMethodName(requestOptions.method);
         // TODO(jeffbcross): implement behavior
         // Defaults to 'omit', consistent with browser
-        // TODO(jeffbcross): implement behavior
         this.headers = new Headers(requestOptions.headers);
         this.contentType = this.detectContentType();
         this.withCredentials = requestOptions.withCredentials;
         this.responseType = requestOptions.responseType;
     }
     /**
-     * Returns the content type enum based on header options.
+     *  Returns the content type enum based on header options.
+     * @return {?}
      */
     Request.prototype.detectContentType = function () {
         switch (this.headers.get('content-type')) {
@@ -105,7 +104,8 @@ export var Request = (function (_super) {
         }
     };
     /**
-     * Returns the content type of request's body based on its type.
+     *  Returns the content type of request's body based on its type.
+     * @return {?}
      */
     Request.prototype.detectContentTypeFromBody = function () {
         if (this._body == null) {
@@ -131,8 +131,9 @@ export var Request = (function (_super) {
         }
     };
     /**
-     * Returns the request's body according to its type. If body is undefined, return
-     * null.
+     *  Returns the request's body according to its type. If body is undefined, return
+      * null.
+     * @return {?}
      */
     Request.prototype.getBody = function () {
         switch (this.contentType) {
@@ -154,9 +155,41 @@ export var Request = (function (_super) {
     };
     return Request;
 }(Body));
-var noop = function () { };
-var w = typeof window == 'object' ? window : noop;
-var FormData = w['FormData'] || noop;
-var Blob = w['Blob'] || noop;
-var ArrayBuffer = w['ArrayBuffer'] || noop;
+function Request_tsickle_Closure_declarations() {
+    /**
+     * Http method with which to perform the request.
+     * @type {?}
+     */
+    Request.prototype.method;
+    /**
+     * {@link Headers} instance
+     * @type {?}
+     */
+    Request.prototype.headers;
+    /**
+     * Url of the remote resource
+     * @type {?}
+     */
+    Request.prototype.url;
+    /**
+     * Type of the request body *
+     * @type {?}
+     */
+    Request.prototype.contentType;
+    /**
+     * Enable use credentials
+     * @type {?}
+     */
+    Request.prototype.withCredentials;
+    /**
+     * Buffer to store the response
+     * @type {?}
+     */
+    Request.prototype.responseType;
+}
+var /** @type {?} */ noop = function () { };
+var /** @type {?} */ w = typeof window == 'object' ? window : noop;
+var /** @type {?} */ FormData = ((w) /** TODO #9100 */)['FormData'] || noop;
+var /** @type {?} */ Blob = ((w) /** TODO #9100 */)['Blob'] || noop;
+var /** @type {?} */ ArrayBuffer = ((w) /** TODO #9100 */)['ArrayBuffer'] || noop;
 //# sourceMappingURL=static_request.js.map

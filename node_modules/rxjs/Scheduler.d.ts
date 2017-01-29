@@ -46,5 +46,5 @@ export declare class Scheduler {
      * @return {Subscription} A subscription in order to be able to unsubscribe
      * the scheduled work.
      */
-    schedule<T>(work: (state?: T) => void, delay?: number, state?: T): Subscription;
+    schedule<T>(work: (this: Action<T>, state?: T) => void, delay?: number, state?: T): Subscription;
 }

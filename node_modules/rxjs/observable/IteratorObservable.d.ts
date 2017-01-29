@@ -10,7 +10,7 @@ import { Subscriber } from '../Subscriber';
 export declare class IteratorObservable<T> extends Observable<T> {
     private scheduler;
     private iterator;
-    static create<T>(iterator: any, scheduler?: Scheduler): IteratorObservable<{}>;
+    static create<T>(iterator: any, scheduler?: Scheduler): IteratorObservable<T>;
     static dispatch(state: any): void;
     constructor(iterator: any, scheduler?: Scheduler);
     protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;

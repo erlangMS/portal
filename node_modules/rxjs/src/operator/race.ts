@@ -8,6 +8,11 @@ import { OuterSubscriber } from '../OuterSubscriber';
 import { InnerSubscriber } from '../InnerSubscriber';
 import { subscribeToResult } from '../util/subscribeToResult';
 
+/* tslint:disable:max-line-length */
+export function race<T>(this: Observable<T>, ...observables: Array<Observable<T> | Array<Observable<T>>>): Observable<T>;
+export function race<T, R>(this: Observable<T>, ...observables: Array<Observable<any> | Array<Observable<T>>>): Observable<R>;
+/* tslint:disable:max-line-length */
+
 /**
  * Returns an Observable that mirrors the first source Observable to emit an item
  * from the combination of this Observable and supplied Observables
@@ -16,20 +21,14 @@ import { subscribeToResult } from '../util/subscribeToResult';
  * @method race
  * @owner Observable
  */
-export function race<T>(...observables: Array<Observable<T> | Array<Observable<T>>>): Observable<T> {
+export function race<T>(this: Observable<T>, ...observables: Array<Observable<T> | Array<Observable<T>>>): Observable<T> {
   // if the only argument is an array, it was most likely called with
   // `pair([obs1, obs2, ...])`
   if (observables.length === 1 && isArray(observables[0])) {
     observables = <Array<Observable<T>>>observables[0];
   }
 
-  observables.unshift(this);
-  return raceStatic.apply(this, observables);
-}
-
-export interface RaceSignature<T> {
-  (...observables: Array<Observable<T> | Array<Observable<T>>>): Observable<T>;
-  <R>(...observables: Array<Observable<any> | Array<Observable<T>>>): Observable<R>;
+  return this.lift.call(raceStatic<T>(this, ...observables));
 }
 
 /**

@@ -59,7 +59,7 @@ export class BoundCallbackObservable<T> extends Observable<T> {
    * @see {@link fromPromise}
    *
    * @param {function} func Function with a callback as the last parameter.
-   * @param {function} selector A function which takes the arguments from the
+   * @param {function} [selector] A function which takes the arguments from the
    * callback and maps those a value to emit on the output Observable.
    * @param {Scheduler} [scheduler] The scheduler on which to schedule the
    * callbacks.
@@ -93,7 +93,7 @@ export class BoundCallbackObservable<T> extends Observable<T> {
     if (!scheduler) {
       if (!subject) {
         subject = this.subject = new AsyncSubject<T>();
-        const handler = function handlerFn(...innerArgs: any[]) {
+        const handler = function handlerFn(this: any, ...innerArgs: any[]) {
           const source = (<any>handlerFn).source;
           const { selector, subject } = source;
           if (selector) {
@@ -132,7 +132,7 @@ export class BoundCallbackObservable<T> extends Observable<T> {
     if (!subject) {
       subject = source.subject = new AsyncSubject<T>();
 
-      const handler = function handlerFn(...innerArgs: any[]) {
+      const handler = function handlerFn(this: any, ...innerArgs: any[]) {
         const source = (<any>handlerFn).source;
         const { selector, subject } = source;
         if (selector) {

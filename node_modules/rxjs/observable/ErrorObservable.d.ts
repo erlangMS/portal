@@ -10,8 +10,8 @@ export interface DispatchArg {
  * @extends {Ignored}
  * @hide true
  */
-export declare class ErrorObservable extends Observable<any> {
-    error: any;
+export declare class ErrorObservable<T> extends Observable<any> {
+    error: T;
     private scheduler;
     /**
      * Creates an Observable that emits no items to the Observer and immediately
@@ -53,8 +53,8 @@ export declare class ErrorObservable extends Observable<any> {
      * @name throw
      * @owner Observable
      */
-    static create<T>(error: any, scheduler?: Scheduler): ErrorObservable;
+    static create<T>(error: T, scheduler?: Scheduler): ErrorObservable<T>;
     static dispatch(arg: DispatchArg): void;
-    constructor(error: any, scheduler?: Scheduler);
+    constructor(error: T, scheduler?: Scheduler);
     protected _subscribe(subscriber: any): TeardownLogic;
 }

@@ -1,0 +1,1 @@
+{"version":3,"file":"ems_rest_client.js","sourceRoot":"","sources":["ems_rest_client.ts"],"names":[],"mappings":";AAAA;IAGI;QAFQ,iBAAY,GAAW,IAAI,CAAC;IAIpC,CAAC;IAED,4BAAI,GAAJ,UAAK,GAAW;QACZ,IAAI,MAAM,GAAmB,IAAI,aAAa,EAAE,CAAC;QACjD,MAAM,CAAC,YAAY,GAAG,GAAG,CAAC;QAC1B,MAAM,CAAC,MAAM,CAAC;IAClB,CAAC;IAIL,oBAAC;AAAD,CAAC,AAfD,IAeC;AAfY,qBAAa,gBAezB,CAAA"}

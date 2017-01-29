@@ -1,19 +1,20 @@
 import { AnimationEntryCompileResult } from '../animation/animation_compiler';
-import { CompileDirectiveMetadata, CompilePipeMetadata } from '../compile_metadata';
+import { CompileDirectiveMetadata, CompilePipeSummary } from '../compile_metadata';
 import { CompilerConfig } from '../config';
 import * as o from '../output/output_ast';
+import { ElementSchemaRegistry } from '../schema/element_schema_registry';
 import { TemplateAst } from '../template_parser/template_ast';
-import { ComponentFactoryDependency, ViewFactoryDependency } from './view_builder';
-export { ComponentFactoryDependency, ViewFactoryDependency } from './view_builder';
+import { ComponentFactoryDependency, DirectiveWrapperDependency, ViewClassDependency } from './deps';
+export { ComponentFactoryDependency, DirectiveWrapperDependency, ViewClassDependency } from './deps';
 export declare class ViewCompileResult {
     statements: o.Statement[];
-    viewFactoryVar: string;
-    dependencies: Array<ViewFactoryDependency | ComponentFactoryDependency>;
-    constructor(statements: o.Statement[], viewFactoryVar: string, dependencies: Array<ViewFactoryDependency | ComponentFactoryDependency>);
+    viewClassVar: string;
+    dependencies: Array<ViewClassDependency | ComponentFactoryDependency | DirectiveWrapperDependency>;
+    constructor(statements: o.Statement[], viewClassVar: string, dependencies: Array<ViewClassDependency | ComponentFactoryDependency | DirectiveWrapperDependency>);
 }
 export declare class ViewCompiler {
     private _genConfig;
-    private _animationCompiler;
-    constructor(_genConfig: CompilerConfig);
-    compileComponent(component: CompileDirectiveMetadata, template: TemplateAst[], styles: o.Expression, pipes: CompilePipeMetadata[], compiledAnimations: AnimationEntryCompileResult[]): ViewCompileResult;
+    private _schemaRegistry;
+    constructor(_genConfig: CompilerConfig, _schemaRegistry: ElementSchemaRegistry);
+    compileComponent(component: CompileDirectiveMetadata, template: TemplateAst[], styles: o.Expression, pipes: CompilePipeSummary[], compiledAnimations: AnimationEntryCompileResult[]): ViewCompileResult;
 }

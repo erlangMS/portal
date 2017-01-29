@@ -5,24 +5,33 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AUTO_STYLE } from '@angular/core';
-import { StringWrapper, isNumber, isPresent } from '../facade/lang';
-import { dashCaseToCamelCase } from './util';
+import { isPresent } from '../facade/lang';
 import { WebAnimationsPlayer } from './web_animations_player';
 export var WebAnimationsDriver = (function () {
     function WebAnimationsDriver() {
     }
-    WebAnimationsDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
-        var formattedSteps = [];
-        var startingStyleLookup = {};
+    /**
+     * @param {?} element
+     * @param {?} startingStyles
+     * @param {?} keyframes
+     * @param {?} duration
+     * @param {?} delay
+     * @param {?} easing
+     * @param {?=} previousPlayers
+     * @return {?}
+     */
+    WebAnimationsDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
+        if (previousPlayers === void 0) { previousPlayers = []; }
+        var /** @type {?} */ formattedSteps = [];
+        var /** @type {?} */ startingStyleLookup = {};
         if (isPresent(startingStyles) && startingStyles.styles.length > 0) {
-            startingStyleLookup = _populateStyles(element, startingStyles, {});
+            startingStyleLookup = _populateStyles(startingStyles, {});
             startingStyleLookup['offset'] = 0;
             formattedSteps.push(startingStyleLookup);
         }
         keyframes.forEach(function (keyframe) {
-            var data = _populateStyles(element, keyframe.styles, startingStyleLookup);
-            data['offset'] = keyframe.offset;
+            var /** @type {?} */ data = _populateStyles(keyframe.styles, startingStyleLookup);
+            data['offset'] = Math.max(0, Math.min(1, keyframe.offset));
             formattedSteps.push(data);
         });
         // this is a special case when only styles are applied as an
@@ -30,11 +39,11 @@ export var WebAnimationsDriver = (function () {
         // end with the same values. Removing the offset and having only
         // start/end values is suitable enough for the web-animations API
         if (formattedSteps.length == 1) {
-            var start = formattedSteps[0];
+            var /** @type {?} */ start = formattedSteps[0];
             start['offset'] = null;
             formattedSteps = [start, start];
         }
-        var playerOptions = {
+        var /** @type {?} */ playerOptions = {
             'duration': duration,
             'delay': delay,
             'fill': 'both' // we use `both` because it allows for styling at 0% to work with `delay`
@@ -44,20 +53,21 @@ export var WebAnimationsDriver = (function () {
         if (easing) {
             playerOptions['easing'] = easing;
         }
-        return new WebAnimationsPlayer(element, formattedSteps, playerOptions);
+        // there may be a chance a NoOp player is returned depending
+        // on when the previous animation was cancelled
+        previousPlayers = previousPlayers.filter(filterWebAnimationPlayerFn);
+        return new WebAnimationsPlayer(element, formattedSteps, playerOptions, /** @type {?} */ (previousPlayers));
     };
     return WebAnimationsDriver;
 }());
-function _populateStyles(element, styles, defaultStyles) {
-    var data = {};
-    styles.styles.forEach(function (entry) {
-        Object.keys(entry).forEach(function (prop) {
-            var val = entry[prop];
-            var formattedProp = dashCaseToCamelCase(prop);
-            data[formattedProp] =
-                val == AUTO_STYLE ? val : val.toString() + _resolveStyleUnit(val, prop, formattedProp);
-        });
-    });
+/**
+ * @param {?} styles
+ * @param {?} defaultStyles
+ * @return {?}
+ */
+function _populateStyles(styles, defaultStyles) {
+    var /** @type {?} */ data = {};
+    styles.styles.forEach(function (entry) { Object.keys(entry).forEach(function (prop) { data[prop] = entry[prop]; }); });
     Object.keys(defaultStyles).forEach(function (prop) {
         if (!isPresent(data[prop])) {
             data[prop] = defaultStyles[prop];
@@ -65,63 +75,11 @@ function _populateStyles(element, styles, defaultStyles) {
     });
     return data;
 }
-function _resolveStyleUnit(val, userProvidedProp, formattedProp) {
-    var unit = '';
-    if (_isPixelDimensionStyle(formattedProp) && val != 0 && val != '0') {
-        if (isNumber(val)) {
-            unit = 'px';
-        }
-        else if (_findDimensionalSuffix(val.toString()).length == 0) {
-            throw new Error('Please provide a CSS unit value for ' + userProvidedProp + ':' + val);
-        }
-    }
-    return unit;
-}
-var _$0 = 48;
-var _$9 = 57;
-var _$PERIOD = 46;
-function _findDimensionalSuffix(value) {
-    for (var i = 0; i < value.length; i++) {
-        var c = StringWrapper.charCodeAt(value, i);
-        if ((c >= _$0 && c <= _$9) || c == _$PERIOD)
-            continue;
-        return value.substring(i, value.length);
-    }
-    return '';
-}
-function _isPixelDimensionStyle(prop) {
-    switch (prop) {
-        case 'width':
-        case 'height':
-        case 'minWidth':
-        case 'minHeight':
-        case 'maxWidth':
-        case 'maxHeight':
-        case 'left':
-        case 'top':
-        case 'bottom':
-        case 'right':
-        case 'fontSize':
-        case 'outlineWidth':
-        case 'outlineOffset':
-        case 'paddingTop':
-        case 'paddingLeft':
-        case 'paddingBottom':
-        case 'paddingRight':
-        case 'marginTop':
-        case 'marginLeft':
-        case 'marginBottom':
-        case 'marginRight':
-        case 'borderRadius':
-        case 'borderWidth':
-        case 'borderTopWidth':
-        case 'borderLeftWidth':
-        case 'borderRightWidth':
-        case 'borderBottomWidth':
-        case 'textIndent':
-            return true;
-        default:
-            return false;
-    }
+/**
+ * @param {?} player
+ * @return {?}
+ */
+function filterWebAnimationPlayerFn(player) {
+    return player instanceof WebAnimationsPlayer;
 }
 //# sourceMappingURL=web_animations_driver.js.map

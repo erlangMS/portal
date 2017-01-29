@@ -134,8 +134,13 @@ exports.copyDir = function(src, dst, opt_exclude) {
  * @return {!Promise<boolean>} A promise for whether the file exists.
  */
 exports.exists = function(aPath) {
-  return new Promise(function(fulfill) {
-    fs.exists(aPath, fulfill);
+  return new Promise(function(fulfill, reject) {
+    let type = typeof aPath;
+    if (type !== 'string') {
+      reject(TypeError(`expected string path, but got ${type}`));
+    } else {
+      fs.exists(aPath, fulfill);
+    }
   });
 };
 
@@ -208,20 +213,21 @@ exports.tmpFile = function(opt_options) {
  *     not be found.
  */
 exports.findInPath = function(file, opt_checkCwd) {
+  let dirs = [];
   if (opt_checkCwd) {
-    var tmp = path.join(process.cwd(), file);
-    if (fs.existsSync(tmp)) {
-      return tmp;
-    }
+    dirs.push(process.cwd());
   }
+  dirs.push.apply(dirs, process.env['PATH'].split(path.delimiter));
 
-  var dirs = process.env['PATH'].split(path.delimiter);
-  var found = null;
-  dirs.forEach(function(dir) {
-    var tmp = path.join(dir, file);
-    if (!found && fs.existsSync(tmp)) {
-      found = tmp;
+  let foundInDir = dirs.find(dir => {
+    let tmp = path.join(dir, file);
+    try {
+      let stats = fs.statSync(tmp);
+      return stats.isFile() && !stats.isDirectory();
+    } catch (ex) {
+      return false;
     }
   });
-  return found;
+
+  return foundInDir ? path.join(foundInDir, file) : null;
 };

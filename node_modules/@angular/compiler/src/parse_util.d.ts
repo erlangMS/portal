@@ -5,6 +5,7 @@ export declare class ParseLocation {
     col: number;
     constructor(file: ParseSourceFile, offset: number, line: number, col: number);
     toString(): string;
+    moveBy(delta: number): ParseLocation;
 }
 export declare class ParseSourceFile {
     content: string;
@@ -22,7 +23,7 @@ export declare enum ParseErrorLevel {
     WARNING = 0,
     FATAL = 1,
 }
-export declare abstract class ParseError {
+export declare class ParseError {
     span: ParseSourceSpan;
     msg: string;
     level: ParseErrorLevel;

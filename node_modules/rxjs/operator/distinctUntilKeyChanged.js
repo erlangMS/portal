@@ -1,5 +1,6 @@
 "use strict";
 var distinctUntilChanged_1 = require('./distinctUntilChanged');
+/* tslint:disable:max-line-length */
 /**
  * Returns an Observable that emits all items emitted by the source Observable that are distinct by comparison from the previous item,
  * using a property accessed by using the key provided to check if the two items are distinct.

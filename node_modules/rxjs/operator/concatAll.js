@@ -1,5 +1,6 @@
 "use strict";
 var mergeAll_1 = require('./mergeAll');
+/* tslint:disable:max-line-length */
 /**
  * Converts a higher-order Observable into a first-order Observable by
  * concatenating the inner Observables in order.

@@ -1,0 +1,46 @@
+[
+	{
+		"name": "/portal/node_modules",
+		"comment": "Bibliotecas node_modules do portal",
+		"owner": "www",
+		"version": "1",
+		"service" : "ems_static_file_service:execute",
+		"url": "/portal/node_modules/",
+		"use_re" : true,
+		"type": "GET",
+		"APIkey":"true",
+		"cache_control" : "max-age=86400, public",
+		"expires_minute" : 1440,
+		"lang" : "erlang"
+	},
+
+	{
+		"name": "/portal/images",
+		"comment": "Arquivos de imagens do portal",
+		"owner": "www",
+		"version": "1",
+		"service" : "ems_static_file_service:execute",
+		"url": "/portal/app/.*/img/",
+		"use_re" : true,
+		"type": "GET",
+		"APIkey":"true",
+		"cache_control" : "max-age=3600, public",
+		"expires_minute" : 60,
+		"lang" : "erlang"
+	},
+
+	{
+		"name": "/portal",
+		"comment": "Portal ErlangMS",
+		"owner": "www",
+		"version": "1",
+		"service" : "ems_static_file_service:execute",
+		"url": "/portal/",
+		"use_re" : true,
+		"type": "GET",
+		"APIkey":"true",
+		"cache_control" : "no-cache",
+		"expires_minute" : 0,
+		"lang" : "erlang"
+	}
+]

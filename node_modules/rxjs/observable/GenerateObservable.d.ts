@@ -7,7 +7,7 @@ export declare type IterateFunc<S> = (state: S) => S;
 export declare type ResultFunc<S, T> = (state: S) => T;
 export interface GenerateBaseOptions<S> {
     /**
-     * Inital state.
+     * Initial state.
     */
     initialState: S;
     /**
@@ -96,7 +96,7 @@ export declare class GenerateObservable<T, S> extends Observable<T> {
      * Generates an observable sequence by running a state-driven loop
      * producing the sequence's elements, using the specified scheduler
      * to send out observer messages.
-     * The overload accepts options object that might contain inital state, iterate,
+     * The overload accepts options object that might contain initial state, iterate,
      * condition and scheduler.
      *
      * <img src="./img/generate.png" width="100%">
@@ -119,7 +119,7 @@ export declare class GenerateObservable<T, S> extends Observable<T> {
      * Generates an observable sequence by running a state-driven loop
      * producing the sequence's elements, using the specified scheduler
      * to send out observer messages.
-     * The overload accepts options object that might contain inital state, iterate,
+     * The overload accepts options object that might contain initial state, iterate,
      * condition, result selector and scheduler.
      *
      * <img src="./img/generate.png" width="100%">

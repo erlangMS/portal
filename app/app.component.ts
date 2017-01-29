@@ -1,14 +1,12 @@
-import { Component, View} from '@angular/core';
-import {NgFor, NgSwitch, NgSwitchWhen, NgSwitchDefault} from '@angular/common';
+import { Component } from '@angular/core';
+import {NgFor, NgSwitch, NgSwitchDefault} from '@angular/common';
 
 @Component({
-    selector: 'my-app'
-	directives:[NgFor, NgSwitch, NgSwitchWhen, NgSwitchDefault]
-	template: `
-			<navigator></navigator>
-	    `
+    selector: 'my-app',
+	templateUrl: 'app/app.component.html',
+	styleUrls: ['app/app.component.css']
 })
 export class AppComponent { 
-	
+	title = 'Erlangms Portal API Management';
 
 }

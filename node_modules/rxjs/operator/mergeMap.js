@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var subscribeToResult_1 = require('../util/subscribeToResult');
 var OuterSubscriber_1 = require('../OuterSubscriber');
+/* tslint:disable:max-line-length */
 /**
  * Projects each source value to an Observable which is merged in the output
  * Observable.

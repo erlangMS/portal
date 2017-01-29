@@ -1,5 +1,6 @@
 "use strict";
 var mergeMap_1 = require('./mergeMap');
+/* tslint:disable:max-line-length */
 /**
  * Projects each source value to an Observable which is merged in the output
  * Observable, in a serialized fashion waiting for each one to complete before

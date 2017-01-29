@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { SecurityContext } from '@angular/core';
-import { CompileDirectiveMetadata, CompileProviderMetadata, CompileTokenMetadata } from '../compile_metadata';
+import { CompileDirectiveSummary, CompileProviderMetadata, CompileTokenMetadata } from '../compile_metadata';
 import { AST } from '../expression_parser/ast';
 import { ParseSourceSpan } from '../parse_util';
 import { LifecycleHooks } from '../private_import_core';
@@ -61,10 +61,11 @@ export declare class BoundElementPropertyAst implements TemplateAst {
     name: string;
     type: PropertyBindingType;
     securityContext: SecurityContext;
+    needsRuntimeSecurityContext: boolean;
     value: AST;
     unit: string;
     sourceSpan: ParseSourceSpan;
-    constructor(name: string, type: PropertyBindingType, securityContext: SecurityContext, value: AST, unit: string, sourceSpan: ParseSourceSpan);
+    constructor(name: string, type: PropertyBindingType, securityContext: SecurityContext, needsRuntimeSecurityContext: boolean, value: AST, unit: string, sourceSpan: ParseSourceSpan);
     visit(visitor: TemplateAstVisitor, context: any): any;
     isAnimation: boolean;
 }
@@ -78,6 +79,7 @@ export declare class BoundEventAst implements TemplateAst {
     phase: string;
     handler: AST;
     sourceSpan: ParseSourceSpan;
+    static calcFullName(name: string, target: string, phase: string): string;
     constructor(name: string, target: string, phase: string, handler: AST, sourceSpan: ParseSourceSpan);
     visit(visitor: TemplateAstVisitor, context: any): any;
     fullName: string;
@@ -118,7 +120,8 @@ export declare class ElementAst implements TemplateAst {
     children: TemplateAst[];
     ngContentIndex: number;
     sourceSpan: ParseSourceSpan;
-    constructor(name: string, attrs: AttrAst[], inputs: BoundElementPropertyAst[], outputs: BoundEventAst[], references: ReferenceAst[], directives: DirectiveAst[], providers: ProviderAst[], hasViewContainer: boolean, children: TemplateAst[], ngContentIndex: number, sourceSpan: ParseSourceSpan);
+    endSourceSpan: ParseSourceSpan;
+    constructor(name: string, attrs: AttrAst[], inputs: BoundElementPropertyAst[], outputs: BoundEventAst[], references: ReferenceAst[], directives: DirectiveAst[], providers: ProviderAst[], hasViewContainer: boolean, children: TemplateAst[], ngContentIndex: number, sourceSpan: ParseSourceSpan, endSourceSpan: ParseSourceSpan);
     visit(visitor: TemplateAstVisitor, context: any): any;
 }
 /**
@@ -153,12 +156,12 @@ export declare class BoundDirectivePropertyAst implements TemplateAst {
  * A directive declared on an element.
  */
 export declare class DirectiveAst implements TemplateAst {
-    directive: CompileDirectiveMetadata;
+    directive: CompileDirectiveSummary;
     inputs: BoundDirectivePropertyAst[];
     hostProperties: BoundElementPropertyAst[];
     hostEvents: BoundEventAst[];
     sourceSpan: ParseSourceSpan;
-    constructor(directive: CompileDirectiveMetadata, inputs: BoundDirectivePropertyAst[], hostProperties: BoundElementPropertyAst[], hostEvents: BoundEventAst[], sourceSpan: ParseSourceSpan);
+    constructor(directive: CompileDirectiveSummary, inputs: BoundDirectivePropertyAst[], hostProperties: BoundElementPropertyAst[], hostEvents: BoundEventAst[], sourceSpan: ParseSourceSpan);
     visit(visitor: TemplateAstVisitor, context: any): any;
 }
 /**
@@ -221,6 +224,7 @@ export declare enum PropertyBindingType {
  * A visitor for {@link TemplateAst} trees that will process each node.
  */
 export interface TemplateAstVisitor {
+    visit?(ast: TemplateAst, context: any): any;
     visitNgContent(ast: NgContentAst, context: any): any;
     visitEmbeddedTemplate(ast: EmbeddedTemplateAst, context: any): any;
     visitElement(ast: ElementAst, context: any): any;

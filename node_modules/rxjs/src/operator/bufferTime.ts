@@ -7,6 +7,12 @@ import { Subscriber } from '../Subscriber';
 import { Subscription } from '../Subscription';
 import { isScheduler } from '../util/isScheduler';
 
+/* tslint:disable:max-line-length */
+export function bufferTime<T>(this: Observable<T>, bufferTimeSpan: number, scheduler?: Scheduler): Observable<T[]>;
+export function bufferTime<T>(this: Observable<T>, bufferTimeSpan: number, bufferCreationInterval: number, scheduler?: Scheduler): Observable<T[]>;
+export function bufferTime<T>(this: Observable<T>, bufferTimeSpan: number, bufferCreationInterval: number, maxBufferSize: number, scheduler?: Scheduler): Observable<T[]>;
+/* tslint:disable:max-line-length */
+
 /**
  * Buffers the source Observable values for a specific time period.
  *
@@ -50,7 +56,7 @@ import { isScheduler } from '../util/isScheduler';
  * @method bufferTime
  * @owner Observable
  */
-export function bufferTime<T>(bufferTimeSpan: number): Observable<T[]> {
+export function bufferTime<T>(this: Observable<T>, bufferTimeSpan: number): Observable<T[]> {
   let length: number = arguments.length;
 
   let scheduler: Scheduler = async;
@@ -70,12 +76,6 @@ export function bufferTime<T>(bufferTimeSpan: number): Observable<T[]> {
   }
 
   return this.lift(new BufferTimeOperator<T>(bufferTimeSpan, bufferCreationInterval, maxBufferSize, scheduler));
-}
-
-export interface BufferTimeSignature<T> {
-  (bufferTimeSpan: number, scheduler?: Scheduler): Observable<T[]>;
-  (bufferTimeSpan: number, bufferCreationInterval: number, scheduler?: Scheduler): Observable<T[]>;
-  (bufferTimeSpan: number, bufferCreationInterval: number, maxBufferSize: number, scheduler?: Scheduler): Observable<T[]>;
 }
 
 class BufferTimeOperator<T> implements Operator<T, T[]> {
@@ -174,7 +174,7 @@ class BufferTimeSubscriber<T> extends Subscriber<T> {
     closeAction.unsubscribe();
     this.remove(closeAction);
 
-    if (this.timespanOnly) {
+    if (!this.closed && this.timespanOnly) {
       context = this.openContext();
       const bufferTimeSpan = this.bufferTimeSpan;
       const timeSpanOnlyState = { subscriber: this, context, bufferTimeSpan };
@@ -199,7 +199,7 @@ class BufferTimeSubscriber<T> extends Subscriber<T> {
   }
 }
 
-function dispatchBufferTimeSpanOnly(state: any) {
+function dispatchBufferTimeSpanOnly(this: Action<any>, state: any) {
   const subscriber: BufferTimeSubscriber<any> = state.subscriber;
 
   const prevContext = state.context;
@@ -209,7 +209,7 @@ function dispatchBufferTimeSpanOnly(state: any) {
 
   if (!subscriber.closed) {
     state.context = subscriber.openContext();
-    state.context.closeAction = (<any>this).schedule(state, state.bufferTimeSpan);
+    state.context.closeAction = this.schedule(state, state.bufferTimeSpan);
   }
 }
 
@@ -218,7 +218,7 @@ interface DispatchArg<T> {
   context: Context<T>;
 }
 
-function dispatchBufferCreation<T>(state: CreationState<T>) {
+function dispatchBufferCreation<T>(this: Action<CreationState<T>>, state: CreationState<T>) {
   const { bufferCreationInterval, bufferTimeSpan, subscriber, scheduler } = state;
   const context = subscriber.openContext();
   const action = <Action<CreationState<T>>>this;

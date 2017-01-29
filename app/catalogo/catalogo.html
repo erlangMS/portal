@@ -1,0 +1,267 @@
+
+	
+	<div id="f_botoes" style="height:32px">
+		<div id="barra_botao">
+			<button id="btn_pesquisar" type="button" class="btn btn-default btn-xs" (click)="pesquisar()" *ngIf="operacao=='pesquisa'">
+				<i class="glyphicon glyphicon-search"></i>Pesquisar
+			</button>
+			<button id="btn_novo" type="button" class="btn btn-default btn-xs" (click)="novo()" *ngIf="operacao=='pesquisa' || operacao=='listagem'"> 
+				<i class="glyphicon glyphicon-plus"></i>Novo Serviço
+			</button>
+			<button id="btn_editar" type="button" class="btn btn-default btn-xs" *ngIf="operacao=='listagem'">
+				<i class="glyphicon glyphicon-pencil"></i>Editar 
+			</button>
+			<button id="btn_salvar" type="button" class="btn btn-default btn-xs" (click)="salvar()" *ngIf="operacao=='edicao'">
+				<i class="glyphicon glyphicon-floppy-disk"></i>Salvar
+			</button>
+			<button id="btn_cancelar" type="button" class="btn btn-default btn-xs" *ngIf="operacao=='edicao'">
+				<i class="glyphicon glyphicon-remove"></i>Cancelar
+			</button>
+			<button id="btn_excluir" style="display:none" class="btn btn-default btn-xs" type="button" *ngIf="operacao=='listagem' || operacao=='edicao'">
+				<i class="glyphicon glyphicon-trash"></i>Excluir 
+			</button>
+		</div>
+		
+		
+		<div id="f_botoes_esq"  style="float: right;">
+			<button id="btn_voltar" style="" type="button" class="btn btn-default btn-xs" (click)="voltar()" *ngIf="operacao!='pesquisa'">
+				<i class="glyphicon glyphicon-chevron-left"></i>Voltar
+			</button>
+		</div>
+	</div>
+
+	<div id="f_alert" style="display:none"></div>
+
+	<form id="f_filtro" name="f_filtro" role="form" *ngIf="operacao=='pesquisa'" >
+	   <div id="filtro_pesquisa" style="display: block;">
+		  <div class="form-inline">
+			 <div class="form-group, col-xs-12, col-sm-6, col-md-12, col-lg-12, col-xl-12">
+				<label class="control-label">Tipo de serviço</label>
+				<label><input type="radio" name="optradio">GET</label>
+				<label><input type="radio" name="optradio">POST</label>
+				<label><input type="radio" name="optradio">PUT</label>			 
+				<label><input type="radio" name="optradio">DELETE</label>			 
+			 </div>
+
+			 <span class="fpc_nl"></span>
+
+			 <div class="form-group, col-xs-12, col-sm-2, col-md-2, col-lg-2, col-xl-2">
+				<label class="control-label" for="f_url">URL do serviço</label>
+				<input id="f_url" name="f_url" class="form-control" type="text" data-type="decimal" data-decimal-places="4" maxlength="300" [(ngModel)]="model.url">
+				<small class="text-muted">
+				  A URL deve ter o seguinte formato: modulo/serviço/:id
+				</small>
+			 </div>
+
+			<div class='form-group'>
+				<label class="control-label" for="teste">teste</label>
+				<input type='text' data-type="date" fpc-type="date" class="form-control" />
+			</div>
+			
+			<span class="fpc_nl"></span>
+
+			<div class='form-group'>
+				<label class="control-label" for="teste">teste3</label>
+				<input type='text' data-type="datetime" fpc-type="date" class="form-control" />
+			</div>
+
+			<span class="fpc_nl"></span>
+
+			 <span class="fpc_nl"></span>
+			 <div class="form-group, col-xs-12, col-sm-6, col-md-12, col-lg-12, col-xl-12">
+				<label class="control-label">Listar os serviços de </label>
+				<select id="f_owner" name="f_owner" class="input-sm" [(ngModel)]="owner">
+					<option *ngFor="let item of owner_list"  value="{{ item.id }}">{{ item.id }} - {{ item.title }}</option>
+				</select>
+			 </div>
+			 
+		  </div>
+	   </div>
+	</form>
+        
+	<div class="panel panel-default" *ngIf="operacao=='listagem'">
+		
+		<table id="f_dados_pesquisa" class="table table-striped"
+									[mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" 
+									[mfRowsOnPage]="10">
+			<thead>
+				<tr>
+					<th style="width: 25px">Seleção</th>
+					<th style="width: 370px">
+						<mfDefaultSorter by="url">Url</mfDefaultSorter>
+					</th>
+					<th style="width: 350px">
+						<mfDefaultSorter by="comment">Descrição</mfDefaultSorter>
+					</th>
+					<th style="width: 70px">
+						<mfDefaultSorter by="owner">Dono</mfDefaultSorter>
+					</th>
+					<th style="width: 50px">
+						<mfDefaultSorter by="type">Tipo</mfDefaultSorter>
+					</th>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of mf.data">
+					<td class="text-center">
+						<input class='fpc-option-grid' type='radio' name='f_id' value="{{ item.id }}" /> 
+					</td>
+					<td>{{ item.url }}</td>
+					<td>{{ item.comment }}</td>
+					<td>{{ item.owner }}</td>
+					<td>{{ item.type }}</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<mfBootstrapPaginator [rowsOnPageSet]="[10,15,50,100]"></mfBootstrapPaginator>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		
+			<!-- items being paged -->
+            <div *ngFor="let item of pagedItems">{{item.name}}</div>
+
+            <!-- pager -->
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(1)">First</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.totalPages)">Last</a>
+                </li>
+            </ul>
+            
+            		
+	</div>
+	
+	
+	<form id="f_edicao" *ngIf="operacao=='edicao'">
+	   <div class="form-inline">
+		  <!--  monta abas -->
+		  <ul id="id_tab_registro" class="nav nav-tabs" role="tablist">
+			 <li class="nav-item">
+				<a class="nav-link active" id="id_htab_1" href="#id_tab_1" data-toggle="tab" role="tab">Principal</a>
+			 </li>
+			 <li class="nav-item">
+				<a class="nav-link" id="id_htab_2" href="#id_tab_2" data-toggle="tab" role="tab">Schema JSON dos dados</a>
+			 </li>
+			 <li class="nav-item">
+				<a class="nav-link" id="id_htab_3" href="#id_tab_3" data-toggle="tab" role="tab">Controle de cabeçalho</a>
+			 </li>
+		  </ul>
+		  <!--  monta conteúdo das abas -->
+		  <div class="tab-content">
+			 <div class="tab-pane active" id="id_tab_1" role="tabpanel">
+
+				<div class="form-group, col-xs-12, col-sm-6, col-md-12, col-lg-12, col-xl-12">
+					<label class="control-label">Tipo de serviço Restful</label>
+					<select id="f_type" name="f_type" class="input-sm" [(ngModel)]="model.type" style="width: 190px">
+						<option *ngFor="let item of type_list"  value="{{ item.name }}">{{ item.title }}</option>
+					</select>
+				</div>
+
+				<span class="fpc_nl"></span>
+
+				<div class="form-group, col-xs-4, col-sm-2, col-md-2, col-lg-2, col-xl-2">
+					<label class="control-label" for="f_url">Versão do serviço</label> 
+					<input id="f_version" name="f_version" class="form-control" placeholder="  .  .  " data-type="text" type="text" maxlength="12" [(ngModel)]="model.version">
+					<small class="text-muted">
+					  Formato: x.y.z.
+					</small>
+				</div>
+
+				<span class="fpc_nl"></span>
+
+				<div class="form-group, col-xs-12, col-sm-2, col-md-2, col-lg-2, col-xl-2">
+					<label class="control-label" for="f_url">URL do serviço</label>
+					<input id="f_url" name="f_url" class="form-control" type="text" maxlength="300" [(ngModel)]="model.url" style="width: 380px">
+					<small class="text-muted">
+					  Recomenda-se o formato: modulo/serviço/:id. <a (click)="openDialogExemplos()">Exemplos</a>.
+					</small>
+				</div>
+
+				<span class="fpc_nl"></span>
+
+				 <div class="form-group, col-xs-12, col-sm-6, col-md-12, col-lg-12, col-xl-12">
+					<label class="control-label">Dono do serviço </label>
+					<select id="f_owner" name="f_owner" class="input-sm" [(ngModel)]="model.owner" style="width: 210px">
+						<option *ngFor="let item of owner_list"  value="{{ item.id }}">{{ item.name }} - {{ item.title }}</option>
+					</select>
+				 </div>
+
+				<span class="fpc_nl"></span>
+				
+				<div class="form-group">
+				   <label class="control-label" for="f_comment">Sobre o serviço</label>
+				   <textarea id="f_comment" name="f_comment" class="form-control" rows="3" cols="120" required maxlength="1000" [(ngModel)]="model.comment"></textarea>
+				</div>
+
+				<span class="fpc_nl"></span>
+
+				 <div class="form-group, col-xs-12, col-sm-6, col-md-12, col-lg-12, col-xl-12">
+					<label class="control-label">Linguagem de implementação do serviço </label>
+					<select id="f_language" name="f_language" class="input-sm" [(ngModel)]="model.lang" style="width: 150px">
+						<option *ngFor="let item of language_list"  value="{{ item.name }}">{{ item.title }}</option>
+					</select>
+				 </div>
+
+				<span class="fpc_nl"></span>
+
+				 <div class="form-group, col-xs-12, col-sm-6, col-md-12, col-lg-12, col-xl-12">
+					<label class="control-label">Forma de autenticação </label>
+					<select id="f_authentication" name="f_authentication" class="input-sm" [(ngModel)]="model.authentication" style="width: 150px">
+						<option *ngFor="let item of authentication_list"  value="{{ item.name }}">{{ item.title }}</option>
+					</select>
+				 </div>
+
+				<span class="fpc_nl"></span>
+				
+				<div class="form-group, col-xs-12, col-sm-6, col-md-12, col-lg-12, col-xl-12">
+					<label class="control-label">Este serviço aparece no portal de serviços público</label>
+					<label><input type="radio" name="opt_public" [(ngModel)]="model.public" value="{{ model.public }}">Sim</label>
+					<label><input type="radio" name="opt_public" [(ngModel)]="model.public" value="{{ model.public }}">Não</label>
+				</div>
+
+				<span class="fpc_nl"></span>
+
+				<div class="form-group, col-xs-12, col-sm-2, col-md-2, col-lg-2, col-xl-2">
+					<label class="control-label" for="f_service">Nome completo do processo que implementa o serviço</label>
+					<input id="f_service" name="f_service" class="form-control" type="text" maxlength="300" [(ngModel)]="model.service" style="width: 380px">
+				</div>
+				
+
+			 </div>
+			 
+			 <div class="tab-pane" id="id_tab_2" role="tabpanel">
+				<div class="form-group">
+				   <label class="control-label" for="f_schema_in" style="font-weight: bold;">Schema de entrada</label>
+				   <input id="f_schema_in" class="form-control" type="text" data-type="currency" maxlength="70" style="width: 300px; background-color: white;" value="" data-required="">
+				</div>
+				<span class="fpc_nl"></span>
+				<div class="form-group">
+				   <label class="control-label" for="f_schema_out" style="font-weight: bold;">Schema de saída</label>
+				   <input id="f_schema_out" class="form-control" type="text" data-type="data" maxlength="70" style="width: 300px; background-color: white;" value="" data-required="">
+				</div>
+				<span class="fpc_nl"></span>
+			 </div>
+			 <div class="tab-pane" id="id_tab_3" role="tabpanel">
+				<div class="form-group">
+				   <label class="control-label" for="f_cache-control">Cache-Control da resposta</label>
+				   <input id="f_cache-control" class="form-control" type="text" data-type="datetime">
+				</div>
+			 </div>
+		  </div>
+	   </div>
+	</form>	
+	

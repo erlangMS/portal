@@ -7,9 +7,7 @@ import { Observable, ObservableInput } from '../Observable';
  * @return {Observable} an observable that originates from either the source or the observable returned by the
  *  catch `selector` function.
  * @method catch
+ * @name catch
  * @owner Observable
  */
-export declare function _catch<T, R>(selector: (err: any, caught: Observable<T>) => ObservableInput<R>): Observable<R>;
-export interface CatchSignature<T> {
-    <R>(selector: (err: any, caught: Observable<T>) => ObservableInput<R>): Observable<R>;
-}
+export declare function _catch<T, R>(this: Observable<T>, selector: (err: any, caught: Observable<T>) => ObservableInput<R>): Observable<R>;

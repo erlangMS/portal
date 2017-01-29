@@ -14,6 +14,7 @@ var subscribeToResult_1 = require('../util/subscribeToResult');
  * @return {Observable} an observable that originates from either the source or the observable returned by the
  *  catch `selector` function.
  * @method catch
+ * @name catch
  * @owner Observable
  */
 function _catch(selector) {

@@ -1,10 +1,11 @@
 import { PlatformRef, Provider } from '@angular/core';
 export * from './private_export';
+export { VERSION } from './version';
 /**
  * @experimental
  */
 export declare const RESOURCE_CACHE_PROVIDER: Provider[];
 /**
- * @experimental API related to bootstrapping are still under review.
+ * @stable
  */
 export declare const platformBrowserDynamic: (extraProviders?: Provider[]) => PlatformRef;

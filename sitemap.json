@@ -1,47 +1,75 @@
 {
 	"name": "dashboard",
-	"title": "Dashboard",
-	"url": "/portal/dashboard",
-	"image_url": "modules/dashboard/img/pedidos.png",
-	"left_menu" : [{
+	"title": "ERLANGMS",
+	"image_url": "app/dashboard/img/pedidos.png",
+	"left_menu": [{
 		"name": "principal",
-		"title": "Principal",
-		"url": "1"
-		}, {
+		"title": "Dashboard",
+		"breadcrumb" : false
+	}, {
 		"name": "sobre",
 		"title": "Sobre",
-		"url": "2"
-		}],
+		"component" : "<sobre></sobre>",
+		"breadcrumb" : false
+	}],
+	"right_menu": [{
+		"name": "login",
+		"title": "Entrar",
+		"component" : "<login></login>",
+		"breadcrumb" : false
+	}],
 	"items": [{
 		"name": "aplicativos",
 		"title": "Aplicativos",
-		"url": "/portal/dashboard/meu_portal/aplicativos",
-		"image_url": "modules/dashboard/img/item.png",
+		"image_class": "fpc-img-aplicativo",
 		"items": [{
 			"name": "simar",
 			"title": "SIMAR",
 			"url": "/portal/modules/simar/index.html",
-			"image_url": "modules/dashboard/img/pedidos.png"
+			"image_url": "app/dashboard/img/pedidos.png"
 		}, {
 			"name": "sitab",
 			"title": "SITAB",
 			"url": "/portal/dashboard/meu_portal/aplicativos/sitab",
-			"image_url": "modules/dashboard/img/item.png"
+			"image_class": "fpc-img-item"
 		}, {
 			"name": "siconv",
 			"title": "SICONV",
 			"url": "/portal/modules/siconv",
-			"image_url": "modules/dashboard/img/item.png"
+			"image_class": "fpc-img-item"
 		}, {
 			"name": "siger",
 			"title": "SIGER",
 			"url": "/portal/dashboard/meu_portal/aplicativos/siger",
-			"image_url": "modules/dashboard/img/relatorios.png"
+			"image_url": "app/dashboard/img/relatorios.png"
 		}]
 	}, {
+		"name": "gestao_servicos",
+		"title": "Serviços",
+		"image_class": "fpc-img-api",
+		"items" : [
+			{"name": "schemas",
+			"title": "Definição dos Schemas de Dados",
+			"component" : "<catalogo></catalogo>",
+			"image_class": "fpc-img-schema"
+			},
+			{"name": "catalogo",
+			"title": "Manutenção dos Catalogos de Serviços",
+			"component" : "<catalogo></catalogo>",
+			"image_class": "fpc-img-webservice"
+			}
+		]
+	}, 
+	{
+		"name": "analytics",
+		"title": "Analytics",
+		"component" : "<analytics></analytics>",
+		"image_class": "fpc-img-analytics"
+	},	
+	{
 		"name": "configuracoes",
 		"title": "Configurações",
-		"url": "/portal/dashboard/meu_portal/configuracoes",
-		"image_url": "modules/dashboard/img/item.png"
+		"component" : "<configuracoes></configuracoes>",
+		"image_class": "fpc-img-config"
 	}]
 }

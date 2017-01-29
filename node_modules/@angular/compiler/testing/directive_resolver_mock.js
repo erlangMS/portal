@@ -41,13 +41,13 @@ export var MockDirectiveResolver = (function (_super) {
         var viewProviderOverrides = this._viewProviderOverrides.get(type);
         var providers = metadata.providers;
         if (isPresent(providerOverrides)) {
-            var originalViewProviders = isPresent(metadata.providers) ? metadata.providers : [];
+            var originalViewProviders = metadata.providers || [];
             providers = originalViewProviders.concat(providerOverrides);
         }
         if (metadata instanceof Component) {
             var viewProviders = metadata.viewProviders;
             if (isPresent(viewProviderOverrides)) {
-                var originalViewProviders = isPresent(metadata.viewProviders) ? metadata.viewProviders : [];
+                var originalViewProviders = metadata.viewProviders || [];
                 viewProviders = originalViewProviders.concat(viewProviderOverrides);
             }
             var view = this._views.get(type);
@@ -135,9 +135,9 @@ export var MockDirectiveResolver = (function (_super) {
         { type: Injectable },
     ];
     /** @nocollapse */
-    MockDirectiveResolver.ctorParameters = [
+    MockDirectiveResolver.ctorParameters = function () { return [
         { type: Injector, },
-    ];
+    ]; };
     return MockDirectiveResolver;
 }(DirectiveResolver));
 function flattenArray(tree, out) {

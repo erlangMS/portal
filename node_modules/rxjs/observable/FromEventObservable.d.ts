@@ -20,7 +20,7 @@ export declare type SelectorMethodSignature<T> = (...args: Array<any>) => T;
  * @extends {Ignored}
  * @hide true
  */
-export declare class FromEventObservable<T, R> extends Observable<T> {
+export declare class FromEventObservable<T> extends Observable<T> {
     private sourceObj;
     private eventName;
     private selector;

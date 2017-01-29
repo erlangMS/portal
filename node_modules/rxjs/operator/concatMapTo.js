@@ -1,5 +1,6 @@
 "use strict";
 var mergeMapTo_1 = require('./mergeMapTo');
+/* tslint:disable:max-line-length */
 /**
  * Projects each source value to the same Observable which is merged multiple
  * times in a serialized fashion on the output Observable.

@@ -1,0 +1,36 @@
+<div class="container-fluid custom-modal-container">
+	<div class="row custom-modal-header modalHeader">
+		<div class="col-sm-12">
+            <span class="fpc_titulo_app">Exemplos de URL</span>
+            <a id="btn_close_consulta" href="#" title="Fechar" (click)="close()" class="close">X</a>
+		</div>
+	</div>
+	<div class="row" [ngClass]="{'myclass' : shouldUseMyClass}">
+		<div id="content" class="col-md-12">
+
+		<p class="lead">
+		  Alguns exemplos de URLs de serviços:
+		</p>
+
+		<div class="row">
+		  <div class="col-xs-12 col-md-8 col-md-offset-2">
+				<div class="list-group">
+				  <a href="developers/" class="list-group-item">
+					<h4 class="list-group-item-heading"><i class="fa fa-fw fa-user"></i> Cadastrar aluno</h4>
+					<p class="list-group-item-text"><span class="label label-warning">POST</span> academico/aluno.</p>
+				  </a>
+				  <a href="https://wiki.gentoo.org/wiki/Project:Gentoo" class="list-group-item">
+					<h4 class="list-group-item-heading"><i class="fa fa-fw fa-briefcase"></i> Localizar aluno</h4>
+					<p class="list-group-item-text"><span class="label label-warning">GET</span> academico/aluno/:id</p>
+				  </a>
+				  <a href="https://wiki.gentoo.org/wiki/Project:Gentoo" class="list-group-item">
+					<h4 class="list-group-item-heading"><i class="fa fa-fw fa-briefcase"></i> Listar o histórico do aluno</h4>
+					<p class="list-group-item-text"><span class="label label-warning">GET</span> academico/aluno/:id/historico</p>
+				  </a>
+				</div>
+			  </div>
+			</div>
+		  </div>
+				
+			</div>
+</div>`
