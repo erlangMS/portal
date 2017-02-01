@@ -2,8 +2,8 @@
 	{
 		"name": "/portal/node_modules",
 		"comment": "Bibliotecas node_modules do portal",
-		"owner": "www",
-		"version": "1",
+		"owner": "portal",
+		"version": "1.0.0",
 		"service" : "ems_static_file_service:execute",
 		"url": "/portal/node_modules/",
 		"use_re" : true,
@@ -16,9 +16,9 @@
 
 	{
 		"name": "/portal/images",
-		"comment": "Arquivos de imagens do portal",
-		"owner": "www",
-		"version": "1",
+		"comment": "image static files of portal",
+		"owner": "portal",
+		"version": "1.0.0",
 		"service" : "ems_static_file_service:execute",
 		"url": "/portal/app/.*/img/",
 		"use_re" : true,
@@ -29,11 +29,27 @@
 		"lang" : "erlang"
 	},
 
+
+	{
+		"name": "redirect_url_portal",
+		"comment": "Redirect url /portal to /portal/index.html",
+		"owner": "portal",
+		"version": "1.0.0",
+		"service" : "ems_redirect_url_service:execute",
+		"url": "/portal",
+		"redirect_url" : "/portal/index.html",
+		"path" : "{{ portal_api_management }}",
+		"type": "GET",
+		"cache_control" : "no-cache",
+		"expires_minute" : 0,
+		"lang" : "erlang"
+	},
+
 	{
 		"name": "/portal",
 		"comment": "Portal ErlangMS",
-		"owner": "www",
-		"version": "1",
+		"owner": "portal",
+		"version": "1.0.0",
 		"service" : "ems_static_file_service:execute",
 		"url": "/portal/",
 		"use_re" : true,
