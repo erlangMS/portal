@@ -64,7 +64,7 @@
 		"comment": "Portal ErlangMS",
 		"owner": "portal",
 		"version": "1.0.0",
-		"service" : "ems_static_file_service:execute",
+		"service" : "ems_django_service:execute",
 		"url": "/portal/",
 		"use_re" : true,
 		"path" : "{{ portal_api_management }}",
