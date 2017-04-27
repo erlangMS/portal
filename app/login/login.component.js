@@ -18,16 +18,6 @@ var LoginComponent = (function () {
     LoginComponent.prototype.ngOnInit = function () {
     };
     LoginComponent.prototype.login = function () {
-        var _this = this;
-        this.authenticationService.login('http://127.0.0.1:2301/authorize?grant_type=password&username=' + this.model.username + '&password=' + this.model.password, '')
-            .subscribe(function (result) {
-            if (result === true) {
-                var sessionTime = JSON.parse(localStorage.getItem('currentUser'));
-                _this.authenticationService.periodicIncrement(sessionTime.expires_in);
-            }
-        }, function (err) {
-            console.log("Erro!!");
-        });
     };
     LoginComponent = __decorate([
         core_1.Component({

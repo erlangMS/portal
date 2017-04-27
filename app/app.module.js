@@ -22,6 +22,7 @@ var catalogo_component_1 = require('./catalogo/catalogo.component');
 var login_component_1 = require('./login/login.component');
 var seguranca_1 = require('seguranca');
 var app_routing_1 = require("./app.routing");
+var file_service_1 = require('./_file/file.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -37,7 +38,7 @@ var AppModule = (function () {
                 app_routing_1.routing],
             declarations: [app_component_1.AppComponent, main_1.NavigatorController, main_1.Sobre, catalogo_component_1.CatalogoComponent, login_component_1.LoginComponent, seguranca_1.NavigationComponent, exemplos_url_servico_component_1.CustomModal, main_1.DataTableFilterPipe],
             bootstrap: [app_component_1.AppComponent, main_1.NavigatorController],
-            providers: [app_routing_1.appRoutingProviders, main_1.PagerService, main_1.EmsRestClient, seguranca_1.AuthGuard, seguranca_1.AuthenticationService],
+            providers: [app_routing_1.appRoutingProviders, main_1.PagerService, main_1.EmsRestClient, seguranca_1.AuthGuard, seguranca_1.RedirectService, seguranca_1.AuthenticationService, file_service_1.FileService],
             // IMPORTANT:
             // Since 'AdditionCalculateWindow' is never explicitly used (in a template)
             // we must tell angular about it.
