@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	
+
 <div class="navbar navbar-default navbar-fixed-top fpc-top-bar" role="navigation" >
   <div class="container">
 	<div class="navbar-header">
@@ -22,7 +22,7 @@
 	  </ul>
 	  <ul class="nav navbar-nav navbar-right">
 		  <li>
-			  <app-navigation></app-navigation>
+			 <!-- <app-navigation></app-navigation> -->
 		  </li>
 			<li *ngFor="let item of sitemap.right_menu">
 				<a  (click)="go(item)" style="cursor:pointer">{{ item.title }}</a>
@@ -78,10 +78,8 @@
 		</p>
 	</div>
   </div>
-</div> 
+</div>
 <a id="btn_abrir_dialog" href="#openModal" style="display:none"></a>
 <div id="f_dialog"></div>
 
 </div>
-
-
