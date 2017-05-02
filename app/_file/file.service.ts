@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import {RedirectService, DefaultHeaders} from 'seguranca';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import {RedirectService, DefaultHeaders} from 'seguranca';
 
 
 @Injectable()
-export class FileService extends DefaultHeaders {
+export class FileService {
 
   constructor( private http: Http, private redirectService: RedirectService){
-    super();
+
   }
 
   startRedirect():Observable<boolean> {
