@@ -3,14 +3,16 @@
   "param_client": "?response_type=code&client_id=",
   "redirect_param": "&state=xyz%20&redirect_uri=",
   "body_client":"",
-  "client_id": "146",
+  "client_id": "149",
   "client_secret":"CPD",
-  "url_redirect":"http://localhost:2301/portal/",
+  "url_redirect":"http://localhost:2301/portal/index.html/",
   "url_user": "http://127.0.0.1:2301/authorize?",
   "login": "grant_type=password&username=",
   "password": "&password=",
   "body_user" : "",
   "protocol":"http",
   "port":"2301",
+  "find_user_client": "http://127.0.0.1:2301/authorize/",
+  "grant_type": "authorization_code",
   "authorization":"Oauth2"
 }

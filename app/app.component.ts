@@ -14,10 +14,15 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.fileService.startRedirect()
-      .subscribe(resultado => {
-        console.log('Resultado');
-    });
+    var client_id = location.search.split('code=')[1];
+    if(client_id == undefined){
+        this.fileService.startRedirect()
+          .subscribe(resultado => {
+            console.log('Resultado');
+        });
+    } else {
+      this.fileService.findTokenUser(client_id);
+    }
   }
 
 }

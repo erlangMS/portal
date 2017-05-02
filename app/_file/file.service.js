@@ -34,6 +34,10 @@ var FileService = (function (_super) {
             return true;
         });
     };
+    FileService.prototype.findTokenUser = function (client_id) {
+        this.redirectService.redirectWithCodeUrl(client_id);
+        return true;
+    };
     FileService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http, seguranca_1.RedirectService])

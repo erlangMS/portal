@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/portal/app/dashboard/css/fpc.css">
     <link rel="stylesheet" href="/portal/app/dashboard/css/fpc_img.css">
 
-    <script src="/portal/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/portal/node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="/portal/node_modules/jquery.maskedinput/src/jquery.maskedinput.js"></script>
     <script src="/portal/node_modules/tether/dist/js/tether.min.js"></script>
     <script src="/portal/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -27,9 +27,16 @@
     <script src="/portal/node_modules/systemjs/dist/system.src.js"></script>
     <script src="/portal/systemjs.config.js"></script>
     <script>
-      System.import('app').catch(function(err){ console.error(err); });
+      var client_id = location.search.split('code=')[1];
+      System.import('app')
+      .then(function() {
+          if(client_id != undefined){
+            history.pushState(client_id, "page 2", "/portal/?code="+client_id);
+          }
+        })
+        .catch(function(err){ console.error(err); });
     </script>
-    
+
     <style>
 		#loadingDiv {
 			  position:absolute;
@@ -44,7 +51,7 @@
 			  color: #337ab7;
 			  letter-spacing: 0.2em;
 		}
-		
+
 
 			.cssload-loader {
 				width: 162px;
@@ -170,7 +177,7 @@
 					height: 19px;
 					width: 10px;
 				}
-			}		
+			}
     </style>
   </head>
 
@@ -180,7 +187,7 @@
 		<div id="loadingDiv">Iniciando, aguarde...</div>
 	</my-app>
   </body>
-  
+
   <script src="/portal/app/dashboard/js/DataTables/media/js/jquery.dataTables.min.js"></script>
   <script src="/portal/app/dashboard/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
   <script src="/portal/app/dashboard/js/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.pt-BR.js"></script>
