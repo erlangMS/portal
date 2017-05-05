@@ -23,13 +23,9 @@ var FileService = (function () {
             .map(function (resultado) {
             var result = resultado.json();
             localStorage.setItem('externalFile', (result.protocol + '://' + window.location.hostname + ':' + result.port + '/portal/config.json'));
-            _this.redirectService.initVerificationRedirect();
+            _this.redirectService.startInitVerifySessionToken();
             return true;
         });
-    };
-    FileService.prototype.findTokenUser = function (client_id) {
-        this.redirectService.redirectWithCodeUrl(client_id);
-        return true;
     };
     FileService = __decorate([
         core_1.Injectable(), 

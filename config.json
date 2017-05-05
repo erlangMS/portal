@@ -14,5 +14,6 @@
   "port":"2301",
   "find_user_client": "http://127.0.0.1:2301/authorize/",
   "grant_type": "authorization_code",
+  "port_server":"2301",
   "authorization":"Oauth2"
 }

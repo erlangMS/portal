@@ -15,6 +15,7 @@ var http_1 = require('@angular/http');
 var angular2_datatable_1 = require('angular2-datatable');
 var angular2_modal_1 = require('angular2-modal');
 var bootstrap_1 = require('angular2-modal/plugins/bootstrap');
+var http_2 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var main_1 = require('./dashboard/main');
 var exemplos_url_servico_component_1 = require('./catalogo/exemplos_url_servico.component');
@@ -38,7 +39,12 @@ var AppModule = (function () {
                 app_routing_1.routing],
             declarations: [app_component_1.AppComponent, main_1.NavigatorController, main_1.Sobre, catalogo_component_1.CatalogoComponent, login_component_1.LoginComponent, seguranca_1.NavigationComponent, exemplos_url_servico_component_1.CustomModal, main_1.DataTableFilterPipe],
             bootstrap: [app_component_1.AppComponent, main_1.NavigatorController],
-            providers: [app_routing_1.appRoutingProviders, main_1.PagerService, main_1.EmsRestClient, seguranca_1.AuthGuard, seguranca_1.RedirectService, seguranca_1.AuthenticationService, file_service_1.FileService],
+            providers: [app_routing_1.appRoutingProviders, main_1.PagerService, main_1.EmsRestClient, seguranca_1.AuthGuard, seguranca_1.RedirectService, seguranca_1.AuthenticationService, file_service_1.FileService,
+                {
+                    provide: http_2.RequestOptions,
+                    useClass: seguranca_1.DefaultHeaders
+                }
+            ],
             // IMPORTANT:
             // Since 'AdditionCalculateWindow' is never explicitly used (in a template)
             // we must tell angular about it.

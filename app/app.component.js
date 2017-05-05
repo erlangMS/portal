@@ -16,16 +16,10 @@ var AppComponent = (function () {
         this.title = 'Erlangms Portal API Management';
     }
     AppComponent.prototype.ngOnInit = function () {
-        var client_id = location.search.split('code=')[1];
-        if (client_id == undefined) {
-            this.fileService.startRedirect()
-                .subscribe(function (resultado) {
-                console.log('Resultado');
-            });
-        }
-        else {
-            this.fileService.findTokenUser(client_id);
-        }
+        this.fileService.startRedirect()
+            .subscribe(function (resultado) {
+            console.log('Resultado Funcional !!');
+        });
     };
     AppComponent = __decorate([
         core_1.Component({

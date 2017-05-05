@@ -17,15 +17,9 @@ export class FileService {
       .map((resultado) => {
         let result = resultado.json();
         localStorage.setItem('externalFile',(result.protocol+'://'+window.location.hostname+':'+result.port+'/portal/config.json'));
-        this.redirectService.initVerificationRedirect();
+        this.redirectService.startInitVerifySessionToken();
         return true;
       });
   }
-
-  findTokenUser(client_id: string):boolean {
-     this.redirectService.redirectWithCodeUrl(client_id);
-     return true;
-  }
-
 
 }
