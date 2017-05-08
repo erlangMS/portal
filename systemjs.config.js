@@ -35,7 +35,7 @@
       
       // my libraries
       'dashboard':                 'app/dashboard/main.js',
-        'seguranca':                 'npm:seguranca'
+      'seguranca':                 'npm:seguranca'
       
       
     },

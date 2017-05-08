@@ -9,17 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var file_service_1 = require('./_file/file.service');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(fileService) {
+        this.fileService = fileService;
         this.title = 'Erlangms Portal API Management';
     }
+    AppComponent.prototype.ngOnInit = function () {
+        this.fileService.startRedirect()
+            .subscribe(function (resultado) {
+            console.log('Resultado Funcional !!');
+        });
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
             templateUrl: 'app/app.component.html',
             styleUrls: ['app/app.component.css']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [file_service_1.FileService])
     ], AppComponent);
     return AppComponent;
 }());

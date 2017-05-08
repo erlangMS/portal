@@ -1,5 +1,17 @@
 [
 	{
+		"name": "/dashboard/sobre",
+		"comment": "Dashboard",
+		"owner": "portal",
+		"version": "1.0.0",
+		"service" : "ems_portal_dashboard:sobre",
+		"url": "/dashboard/sobre",
+		"path" : "{{ portal_api_management }}",
+		"type": "GET",
+		"lang" : "erlang"
+	},
+
+	{
 		"name": "/portal/node_modules",
 		"comment": "Bibliotecas node_modules do portal",
 		"owner": "portal",
@@ -11,6 +23,7 @@
 		"type": "GET",
 		"cache_control" : "max-age=86400, public",
 		"expires_minute" : 1440,
+		"authorization" : "public",
 		"lang" : "erlang"
 	},
 
@@ -26,9 +39,9 @@
 		"type": "GET",
 		"cache_control" : "max-age=3600, public",
 		"expires_minute" : 60,
+		"authorization" : "public",
 		"lang" : "erlang"
 	},
-
 
 	{
 		"name": "redirect_url_portal",
@@ -42,6 +55,7 @@
 		"type": "GET",
 		"cache_control" : "no-cache",
 		"expires_minute" : 0,
+		"authorization" : "public",
 		"lang" : "erlang"
 	},
 
@@ -50,13 +64,14 @@
 		"comment": "Portal ErlangMS",
 		"owner": "portal",
 		"version": "1.0.0",
-		"service" : "ems_static_file_service:execute",
+		"service" : "ems_django_service:execute",
 		"url": "/portal/",
 		"use_re" : true,
 		"path" : "{{ portal_api_management }}",
 		"type": "GET",
 		"cache_control" : "no-cache",
 		"expires_minute" : 0,
+		"authorization" : "public",
 		"lang" : "erlang"
 	}
 ]
