@@ -10,8 +10,6 @@
   "login": "grant_type=password&username=",
   "password": "&password=",
   "body_user" : "",
-  "protocol":"http",
-  "port":"2301",
   "find_user_client": "/authorize/",
   "grant_type": "authorization_code",
   "port_server":"2301",
