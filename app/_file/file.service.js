@@ -22,7 +22,9 @@ var FileService = (function () {
         return this.http.get('/portal/config.json')
             .map(function (resultado) {
             var result = resultado.json();
-            localStorage.setItem('externalFile', (result.protocol + '://' + window.location.hostname + ':' + result.port + '/portal/config.json'));
+            var location = window.location.href.split(':');
+            var port = location[2].split('/');
+            localStorage.setItem('externalFile', (window.location.protocol + '//' + window.location.hostname + ':' + port[0] + '/portal/config.json'));
             _this.redirectService.startInitVerifySessionToken();
             return true;
         });

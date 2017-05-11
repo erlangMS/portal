@@ -16,7 +16,9 @@ export class FileService {
     return this.http.get('/portal/config.json')
       .map((resultado) => {
         let result = resultado.json();
-        localStorage.setItem('externalFile',(result.protocol+'://'+window.location.hostname+':'+result.port+'/portal/config.json'));
+        let location  = window.location.href.split(':');
+        let port = location[2].split('/')
+        localStorage.setItem('externalFile',(window.location.protocol+'//'+window.location.hostname+':'+port[0]+'/portal/config.json'));
         this.redirectService.startInitVerifySessionToken();
         return true;
       });
