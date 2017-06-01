@@ -39,7 +39,7 @@
     "jquery" : "^3.1.1",
     "jquery.maskedinput": "^1.4.1",
     "tether" : "^1.4.0",
-    "seguranca": "^1.2.21"
+    "seguranca": "^2.0.0"
   },
   "devDependencies": {
     "concurrently": "^3.1.0",
