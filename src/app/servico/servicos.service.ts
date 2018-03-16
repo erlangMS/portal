@@ -52,12 +52,7 @@ export class ServicosService extends ServiceUtil {
 
         filterUrl += "}"
 
-        let pageUrl; 
-        if(paginator){
-           pageUrl = this.pagerComponent.formatarUrl(this.url, filterUrl, 1000, 0);
-        } else {
-            pageUrl = this.url;
-        }
+        let pageUrl = this.pagerComponent.formatarUrl(this.url, filterUrl, 1000, 1);
 
         return this.http.get(pageUrl).map(response => {
             this.pagerComponent.allItems = response.json();
