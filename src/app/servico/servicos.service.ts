@@ -17,32 +17,32 @@ export class ServicosService extends ServiceUtil {
         let paginator:boolean = false;
         
         if(filter.name){
-            filterUrl += "name:\"" + filter.name + "\",";
+            filterUrl += "\"name\":\"" + filter.name + "\",";
             paginator = true;
         }
 
         if(filter.owner){
-            filterUrl += "owner:\""+filter.owner+"\",";
+            filterUrl += "\"owner\":\""+filter.owner+"\",";
             paginator = true;
         }
         
         if(filter.url){
-            filterUrl += "url:\""+filter.url+"\",";
+            filterUrl += "\"url\":\""+filter.url+"\",";
             paginator = true;
         }
 
         if(filter.type){
-            filterUrl += "type:\""+filter.type+"\",";
+            filterUrl += "\"type\":\""+filter.type+"\",";
             paginator = true;
         }
 
         if(filter.service){
-            filterUrl += "service:\""+filter.service+"\",";
+            filterUrl += "\"service\":\""+filter.service+"\",";
             paginator = true;
         }
 
         if(filter.lang){
-            filterUrl += "lang:\""+filter.lang+"\",";
+            filterUrl += "\"lang\":\""+filter.lang+"\",";
             paginator = true;
         }
 
