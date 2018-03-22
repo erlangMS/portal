@@ -1,0 +1,97 @@
+[
+	{
+		"name": "/unb-app/assets/",
+		"comment": "assets unb-app",
+		"owner": "unb-app",
+		"version": "1.0.0",
+		"service" : "ems_static_file_service:execute",
+		"url": "/unb-app/assets/",
+		"use_re" : true,
+		"path" : "{{ unb-app }}",
+		"type": "GET",
+		"cache_control" : "max-age=3600, public",
+		"expires_minute" : 60,
+		"lang" : "erlang",
+		"authorization" : "public"
+	},
+
+	{
+		"name": "/unb-app/images",
+		"comment": "image static files unb-app",
+		"owner": "unb-app",
+		"version": "1.0.0",
+		"service" : "ems_static_file_service:execute",
+		"url": "/unb-app/app/.*/img/",
+		"use_re" : true,
+		"path" : "{{ unb-app }}",
+		"type": "GET",
+		"cache_control" : "max-age=86400, public",
+		"expires_minute" : 1440,
+		"lang" : "erlang",
+		"authorization" : "public"
+	},
+
+	{
+		"name": "redirect_unb-app",
+		"comment": "Redirect url /unb-app to /unb-app/index.html",
+		"owner": "unb-app",
+		"version": "1.0.0",
+		"service" : "ems_redirect_url_service:execute",
+		"url": "/unb-app",
+		"redirect_url" : "/unb-app/index.html",
+		"path" : "{{ unb-app }}",
+		"type": "GET",
+		"cache_control" : "max-age=3600, public",
+		"expires_minute" : 60,
+		"lang" : "erlang",
+		"authorization" : "public"
+	},
+
+	{
+		"name": "/unb-app/main.bundle.js",
+		"comment": "main.bundle",
+		"owner": "unb-app",
+		"version": "1.0.0",
+		"service" : "ems_static_file_service:execute",
+		"url": "/unb-app/main.bundle.js",
+		"use_re" : false,
+		"path" : "{{ unb-app }}",
+		"type": "GET",
+		"cache_control" : "max-age=3600, public",
+		"expires_minute" : 60,
+		"lang" : "erlang",
+		"authorization" : "public"
+	},
+
+	{
+		"name": "/unb-app/polyfills.bundle.js",
+		"comment": "polyfills.bundle",
+		"owner": "unb-app",
+		"version": "1.0.0",
+		"service" : "ems_static_file_service:execute",
+		"url": "/unb-app/polyfills.bundle.js",
+		"use_re" : false,
+		"path" : "{{ unb-app }}",
+		"type": "GET",
+		"cache_control" : "max-age=3600, public",
+		"expires_minute" : 60,
+		"lang" : "erlang",
+		"authorization" : "public"
+	},
+
+	{
+		"name": "/unb-app",
+		"comment": "unb-app",
+		"owner": "unb-app",
+		"version": "1.0.0",
+		"service" : "ems_static_file_service:execute",
+		"url": "/unb-app/",
+		"use_re" : true,
+		"path" : "{{ unb-app }}",
+		"type": "GET",
+		"cache_control" : "max-age=31536000, private, no-cache, no-store, must-revalidate",
+		"expires_minute" : 0,
+		"lang" : "erlang",
+		"authorization" : "public"
+	}
+]

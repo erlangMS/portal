@@ -1,0 +1,4 @@
+/* LeftSidebar's private CSS styles */
+.sidebar .user-info {
+  height: 146px !important;
+}
