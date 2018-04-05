@@ -9,8 +9,8 @@
 		"use_re" : true,
 		"path" : "{{ portal }}",
 		"type": "GET",
-		"cache_control" : "max-age=86400, public",
-		"expires_minute" : 1440,
+		"cache_control" : "max-age=3600, public",
+		"expires_minute" : 60,
 		"lang" : "erlang",
 		"authorization" : "public"
 	},
