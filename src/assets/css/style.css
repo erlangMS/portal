@@ -1888,6 +1888,13 @@
   .bg-blue .content .number {
     color: #fff !important; }
 
+.bg-blue-unb {
+  background-color: #004080 !important;
+  color: #fff; }
+  .bg-blue .content .text,
+  .bg-blue .content .number {
+    color: #fff !important; }
+
 .bg-light-blue {
   background-color: #03A9F4 !important;
   color: #fff; }
@@ -3051,7 +3058,7 @@ section.content {
   background-color: #fff;
   position: relative;
   overflow: hidden;
-  margin-bottom: 30px; }
+  /* margin-bottom: 30px; */ }
   .info-box .icon {
     display: inline-block;
     text-align: center;
@@ -7504,11 +7511,14 @@ fieldset[disabled] .form-control {
     white-space: nowrap;
     position: relative;
     border-bottom: 1px solid #e9e9e9;
-    background: url("../images/user-img-background.jpg") no-repeat no-repeat;
-    height: 135px; }
+    /* background: url("../images/user-img-background.jpg") no-repeat no-repeat; */
+    background-color: #003366 !important;
+    height: 145px !important;
+    /* height: 135px; */ }
     .sidebar .user-info .image {
       margin-right: 12px;
-      display: inline-block; }
+      display: inline-block;
+      float: left;}
       .sidebar .user-info .image img {
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
@@ -7519,7 +7529,8 @@ fieldset[disabled] .form-control {
       cursor: default;
       display: block;
       position: relative;
-      top: 25px; }
+      /* top: 25px; */
+      top: 5px; }
       .sidebar .user-info .info-container .name {
         white-space: nowrap;
         -ms-text-overflow: ellipsis;
@@ -8026,4 +8037,3 @@ html.ie11 .dropdown-menu ul.menu li a {
 
 html.ie11 .bs-searchbox .form-control {
   width: 90%; }
-

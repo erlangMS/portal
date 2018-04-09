@@ -1,8 +1,8 @@
-import {Component, ViewChild, AfterViewInit } from '@angular/core';
-import {FileService} from './_file/file.service';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { FileService } from './_file/file.service';
 
-import {NavbarComponent} from "unb-menu-dinamico";
-import {RedirectService, EventEmitterService} from 'seguranca';
+import { NavbarComponent } from "unb-menu-dinamico";
+import { RedirectService, EventEmitterService } from 'seguranca';
 
 @Component({
   selector: 'app-root',
@@ -11,22 +11,20 @@ import {RedirectService, EventEmitterService} from 'seguranca';
 })
 export class AppComponent {
 
-  title:string = "UnbApp";
-
   intervalId:any = null;
 
   constructor (private fileService: FileService, private navBarComponent: NavbarComponent) {
   }
 
   ngOnInit() {
-  //ngOnInit () {
+
     this.fileService.startRedirect()
       .subscribe(result => {
 
       },
       error =>{
          console.log(error);
-    }); 
+    });
 
   }
 

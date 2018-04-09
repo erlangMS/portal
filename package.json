@@ -1,6 +1,6 @@
 {
   "name": "unb-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -24,8 +24,8 @@
     "angular-in-memory-web-api": "~0.5.4",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
-    "seguranca": ">=6.1.2",
-    "unb-menu-dinamico": ">=2.5.1",
+    "seguranca": "~6.1.5",
+    "unb-menu-dinamico": "~2.5.2",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

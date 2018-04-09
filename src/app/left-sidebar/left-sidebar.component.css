@@ -1,4 +1,5 @@
 /* LeftSidebar's private CSS styles */
 .sidebar .user-info {
-  height: 146px !important;
+  background: #003366 !important;
+  height: 145px !important;
 }

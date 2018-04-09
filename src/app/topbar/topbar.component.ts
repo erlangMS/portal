@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'seguranca';
 
 @Component({
   selector: 'topbar',
@@ -9,7 +10,7 @@ export class TopbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
+
   }
 
 }
