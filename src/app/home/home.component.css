@@ -1,0 +1,7 @@
+/* Homes's private CSS styles */
+@media (max-width: 768px) {
+  .row > .col-12, .row > .col-md-12, .row > .col-sm-12 {
+    padding-right: 1px !important;
+    padding-left: 1px !important;
+  }
+}

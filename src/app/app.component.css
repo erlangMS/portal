@@ -1,5 +1,5 @@
 /* AppComponent's private CSS styles */
-h1 {
+/*h1 {
   font-size: 1.2em;
   color: #999;
   margin-bottom: 0;
@@ -26,4 +26,15 @@ nav a:hover {
 }
 nav a.active {
   color: #039be5;
+}*/
+@media (max-width: 768px) {
+
+  section.content {
+    margin-left: 1px !important;
+  }
+
+  section.content {
+    margin-right: 1px !important;
+  }
+
 }
