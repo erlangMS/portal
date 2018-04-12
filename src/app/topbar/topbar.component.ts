@@ -6,12 +6,16 @@ import { AuthenticationService } from 'seguranca';
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.css']
 })
+
 export class TopbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authenticationService:AuthenticationService) { }
 
   ngOnInit() {
+  }
 
+  logout() {
+    this.authenticationService.logout();
   }
 
 }
