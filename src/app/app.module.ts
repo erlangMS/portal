@@ -16,6 +16,10 @@ import { NavbarService, NavbarComponent } from 'unb-menu-dinamico';
 import { XSRFStrategy, RequestOptions, CookieXSRFStrategy, ResponseOptions, HttpModule } from '@angular/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PagerModule } from './paginator/pager.module';
+import { ServicosModule } from './servico/servicos.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,11 +31,22 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
   ],
   imports: [
     routing,
+    BrowserAnimationsModule,
     BrowserModule,
     HomeModule,
-    HttpModule
+    HttpModule,
+    PagerModule,
+    ServicosModule
   ],
-  providers:    [ FileService, AuthenticationService, AuthGuard, RedirectService, NavbarService, NavbarComponent, LoggerService, CookieService,
+  providers: [
+    FileService,
+    AuthenticationService,
+    AuthGuard,
+    RedirectService,
+    NavbarService,
+    NavbarComponent,
+    LoggerService,
+    CookieService,
     HttpService,
           {
             provide: XSRFStrategy,

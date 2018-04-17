@@ -10,11 +10,11 @@ import { NavbarComponent } from 'unb-menu-dinamico';
 export class FileService  {
 
   constructor(public http: Http, private redirectService: RedirectService, public navBarComponent:NavbarComponent){
-    
+
   }
 
   startRedirect():Observable<boolean> {
-       return this.http.get('/unb-app/barramento')
+       return this.http.get('/portal/barramento')
          .map((resultado) => {
             let dados = resultado.json();
             this.redirectService.startRedirectFromBarramento(dados.base_url)
@@ -22,7 +22,7 @@ export class FileService  {
                 this.navBarComponent.carregarMenuDinamico(function(menu){
                    return true;
                 });
-             });      
+             });
              return true;
          });
 

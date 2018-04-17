@@ -9,6 +9,8 @@ import { AuthenticationService } from 'seguranca';
 
 export class TopbarComponent implements OnInit {
 
+  title:string = "portal";
+
   constructor(private authenticationService:AuthenticationService) { }
 
   ngOnInit() {

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
-  title:string = "UNB-APP";
+  title:string = "portal";
 
   // construtor
   constructor( private router: Router) {
