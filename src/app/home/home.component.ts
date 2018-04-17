@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
-  title:string = "portal";
+  title:string = "portal de serviços";
 
   // construtor
   constructor( private router: Router) {

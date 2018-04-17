@@ -9,7 +9,7 @@ import { AuthenticationService } from 'seguranca';
 
 export class TopbarComponent implements OnInit {
 
-  title:string = "portal";
+  title:string = "portal de serviços";
 
   constructor(private authenticationService:AuthenticationService) { }
 

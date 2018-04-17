@@ -4,11 +4,16 @@
     </mat-card-title>
     <mat-card-content>
         <form id="filtroDiploma" ng-submit="buscarDiplomas()" ng-controller="DiplomaListComponent">
-            
+
             <div class="row">
+              <div class="col-md-3">
+                  <mat-form-field class="full-width">
+                      <input matInput  placeholder="Id" name="Id" [(ngModel)]="filtro.rowid">
+                  </mat-form-field>
+              </div>
                 <div class="col-md-3">
                     <mat-form-field class="full-width">
-                        <input matInput  placeholder="Nome" name="Nome" [(ngModel)]="filtro.name">   
+                        <input matInput  placeholder="Nome" name="Nome" [(ngModel)]="filtro.name">
                     </mat-form-field>
                 </div>
                 <div class="col-md-3">
@@ -25,16 +30,13 @@
                     <mat-form-field  class="full-width">
                         <input matInput placeholder="Tipo" name="Tipo" [(ngModel)]="filtro.type">
                     </mat-form-field>
-                </div>     
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
+                </div>
+                <div class="col-md-3">
                     <mat-form-field  class="full-width">
                         <input matInput placeholder="Serviço" name="Serviço" [(ngModel)]="filtro.service">
                     </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <mat-form-field  class="full-width">
                         <input matInput placeholder="Linguagem" name="Linguagem" [(ngModel)]="filtro.lang">
                     </mat-form-field>
@@ -42,7 +44,7 @@
             </div>
 
             <button mat-raised-button color="primary" (click)="buscarServicos()">
-                <i class="material-icons">search</i>Buscar
+                <i class="material-icons">search</i> Buscar
             </button>
         </form>
     </mat-card-content>
@@ -54,7 +56,7 @@
         <h2>Lista de Serviços</h2>
     </mat-card-header>
     <mat-card-content>
-        <mat-table #table [dataSource]="servicosService.pagerComponent.pagedItems">
+        <mat-table #table [dataSource]="servicoService.pagerComponent.pagedItems">
             <ng-container matColumnDef="Nome">
                 <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
@@ -86,9 +88,9 @@
             </ng-container>
 
             <ng-container matColumnDef="Visualizar">
-                <mat-header-cell *matHeaderCellDef>Pré-Vizualizar</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Pré-Visualizar</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <button mat-icon-button	color="primary" (click)=preVisualizarDiploma(row)>
+                    <button mat-icon-button	color="primary" (click)=preVisualizarServico(row)>
                         <i class="material-icons">launch</i>
                     </button>
                 </mat-cell>
@@ -97,8 +99,8 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
-        
-        <mat-paginator  [length]="servicosService.pagerComponent.length" pageSize = "10"
+
+        <mat-paginator [length]="servicoService.pagerComponent.length" pageSize = "10"
                         [pageSizeOptions]="pageSizeOptions" (page)="paginar($event)">
         </mat-paginator>
     </mat-card-content>

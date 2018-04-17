@@ -18,7 +18,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagerModule } from './paginator/pager.module';
-import { ServicosModule } from './servico/servicos.module';
+import { ServicoModule } from './servico/servico.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { ServicosModule } from './servico/servicos.module';
     HomeModule,
     HttpModule,
     PagerModule,
-    ServicosModule
+    ServicoModule
   ],
   providers: [
     FileService,

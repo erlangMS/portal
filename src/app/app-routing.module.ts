@@ -8,7 +8,7 @@ export const routes: Routes = [
   },
   {
     "path":  "servicoslist",
-    "loadChildren" : "./servico/servicos.module#ServicosModule",
+    "loadChildren" : "./servico/servico.module#ServicoModule",
   },
   {
     "path": "" ,
