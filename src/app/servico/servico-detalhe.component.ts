@@ -48,7 +48,6 @@ export class ServicoDetalheComponent implements OnInit {
     this.servicoService.executar(url).subscribe(
       response => {
         this.response = response;
-        console.log(response);
       }
     );
   }

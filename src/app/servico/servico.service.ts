@@ -77,14 +77,12 @@ export class ServicoService extends ServiceUtil {
       filter = new Servico;
       filter.rowid = rowid;
       return this.paginar(filter).map((response) => {
-          console.log(response[0]);
           return response[0]
       }).catch(this.handleError);
     }
 
     executar(url : string) : Observable<any> {
       return this.http.get(url).map((response) => {
-          console.log(response);
           return response
         }).catch(this.handleError);
     }
