@@ -82,4 +82,11 @@ export class ServicoService extends ServiceUtil {
       }).catch(this.handleError);
     }
 
+    executar(url : string) : Observable<any> {
+      return this.http.get(url).map((response) => {
+          console.log(response);
+          return response
+        }).catch(this.handleError);
+    }
+
 }

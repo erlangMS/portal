@@ -52,9 +52,9 @@
 
 <br/>
 <mat-card *ngIf="!(isLoading | async) && (lista | async)?.length > 0">
-    <mat-card-header>
+    <mat-card-title>
         <h2>Lista de Serviços</h2>
-    </mat-card-header>
+    </mat-card-title>
     <mat-card-content>
         <mat-table #table [dataSource]="servicoService.pagerComponent.pagedItems">
             <ng-container matColumnDef="Nome">

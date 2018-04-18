@@ -8,13 +8,13 @@ import { ServicoDetalheComponent } from './servico-detalhe.component';
     imports: [
         RouterModule.forChild([
             {
-                path: 'servicolista',
+                path: 'servicos',
                 component: ServicoListaComponent,
                 canActivate: [AuthGuard],
-                data: { nome: '/servicolista' }
+                data: { nome: '/servicos' }
             },
             {
-                path: 'servicodetalhe/:id',
+                path: 'servico/:id',
                 component: ServicoDetalheComponent
             }
         ])

@@ -74,7 +74,7 @@ export class ServicoListaComponent implements OnInit {
 
     preVisualizarServico(servico:Servico) {
         let id = servico.rowid;
-        this.router.navigate(['/servicodetalhe', id]);
+        this.router.navigate(['/servico', id]);
     }
 
     erro(erro: string){
