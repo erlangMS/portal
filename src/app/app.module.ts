@@ -1,22 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { XSRFStrategy, RequestOptions, CookieXSRFStrategy, ResponseOptions, HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { routing } from './app-routing.module';
 
-import { LeftSidebarComponent } from './left-sidebar/left-sidebar.component';
-import { RightSidebarComponent } from './right-sidebar/right-sidebar.component';
-import { TopbarComponent } from './topbar/topbar.component';
 import { FileService } from './_file/file.service';
-
 import { HomeModule }  from './home/home.module';
+
+import { LeftSidebarComponent } from './template/left-sidebar/left-sidebar.component';
+import { RightSidebarComponent } from './template/right-sidebar/right-sidebar.component';
+import { TopbarComponent } from './template/topbar/topbar.component';
 
 import { AuthenticationService, AuthGuard, RedirectService, LoggerService, CookieService, HttpService, DefaultHeaders, DefaultResponse, NavigationComponent } from 'seguranca';
 import { NavbarService, NavbarComponent } from 'unb-menu-dinamico';
-import { XSRFStrategy, RequestOptions, CookieXSRFStrategy, ResponseOptions, HttpModule } from '@angular/http';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagerModule } from './paginator/pager.module';
 import { ServicoModule } from './servico/servico.module';
 

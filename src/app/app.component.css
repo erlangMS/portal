@@ -6,4 +6,8 @@
   section.content {
     margin-right: 1px !important;
   }
+  .row > .col-12, .row > .col-md-12, .row > .col-sm-12 {
+    padding-right: 1px !important;
+    padding-left: 1px !important;
+  }
 }

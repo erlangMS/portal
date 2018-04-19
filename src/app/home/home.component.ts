@@ -7,9 +7,10 @@ import { Router } from '@angular/router';
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent {
 
-  title:string = "portal de serviços";
+  title:string = "ems-bus service manager";
 
   // construtor
   constructor( private router: Router) {
