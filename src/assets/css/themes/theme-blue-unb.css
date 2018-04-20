@@ -1,0 +1,44 @@
+.theme-blue-unb .navbar {
+   background-color: #004080; }
+ 
+ .theme-blue-unb .navbar-brand {
+   color: #fff; }
+   .theme-blue-unb .navbar-brand:hover {
+     color: #fff; }
+   .theme-blue-unb .navbar-brand:active {
+     color: #fff; }
+   .theme-blue-unb .navbar-brand:focus {
+     color: #fff; }
+ 
+ .theme-blue-unb .nav > li > a {
+   color: #fff; }
+   .theme-blue-unb .nav > li > a:hover {
+     background-color: transparent; }
+   .theme-blue-unb .nav > li > a:focus {
+     background-color: transparent; }
+ 
+ .theme-blue-unb .nav .open > a {
+   background-color: transparent; }
+   .theme-blue-unb .nav .open > a:hover {
+     background-color: transparent; }
+   .theme-blue-unb .nav .open > a:focus {
+     background-color: transparent; }
+ 
+ .theme-blue-unb .bars {
+   color: #fff; }
+ 
+ .theme-blue-unb .sidebar .menu .list li.active {
+   background-color: transparent; }
+   .theme-blue-unb .sidebar .menu .list li.active > :first-child i, .theme-blue-unb .sidebar .menu .list li.active > :first-child span {
+     color: #004080; }
+ 
+ .theme-blue-unb .sidebar .menu .list .toggled {
+   background-color: transparent; }
+ 
+ .theme-blue-unb .sidebar .menu .list .ml-menu {
+   background-color: transparent; }
+ 
+ .theme-blue-unb .sidebar .legal {
+   background-color: #fff; }
+   .theme-blue-unb .sidebar .legal .copyright a {
+     color: #004080 !important; }

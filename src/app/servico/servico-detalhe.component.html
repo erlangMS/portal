@@ -1,0 +1,43 @@
+<mat-card *ngIf="servico">
+    <mat-card-title>
+        <h2>Serviço</h2>
+    </mat-card-title>
+    <mat-card-content>
+      <table class="table table-hover dashboard-task-infos">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>NOME</th>
+            <th>URL</th>
+            <th>EXECUTAR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{servico.rowid}}</td>
+            <td><span class="label bg-green">{{servico.name | uppercase}}</span></td>
+            <td>{{servico.url}}</td>
+            <td>
+              <button mat-icon-button	color="primary" (click)=executar(servico.url)>
+                  <i class="material-icons">launch</i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="voltar()">
+        Voltar
+      </button>
+    </mat-card-content>
+</mat-card>
+
+<br/>
+
+<mat-card *ngIf="response">
+    <mat-card-title>
+        <h2>Status</h2>
+    </mat-card-title>
+    <mat-card-content>
+      <pre>{{ response.text() }}</pre>
+    </mat-card-content>
+</mat-card>
