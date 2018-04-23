@@ -1,27 +1,13 @@
-<<<<<<< HEAD
-# @AngularClass
-# http://editorconfig.org
-
-=======
 # Editor configuration, see http://editorconfig.org
->>>>>>> origin/portal_servicos_angular_cli
 root = true
 
 [*]
 charset = utf-8
 indent_style = space
 indent_size = 2
-<<<<<<< HEAD
-end_of_line = lf
-=======
->>>>>>> origin/portal_servicos_angular_cli
 insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.md]
-<<<<<<< HEAD
-insert_final_newline = false
-=======
 max_line_length = off
->>>>>>> origin/portal_servicos_angular_cli
 trim_trailing_whitespace = false
