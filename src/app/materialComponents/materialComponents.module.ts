@@ -4,7 +4,8 @@ import {    MatButtonModule, MatCheckboxModule, MatCardModule,
             MatSlideToggleModule,MatDividerModule,MatIconModule,
             MatListModule,MatGridListModule,MatTableModule,
             MatPaginatorModule,MatDialogModule, MatTabsModule, MatSnackBarModule,
-            MatProgressSpinnerModule } from '@angular/material';
+            MatProgressSpinnerModule, 
+            MatExpansionModule} from '@angular/material';
 
 @NgModule({
     imports: [
@@ -12,14 +13,14 @@ import {    MatButtonModule, MatCheckboxModule, MatCardModule,
         MatInputModule,MatSelectModule, MatListModule,
         MatSliderModule,MatSlideToggleModule,MatDividerModule,MatIconModule,
         MatGridListModule, MatTableModule, MatPaginatorModule,MatDialogModule, 
-        MatTabsModule, MatSnackBarModule, MatProgressSpinnerModule,
+        MatTabsModule, MatSnackBarModule, MatProgressSpinnerModule,MatExpansionModule
     ],
     exports: [
         MatButtonModule, MatCheckboxModule, MatCardModule, 
         MatInputModule,MatSelectModule, MatListModule,
         MatSliderModule,MatSlideToggleModule,MatDividerModule,MatIconModule,
         MatGridListModule, MatTableModule, MatPaginatorModule,MatDialogModule, 
-        MatTabsModule, MatSnackBarModule, MatProgressSpinnerModule,
+        MatTabsModule, MatSnackBarModule, MatProgressSpinnerModule,MatExpansionModule
     ],
     declarations: [],
     providers: [],

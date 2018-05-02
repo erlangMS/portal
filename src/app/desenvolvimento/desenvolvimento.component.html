@@ -1,0 +1,35 @@
+<div style="text-align:center;">
+  <h1>Sistemas em Desenvolvimento</h1>
+  <h4>CPD-UnB</h4>
+</div>
+
+<mat-card>
+    <mat-card-content>
+      <mat-input-container class="full-width">
+          <input matInput formControlName="formControlName"
+                 type="text" placeholder="Buscar" >
+          <mat-icon matSuffix><i matSuffix class="material-icons">search</i></mat-icon>
+      </mat-input-container>
+    </mat-card-content>
+</mat-card>
+<br/>
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel *ngFor="let sistema of sistemas" hideToggle="false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <b>{{sistema.sigla}}</b>
+      </mat-panel-title>
+      <mat-panel-description style="text-align: right;">
+        {{sistema.nome}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    {{sistema.descricao}}
+    <mat-action-row>
+      <button mat-button (click)="redirecionar(sistema)">
+        <i class="material-icons">send</i>
+        Acessar
+      </button>
+    </mat-action-row>
+
+  </mat-expansion-panel>
+</mat-accordion>

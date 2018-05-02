@@ -11,6 +11,10 @@ export const routes: Routes = [
     "loadChildren" : "./servico/servico.module#ServicoModule",
   },
   {
+    "path":  "desenvolvimento",
+    "loadChildren" : "./desenvolvimento/desenvolvimento.module#DesenvolvimentoModule",
+  },
+  {
     "path": "" ,
     "redirectTo": "home",
     "pathMatch": "full"
