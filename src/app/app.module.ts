@@ -18,7 +18,8 @@ import { AuthenticationService, AuthGuard, RedirectService, LoggerService, Cooki
 import { NavbarService, NavbarComponent } from 'unb-menu-dinamico';
 import { PagerModule } from './paginator/pager.module';
 import { ServicoModule } from './servico/servico.module';
-import { DesenvolvimentoModule } from './desenvolvimento/desenvolvimento.module';
+import { ClientesModule } from './clientes/clientes.module';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { DesenvolvimentoModule } from './desenvolvimento/desenvolvimento.module'
     HttpModule,
     PagerModule,
     ServicoModule,
-    DesenvolvimentoModule,
+    ClientesModule,
   ],
   providers: [
     FileService,

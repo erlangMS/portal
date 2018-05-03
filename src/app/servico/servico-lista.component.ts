@@ -5,15 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { PagerComponent } from '../paginator/pager.component';
 import { NgForm, FormControl } from '@angular/forms'
-
-import { Nivel } from '../nivel/nivel';
-import { SignRoles } from '../c3/signRoles';
-import { Template } from '../c3/template';
-
-import { NivelService } from '../nivel/nivel.service';
-import { SignRolesService } from '../c3/signRoles.service';
-import { TemplateService } from '../c3/template.service';
-
 import { MatPaginator, PageEvent } from '@angular/material';
 import { MatDialog, MatDialogRef, MatSnackBar , MAT_DIALOG_DATA } from '@angular/material';
 import { ServicoService } from './servico.service';
@@ -28,17 +19,17 @@ export class ServicoListaComponent implements OnInit {
 
     private isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    private idTemplate: number;
-    private nameSignatarios: string[];
     private pageEventMostrar: PageEvent;
     private lista: Observable<Servico[]>;
     private filtro: Servico = new Servico();
     private servicoArray: Servico[];
 
+    private tipos: string[];
+    private linguagens: string[];
+    private donos: string[];
+
     displayedColumns = ['Nome', 'Dono', 'Url', 'Tipo', 'Serviço', 'Linguagem', 'Visualizar'];
     pageSizeOptions = [5, 10, 25, 100];
-
-    private batchName: string;
 
     constructor(
         private router: Router,
@@ -51,17 +42,40 @@ export class ServicoListaComponent implements OnInit {
     }
 
     carregarServicos(){
-        this.lista = this.servicoService.paginar(this.filtro);
-        this.isLoading.next(true);
+        this.lista = this.servicoService.paginar(this.filtro)
+        this.isLoading.next(true)
         this.lista.subscribe(
             res => {
-                this.servicoArray = res;
-                this.servicoService.pagerComponent.setPage(1);
-                this.servicoService.pagerComponent.length = res.length;
+                this.servicoArray = res
+                this.servicoService.pagerComponent.setPage(1)
+                this.servicoService.pagerComponent.length = res.length
+                
+                if(!this.tipos){
+                    this.tipos = this.montarListaStringsUnicas(this.servicoArray.map(servico => servico.type));
+                }
+
+                if(!this.linguagens){
+                    this.linguagens = this.montarListaStringsUnicas(this.servicoArray.map(servico => servico.lang));
+                }
+
+                if(!this.donos){
+                    this.donos = this.montarListaStringsUnicas(this.servicoArray.map(servico => servico.owner));
+                }
+                
             },
             error => this.erro(error),
-            () => this.isLoading.next(false),
+            () => {
+                this.isLoading.next(false)
+            },
         );
+    }
+
+    montarListaStringsUnicas(listaAlvo: string[]){
+        return listaAlvo.filter(
+            function(tipo, i, array){
+                return array.indexOf(tipo) === i
+            }
+        )
     }
 
     buscarServicos(){

@@ -3,50 +3,58 @@
         <h2>Buscar Serviços</h2>
     </mat-card-title>
     <mat-card-content>
-        <form id="filtroDiploma" ng-submit="buscarDiplomas()" ng-controller="DiplomaListComponent">
 
-            <div class="row">
-              <div class="col-md-3">
-                  <mat-form-field class="full-width">
-                      <input matInput  placeholder="Id" name="Id" [(ngModel)]="filtro.rowid">
-                  </mat-form-field>
-              </div>
-                <div class="col-md-3">
-                    <mat-form-field class="full-width">
-                        <input matInput  placeholder="Nome" name="Nome" [(ngModel)]="filtro.name">
-                    </mat-form-field>
-                </div>
-                <div class="col-md-3">
-                    <mat-form-field  class="full-width">
-                        <input matInput placeholder="Dono" name="Dono" [(ngModel)]="filtro.owner">
-                    </mat-form-field>
-                </div>
-                <div class="col-md-3">
-                    <mat-form-field  class="full-width">
-                        <input matInput placeholder="Url" name="Url" [(ngModel)]="filtro.url">
-                    </mat-form-field>
-                </div>
-                <div class="col-md-3">
-                    <mat-form-field  class="full-width">
-                        <input matInput placeholder="Tipo" name="Tipo" [(ngModel)]="filtro.type">
-                    </mat-form-field>
-                </div>
-                <div class="col-md-3">
-                    <mat-form-field  class="full-width">
-                        <input matInput placeholder="Serviço" name="Serviço" [(ngModel)]="filtro.service">
-                    </mat-form-field>
-                </div>
-                <div class="col-md-3">
-                    <mat-form-field  class="full-width">
-                        <input matInput placeholder="Linguagem" name="Linguagem" [(ngModel)]="filtro.lang">
-                    </mat-form-field>
-                </div>
+        <div class="row">
+            <div class="col-md-3">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Id" name="Id" [(ngModel)]="filtro.rowid">
+                </mat-form-field>
             </div>
+            <div class="col-md-3">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Nome" name="Nome" [(ngModel)]="filtro.name">
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="full-width">
+                    <mat-select [(ngModel)]="filtro.owner" placeholder="Dono">
+                            <mat-option [value]=null></mat-option>
+                            <mat-option *ngFor="let dono of donos" [value]=dono>{{dono}}</mat-option>
+                        </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Url" name="Url" [(ngModel)]="filtro.url">
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
 
-            <button mat-raised-button color="primary" (click)="buscarServicos()">
-                <i class="material-icons">search</i> Buscar
-            </button>
-        </form>
+                <mat-form-field class="full-width">
+                    <mat-select [(ngModel)]="filtro.type" placeholder="Tipo">
+                        <mat-option [value]=null></mat-option>
+                        <mat-option *ngFor="let tipo of tipos" [value]=tipo>{{tipo}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Serviço" name="Serviço" [(ngModel)]="filtro.service">
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="full-width">
+                    <mat-select [(ngModel)]="filtro.lang" placeholder="Linguagem">
+                        <mat-option [value]=null></mat-option>
+                        <mat-option *ngFor="let ling of linguagens" [value]=ling>{{ling}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <button mat-raised-button color="primary" (click)="buscarServicos()">
+            <i class="material-icons">search</i> Buscar
+        </button>
     </mat-card-content>
 </mat-card>
 
@@ -90,7 +98,7 @@
             <ng-container matColumnDef="Visualizar">
                 <mat-header-cell *matHeaderCellDef>Pré-Visualizar</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <button mat-icon-button	color="primary" (click)=preVisualizarServico(row)>
+                    <button mat-icon-button color="primary" (click)=preVisualizarServico(row)>
                         <i class="material-icons">launch</i>
                     </button>
                 </mat-cell>
@@ -100,8 +108,7 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
 
-        <mat-paginator [length]="servicoService.pagerComponent.length" pageSize = "10"
-                        [pageSizeOptions]="pageSizeOptions" (page)="paginar($event)">
+        <mat-paginator [length]="servicoService.pagerComponent.length" pageSize="10" [pageSizeOptions]="pageSizeOptions" (page)="paginar($event)">
         </mat-paginator>
     </mat-card-content>
 </mat-card>

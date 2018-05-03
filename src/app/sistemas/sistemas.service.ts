@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from 'seguranca';
-import { ServiceUtil } from './util/service.util';
-import { PagerComponent } from './paginator/pager.component';
+import { Sistema } from './sistema';
+import { PagerComponent } from '../paginator/pager.component';
+import { ServiceUtil } from '../util/service.util';
 
 @Injectable()
 export class SistemasService extends ServiceUtil {
@@ -12,7 +13,7 @@ export class SistemasService extends ServiceUtil {
   findByIdList(ids: number []){
     return this.http.get(this.url + '?filter={id__in:' + JSON.stringify(ids) + '}').map(
       res => {
-        return <any[]> res.json();
+        return <Sistema[]> res.json();
       }
     )
   }
