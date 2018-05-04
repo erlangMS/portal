@@ -28,7 +28,7 @@
     "angular-in-memory-web-api": "~0.5.4",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
-    "seguranca": "^6.2.3",
+    "seguranca": "^6.2.4",
     "unb-menu-dinamico": "~2.5.2",
     "zone.js": "^0.8.19"
   },
