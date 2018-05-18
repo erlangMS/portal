@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'seguranca';
+import { AuthenticationService } from 'ems-oauth2-client';
 
 @Component({
   selector: 'topbar',

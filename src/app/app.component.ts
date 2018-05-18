@@ -2,7 +2,7 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { FileService } from './_file/file.service';
 
 import { NavbarComponent } from "unb-menu-dinamico";
-import { RedirectService, EventEmitterService } from 'seguranca';
+import { RedirectService, EventEmitterService } from 'ems-oauth2-client';
 
 @Component({
   selector: 'app-root',

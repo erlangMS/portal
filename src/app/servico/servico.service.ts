@@ -4,7 +4,7 @@ import { ServiceUtil } from '../util/service.util';
 import { PagerComponent } from '../paginator/pager.component';
 import { Observable } from 'rxjs/Observable';
 import { Servico } from './servico';
-import { HttpService } from 'seguranca';
+import { HttpService } from 'ems-oauth2-client';
 
 @Injectable()
 export class ServicoService extends ServiceUtil {
@@ -64,8 +64,8 @@ export class ServicoService extends ServiceUtil {
         let pageUrl = this.pagerComponent.formatarUrl(this.url, filterUrl, 1000, 1);
 
         return this.http.get(pageUrl).map(response => {
-            this.pagerComponent.allItems = response.json();
-            return <Servico[]> response.json();
+            this.pagerComponent.allItems = response;
+            return <Servico[]> response;
         }).catch(this.handleError)
         .publishReplay(1)
         .refCount();

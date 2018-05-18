@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from 'seguranca';
+import { HttpService } from 'ems-oauth2-client';
 import { Client } from './client';
 import { PagerComponent } from '../paginator/pager.component';
 import { ServiceUtil } from '../util/service.util';
@@ -15,7 +15,7 @@ export class ClientsService extends ServiceUtil {
   findAllActive(){
     return this.http.get(this.url).map(
       res => {
-        return <Client[]> res.json();
+        return <Client[]> res;
       }
     ).publishReplay(1)
     .refCount();

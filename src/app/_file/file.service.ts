@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import {RedirectService, DefaultHeaders} from 'seguranca';
+import {RedirectService} from 'ems-oauth2-client';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { NavbarComponent } from 'unb-menu-dinamico';

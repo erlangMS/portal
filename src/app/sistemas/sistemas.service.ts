@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from 'seguranca';
+import { HttpService } from 'ems-oauth2-client';
 import { Sistema } from './sistema';
 import { PagerComponent } from '../paginator/pager.component';
 import { ServiceUtil } from '../util/service.util';
@@ -13,7 +13,7 @@ export class SistemasService extends ServiceUtil {
   findByIdList(ids: number []){
     return this.http.get(this.url + '?filter={id__in:' + JSON.stringify(ids) + '}').map(
       res => {
-        return <Sistema[]> res.json();
+        return <Sistema[]> res;
       }
     )
   }
