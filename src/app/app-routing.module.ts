@@ -7,10 +7,6 @@ export const routes: Routes = [
     "loadChildren" : "./home/home.module#HomeModule"
   },
   {
-    "path":  "servicos",
-    "loadChildren" : "./servico/servico.module#ServicoModule",
-  },
-  {
     "path":  "clientes",
     "loadChildren" : "./clientes/clientes.module#ClientesModule",
   },

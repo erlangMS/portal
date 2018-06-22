@@ -14,7 +14,7 @@ import { LeftSidebarComponent } from './template/left-sidebar/left-sidebar.compo
 import { RightSidebarComponent } from './template/right-sidebar/right-sidebar.component';
 import { TopbarComponent } from './template/topbar/topbar.component';
 
-import { AuthenticationService, AuthGuard, RedirectService, LoggerService, CookieService, HttpService, AuthInterceptor, ReponseInterceptor, NavigationComponent } from 'ems-oauth2-client';
+import { AuthenticationService, AuthGuard, RedirectService, LoggerService, CookieService, HttpService, AuthInterceptor, ReponseInterceptor, NavigationComponent, ResourceOwner } from 'ems-oauth2-client';
 import { NavbarService, NavbarComponent } from 'unb-menu-dinamico';
 import { PagerModule } from './paginator/pager.module';
 import { ServicoModule } from './servico/servico.module';
@@ -52,6 +52,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
     LoggerService,
     CookieService,
     HttpService,
+    ResourceOwner,
           {
             provide: XSRFStrategy,
             useValue: new CookieXSRFStrategy('csrftoken', 'X-CSRF-Token')

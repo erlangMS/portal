@@ -14,7 +14,7 @@ import { ServicoDetalheComponent } from './servico-detalhe.component';
                 data: { nome: '/servicos' }
             },
             {
-                path: 'servico/:id',
+                path: 'servicos/:id',
                 component: ServicoDetalheComponent
             }
         ])

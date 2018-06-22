@@ -9,6 +9,7 @@ import { MatPaginator, PageEvent } from '@angular/material';
 import { MatDialog, MatDialogRef, MatSnackBar , MAT_DIALOG_DATA } from '@angular/material';
 import { ServicoService } from './servico.service';
 import { Servico } from './servico';
+import { AuthGuard, ResourceOwner } from 'ems-oauth2-client';
 
 @Component({
     selector: 'servico-lista',
@@ -39,6 +40,7 @@ export class ServicoListaComponent implements OnInit {
 
     ngOnInit() {
         this.carregarServicos();
+     
     }
 
     carregarServicos(){

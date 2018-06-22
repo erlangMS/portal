@@ -1,8 +1,11 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FileService } from './_file/file.service';
 
 import { NavbarComponent } from "unb-menu-dinamico";
-import { RedirectService, EventEmitterService } from 'ems-oauth2-client';
+import {  EventEmitterService, AuthGuard } from 'ems-oauth2-client';
+import { ServicoListaComponent } from './servico/servico-lista.component';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -13,7 +16,14 @@ export class AppComponent {
 
   intervalId:any = null;
 
-  constructor (private fileService: FileService, private navBarComponent: NavbarComponent) {
+  static route: Router;
+
+  constructor (private fileService: FileService, private navBarComponent: NavbarComponent, public router: Router) {
+            AppComponent.route = this.router;
+  }
+
+  public static getInstanceRouter(): Router{
+    return AppComponent.route;
   }
 
   ngOnInit() {
@@ -39,9 +49,21 @@ export class AppComponent {
 
       EventEmitterService.get('tokenPreenchido').subscribe((preechido:any) => {
               this.navBarComponent.carregarMenuDinamico(function(menu){
-                  return true;
+                let json = JSON.parse(localStorage.getItem('portal'));
+                let recurso:any = json.resource_owner;
+                let listaPermissao:any = recurso.lista_permission;
+
+                for(let i = 0; i < listaPermissao.length; i++){
+                  let url = listaPermissao[i].url.split('/')
+                  AppComponent.getInstanceRouter().config.push({path:url[1], component:ServicoListaComponent, canActivate: [AuthGuard],  
+                                              data: { nome: listaPermissao[i].url }});
+                }
+                return true;
               });
-          })
+
+          })        
 
   }
+
+
 }
