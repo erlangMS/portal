@@ -72,6 +72,18 @@ export class ServicoService extends ServiceUtil {
 
     }
 
+    getServicosServidor(url:string):Observable<Servico[]> {
+        let arrayUrl:any = url.split('/');
+        let servidor: any = arrayUrl[5];
+
+        return this.http.get(url+'?filter=\"{\"owner\":\"'+servidor+'\"}\"')
+        .map(response =>{
+            return <Servico[]> response;
+        }).catch(this.handleError)
+        .publishReplay(1)
+        .refCount();
+    }
+
     getServico(rowid: number): Observable<Servico> {
       let filter : Servico;
       filter = new Servico;

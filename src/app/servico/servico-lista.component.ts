@@ -39,8 +39,25 @@ export class ServicoListaComponent implements OnInit {
     ) {  }
 
     ngOnInit() {
-        this.carregarServicos();
+        let url:string = window.location.href;
+        let arrayUrl:any = url.split('/');
+        let servidor: any = arrayUrl[5]; 
+        this.carregarServicosServidor(servidor);
      
+    }
+
+    carregarServicosServidor(servidor:string) {
+        this.filtro.owner = servidor;
+        this.lista = this.servicoService.paginar(this.filtro)
+        this.isLoading.next(true);
+        this.lista.subscribe(resposta => {
+            this.servicoArray = resposta;
+            this.servicoService.pagerComponent.setPage(1);
+            this.servicoService.pagerComponent.length = resposta.length;
+        },
+        () => {
+            this.isLoading.next(false)
+        })
     }
 
     carregarServicos(){
@@ -49,8 +66,8 @@ export class ServicoListaComponent implements OnInit {
         this.lista.subscribe(
             res => {
                 this.servicoArray = res
-                this.servicoService.pagerComponent.setPage(1)
-                this.servicoService.pagerComponent.length = res.length
+                this.servicoService.pagerComponent.setPage(1);
+                this.servicoService.pagerComponent.length = res.length;
                 
                 if(!this.tipos){
                     this.tipos = this.montarListaStringsUnicas(this.servicoArray.map(servico => servico.type));

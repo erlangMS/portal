@@ -32,6 +32,7 @@ export class ServicoDetalheComponent implements OnInit {
     this.carregarServico();
   }
 
+
   carregarServico() {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.servicoService.getServico(+params.get('id')))

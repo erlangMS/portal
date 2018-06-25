@@ -36,6 +36,20 @@ export class AppComponent {
          console.log(error);
     });
 
+    if(localStorage.getItem('portal')){
+
+        let json = JSON.parse(localStorage.getItem('portal'));
+        let recurso:any = json.resource_owner;
+        let listaPermissao:any = recurso.lista_permission;
+
+        for(let i = 0; i < listaPermissao.length; i++){
+          let url = listaPermissao[i].url.split('/')
+          AppComponent.getInstanceRouter().config.push({path:url[1], component:ServicoListaComponent, canActivate: [AuthGuard],  
+                                      data: { nome: listaPermissao[i].url }});
+        }
+
+    }
+
   }
 
 
