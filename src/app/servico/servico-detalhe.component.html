@@ -38,7 +38,8 @@
         <h2>Status</h2>
     </mat-card-title>
     <mat-card-content>
-      <pre *ngIf="servicoService.isJson">{{ response | json }}</pre>
-      <pre *ngIf="!servicoService.isJson">{{ response }}</pre>
+      <pre *ngIf="servicoService.isJson && !isPdf">{{ response | json }}</pre>
+      <pre *ngIf="!servicoService.isJson && !isPdf">{{ response }}</pre>
+      <div *ngIf="isPdf" [innerHTML]="innerHtml() | safe_html"></div>
     </mat-card-content>
 </mat-card>

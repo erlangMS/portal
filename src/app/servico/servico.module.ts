@@ -6,15 +6,18 @@ import { ServicoDetalheComponent } from './servico-detalhe.component';
 import { ServicoListaComponent } from './servico-lista.component';
 import { ServicoRoutingModule } from './servico.routes';
 import { ServicoService } from './servico.service';
+import { SafeHtmlPipe } from '../util/safe-html.pipe';
 
 @NgModule({
     declarations: [
         ServicoListaComponent,
-        ServicoDetalheComponent
+        ServicoDetalheComponent,
+        SafeHtmlPipe
     ],
     exports: [
         ServicoListaComponent,
-        ServicoDetalheComponent
+        ServicoDetalheComponent,
+        SafeHtmlPipe
     ],
     imports: [
         FormsModule,
@@ -24,7 +27,8 @@ import { ServicoService } from './servico.service';
     ],
     providers: [
         DatePipe,
-        ServicoService
+        ServicoService,
+        SafeHtmlPipe
     ],
     entryComponents: [
         ServicoListaComponent

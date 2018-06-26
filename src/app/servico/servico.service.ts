@@ -110,7 +110,15 @@ export class ServicoService extends ServiceUtil {
             tipoRetorno = 'json';
             this.isJson = true;
         }
-      return this.http.get(url,tipoRetorno)
+
+      let urlTemp = url.split(':');
+      let urlTotal = '';
+      if(urlTemp.length == 1){
+        urlTotal = urlTemp[0];
+      } else {
+          urlTotal = urlTemp[0]+'648';
+      }
+      return this.http.get(urlTotal,tipoRetorno)
       .map(response => {
         AuthInterceptor.keyHeader = '';
         AuthInterceptor.valueHeader = '';
