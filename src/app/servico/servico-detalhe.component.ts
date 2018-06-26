@@ -1,11 +1,10 @@
 import 'rxjs/add/operator/switchMap';
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
 
 import { Servico } from './servico';
 import { ServicoService } from './servico.service';
@@ -45,8 +44,8 @@ export class ServicoDetalheComponent implements OnInit {
     this.location.back();
   }
 
-  executar(url : string) {
-    this.servicoService.executar(url).subscribe(
+  executar(url : string, service: Servico) {
+    this.servicoService.executar(url, service).subscribe(
       response => {
         this.response = response;
       }

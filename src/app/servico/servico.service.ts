@@ -4,14 +4,18 @@ import { ServiceUtil } from '../util/service.util';
 import { PagerComponent } from '../paginator/pager.component';
 import { Observable } from 'rxjs/Observable';
 import { Servico } from './servico';
-import { HttpService } from 'ems-oauth2-client';
+import { HttpService, AuthInterceptor } from 'ems-oauth2-client';
 
 @Injectable()
 export class ServicoService extends ServiceUtil {
 
     private url = '/catalog'
 
-    constructor(private http: HttpService,  public pagerComponent: PagerComponent) {
+    private response_type:string[] = ['json','text'];
+
+    public isJson:boolean = false;
+
+    constructor(private http: HttpService,  public pagerComponent: PagerComponent ) {
       super();
     }
 
@@ -72,6 +76,8 @@ export class ServicoService extends ServiceUtil {
 
     }
 
+
+
     getServicosServidor(url:string):Observable<Servico[]> {
         let arrayUrl:any = url.split('/');
         let servidor: any = arrayUrl[5];
@@ -93,8 +99,24 @@ export class ServicoService extends ServiceUtil {
       }).catch(this.handleError);
     }
 
-    executar(url : string) : Observable<any> {
-      return this.http.get(url).catch(this.handleError);
+    executar(url : string, service: Servico) : Observable<any> {
+        let tipoRetorno:string = '';
+        AuthInterceptor.keyHeader = 'content-type';
+        AuthInterceptor.valueHeader = service.content_type;
+        if(service.content_type == 'text/plain'){
+            tipoRetorno = 'text';
+            this.isJson = false;
+        } else {
+            tipoRetorno = 'json';
+            this.isJson = true;
+        }
+      return this.http.get(url,tipoRetorno)
+      .map(response => {
+        AuthInterceptor.keyHeader = '';
+        AuthInterceptor.valueHeader = '';
+          return response;
+      })
+      .catch(this.handleError);
     }
 
 }

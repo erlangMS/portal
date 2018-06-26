@@ -18,7 +18,7 @@
             <td><span class="label bg-green">{{servico.name | uppercase}}</span></td>
             <td>{{servico.url}}</td>
             <td>
-              <button mat-icon-button	color="primary" (click)=executar(servico.url)>
+              <button mat-icon-button	color="primary" (click)=executar(servico.url,servico)>
                   <i class="material-icons">launch</i>
               </button>
             </td>
@@ -38,6 +38,7 @@
         <h2>Status</h2>
     </mat-card-title>
     <mat-card-content>
-      <pre>{{ response.text() }}</pre>
+      <pre *ngIf="servicoService.isJson">{{ response | json }}</pre>
+      <pre *ngIf="!servicoService.isJson">{{ response }}</pre>
     </mat-card-content>
 </mat-card>
