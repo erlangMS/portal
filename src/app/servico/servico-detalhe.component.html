@@ -35,7 +35,7 @@
 
 <mat-card *ngIf="response">
     <mat-card-title>
-        <h2>Status</h2>
+        <h2>Resultado</h2>
     </mat-card-title>
     <mat-card-content>
       <pre *ngIf="servicoService.isJson && !isPdf">{{ response | json }}</pre>

@@ -14,4 +14,5 @@ export class Servico {
     public content_type: string;
     public authorization: string;
     public async: boolean;
+    public glyphicon: string;
 }

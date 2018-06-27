@@ -29,7 +29,7 @@ export class ServicoListaComponent implements OnInit {
     private linguagens: string[];
     private donos: string[];
 
-    displayedColumns = ['Nome', 'Dono', 'Url', 'Tipo', 'Serviço', 'Linguagem', 'Visualizar'];
+    displayedColumns = ['Imagem', 'Url', 'Tipo', 'Visualizar'];
     pageSizeOptions = [5, 10, 25, 100];
 
     constructor(

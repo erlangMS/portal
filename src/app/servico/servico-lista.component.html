@@ -7,46 +7,14 @@
         <div class="row">
             <div class="col-md-3">
                 <mat-form-field class="full-width">
-                    <input matInput placeholder="Id" name="Id" [(ngModel)]="filtro.rowid">
-                </mat-form-field>
-            </div>
-            <div class="col-md-3">
-                <mat-form-field class="full-width">
-                    <input matInput placeholder="Nome" name="Nome" [(ngModel)]="filtro.name">
-                </mat-form-field>
-            </div>
-            <div class="col-md-3">
-                <mat-form-field class="full-width">
-                    <mat-select [(ngModel)]="filtro.owner" placeholder="Dono">
-                            <mat-option [value]=null></mat-option>
-                            <mat-option *ngFor="let dono of donos" [value]=dono>{{dono}}</mat-option>
-                        </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-md-3">
-                <mat-form-field class="full-width">
                     <input matInput placeholder="Url" name="Url" [(ngModel)]="filtro.url">
                 </mat-form-field>
             </div>
             <div class="col-md-3">
-
                 <mat-form-field class="full-width">
                     <mat-select [(ngModel)]="filtro.type" placeholder="Tipo">
                         <mat-option [value]=null></mat-option>
                         <mat-option *ngFor="let tipo of tipos" [value]=tipo>{{tipo}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-md-3">
-                <mat-form-field class="full-width">
-                    <input matInput placeholder="Serviço" name="Serviço" [(ngModel)]="filtro.service">
-                </mat-form-field>
-            </div>
-            <div class="col-md-3">
-                <mat-form-field class="full-width">
-                    <mat-select [(ngModel)]="filtro.lang" placeholder="Linguagem">
-                        <mat-option [value]=null></mat-option>
-                        <mat-option *ngFor="let ling of linguagens" [value]=ling>{{ling}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -65,14 +33,9 @@
     </mat-card-title>
     <mat-card-content>
         <mat-table #table [dataSource]="servicoService.pagerComponent.pagedItems">
-            <ng-container matColumnDef="Nome">
-                <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="Dono">
-                <mat-header-cell *matHeaderCellDef>Dono</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.owner}} </mat-cell>
+            <ng-container matColumnDef="Imagem">
+                <mat-header-cell *matHeaderCellDef>Imagem</mat-header-cell>
+                <mat-cell *matCellDef="let row"><i class="material-icons">{{row.glyphicon}}</i></mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Url">
@@ -83,16 +46,6 @@
             <ng-container matColumnDef="Tipo">
                 <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.type}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="Serviço">
-                <mat-header-cell *matHeaderCellDef>Serviço</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.service}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="Linguagem">
-                <mat-header-cell *matHeaderCellDef>Linguagem</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.lang}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Visualizar">
