@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ServiceUtil } from '../util/service.util';
 import { PagerComponent } from '../paginator/pager.component';
 import { Observable } from 'rxjs/Observable';

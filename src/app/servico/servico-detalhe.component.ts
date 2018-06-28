@@ -20,7 +20,7 @@ export class ServicoDetalheComponent implements OnInit {
 
   private isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  servico: Servico;
+  public servico: Servico = new Servico();
   response: Response;
 
   public urlPath:any = '';;

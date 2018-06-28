@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import {
     MatSnackBar,
-    MatSnackBarConfig,
-    MatSnackBarHorizontalPosition,
-    MatSnackBarVerticalPosition,
+    MatSnackBarConfig
   } from '@angular/material';
 
 @Component({

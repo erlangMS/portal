@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 import { PagerService } from './pager.service';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'pager',

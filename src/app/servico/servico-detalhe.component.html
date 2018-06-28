@@ -33,7 +33,20 @@
 
 <br/>
 
-<mat-card *ngIf="response">
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel hideToggle="false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <b>Descrição do Serviço</b>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    {{servico.comment}}
+  </mat-expansion-panel>
+</mat-accordion>
+
+<br/>
+
+<mat-card>
     <mat-card-title>
         <h2>Resultado</h2>
     </mat-card-title>

@@ -15,4 +15,5 @@ export class Servico {
     public authorization: string;
     public async: boolean;
     public glyphicon: string;
+    public comment: string;
 }

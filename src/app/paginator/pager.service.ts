@@ -1,6 +1,5 @@
 import { Http }   from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import {PagerComponent} from "./pager.component";
 import { Injectable }       from '@angular/core';
 
 @Injectable()

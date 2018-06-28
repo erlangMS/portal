@@ -1,15 +1,12 @@
-import { Component, Input, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { PagerComponent } from '../paginator/pager.component';
-import { NgForm, FormControl } from '@angular/forms'
-import { MatPaginator, PageEvent } from '@angular/material';
-import { MatDialog, MatDialogRef, MatSnackBar , MAT_DIALOG_DATA } from '@angular/material';
+import { PageEvent } from '@angular/material';
+import { MatSnackBar  } from '@angular/material';
 import { ServicoService } from './servico.service';
 import { Servico } from './servico';
-import { AuthGuard, ResourceOwner } from 'ems-oauth2-client';
 
 @Component({
     selector: 'servico-lista',
