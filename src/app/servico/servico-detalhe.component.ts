@@ -10,6 +10,7 @@ import { Servico } from './servico';
 import { ServicoService } from './servico.service';
 import { MatSnackBar } from '@angular/material';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { AuthInterceptor } from 'ems-oauth2-client';
 
 @Component({
   selector: 'servico-detalhe',
@@ -56,9 +57,11 @@ export class ServicoDetalheComponent implements OnInit {
     this.servicoService.executar(url, service).subscribe(
       response => {
         this.response = response;
-        if(response.tipo == 'application/pdf'){
+        if(AuthInterceptor.valueHeader == 'application/pdf'){
           this.urlPath = this.downloadArquivoAnexo(response);
-          this.mimeType = response.tipo;
+          this.mimeType = AuthInterceptor.valueHeader;
+          AuthInterceptor.keyHeader = '';
+          AuthInterceptor.valueHeader = '';
         }
         
       }
@@ -69,13 +72,13 @@ export class ServicoDetalheComponent implements OnInit {
     if(!documento){
       this.mensagem.open("Nenhum arquivo encontrado.", 'X', {duration: 5000});
     }else{    
-        var byteCharacters = atob(documento.arquivo);
+        var byteCharacters = atob(documento);
         var byteNumbers = new Array(byteCharacters.length);
         for (var i = 0; i < byteCharacters.length; i++) {
             byteNumbers[i] = byteCharacters.charCodeAt(i);
         }
         var byteArray = new Uint8Array(byteNumbers);
-        var blob = new Blob([byteArray], {type: documento.tipo});
+        var blob = new Blob([byteArray], {type: AuthInterceptor.valueHeader});
         var url= window.URL.createObjectURL(blob);
         this.isPdf = true;
         return url;

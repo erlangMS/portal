@@ -110,17 +110,12 @@ export class ServicoService extends ServiceUtil {
             this.isJson = true;
         }
 
-      let urlTemp = url.split(':');
-      let urlTotal = '';
-      if(urlTemp.length == 1){
-        urlTotal = urlTemp[0];
-      } else {
-          urlTotal = urlTemp[0]+'648';
-      }
-      return this.http.get(urlTotal,tipoRetorno)
+      return this.http.get(url,tipoRetorno)
       .map(response => {
-        AuthInterceptor.keyHeader = '';
-        AuthInterceptor.valueHeader = '';
+        if(AuthInterceptor.valueHeader != 'application/pdf'){  
+            AuthInterceptor.keyHeader = '';
+            AuthInterceptor.valueHeader = '';
+        }
           return response;
       })
       .catch(this.handleError);
