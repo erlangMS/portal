@@ -1,34 +1,56 @@
 <mat-card *ngIf="servico">
-    <mat-card-title>
-        <h2>Serviço</h2>
-    </mat-card-title>
-    <mat-card-content>
-      <table class="table table-hover dashboard-task-infos">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>NOME</th>
-            <th>URL</th>
-            <th>EXECUTAR</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{servico.rowid}}</td>
-            <td><span class="label bg-green">{{servico.name | uppercase}}</span></td>
-            <td>{{servico.url}}</td>
-            <td>
-              <button mat-icon-button	color="primary" (click)=executar(servico.url,servico)>
-                  <i class="material-icons">launch</i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <button (click)="voltar()">
-        Voltar
-      </button>
-    </mat-card-content>
+  <mat-card-title>
+    <h1>Serviço</h1>
+  </mat-card-title>
+  <mat-card-content>
+    <table class="table table-hover dashboard-task-infos">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>NOME</th>
+          <th>URL</th>
+          <th>EXECUTAR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{servico.rowid}}</td>
+          <td>
+            <mat-chip-list>
+              <mat-chip color="primary" selected="true">{{servico.name | uppercase}}</mat-chip>
+            </mat-chip-list>
+          </td>
+          <td>{{servico.url}}</td>
+          <td>
+            <button mat-fab color="primary" (click)=executar(servico.url,servico)>
+              <i class="material-icons">play_arrow</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Caso o serviço seja parametrizável-->
+    <div *ngIf="parametrosServico.length > 0">
+      <h1>Parâmetros</h1>
+      <mat-list>
+        <mat-list-item *ngFor="let parametro of parametrosServico ; let i=index">
+          <b mat-Line>{{parametro.nome}} = </b>
+          <mat-form-field>
+            <input matInput placeholder="" [(ngModel)]="parametro.valor">
+          </mat-form-field>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="voltar()">
+      <i class="material-icons">keyboard_backspace</i>
+      Voltar
+    </button>
+  </mat-card-actions>
 </mat-card>
 
 <br/>
@@ -45,14 +67,24 @@
 </mat-accordion>
 
 <br/>
+<div *ngIf="(isLoading | async)">
+  <br/>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<br/>
 
 <mat-card>
-    <mat-card-title>
-        <h2>Resultado</h2>
-    </mat-card-title>
-    <mat-card-content>
-      <pre *ngIf="servicoService.isJson && !isPdf">{{ response | json }}</pre>
-      <pre *ngIf="!servicoService.isJson && !isPdf">{{ response }}</pre>
-      <div *ngIf="isPdf" [innerHTML]="innerHtml() | safe_html"></div>
-    </mat-card-content>
+  <mat-card-title>
+    <h2>Resultado</h2>
+  </mat-card-title>
+  <mat-card-content>
+    <div *ngIf="urlExecutada">
+      <h3>Url Executada:</h3>
+      <b>{{urlExecutada}}</b>
+    </div>
+
+    <pre *ngIf="servicoService.isJson && !isPdf">{{ response | json }}</pre>
+    <pre *ngIf="!servicoService.isJson && !isPdf">{{ response }}</pre>
+    <div *ngIf="isPdf" [innerHTML]="innerHtml() | safe_html"></div>
+  </mat-card-content>
 </mat-card>
