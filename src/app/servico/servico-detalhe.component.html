@@ -74,8 +74,7 @@
 <br/>
 
 <mat-card>
-  <mat-card-title>
-    <h2>Resultado</h2>
+  <h2>Resultado</h2>
   </mat-card-title>
   <mat-card-content>
     <div *ngIf="urlExecutada">
@@ -84,7 +83,7 @@
     </div>
 
     <pre *ngIf="servicoService.isJson && !isPdf">{{ response | json }}</pre>
-    <pre *ngIf="!servicoService.isJson && !isPdf">{{ response }}</pre>
+    <pre *ngIf="!servicoService.isJson && !isPdf" [innerHTML]="response | safe_html"></pre>
     <div *ngIf="isPdf" [innerHTML]="innerHtml() | safe_html"></div>
   </mat-card-content>
 </mat-card>
