@@ -1,3 +1,4 @@
+<!-- 
 <mat-card>
     <mat-card-title>
         <h2>Buscar Serviços</h2>
@@ -24,32 +25,50 @@
             <i class="material-icons">search</i> Buscar
         </button>
     </mat-card-content>
-</mat-card>
+</mat-card> 
+-->
 
 <br/>
 <mat-card>
     <mat-card-title>
-        <h2>Lista de Serviços</h2>
+        <h1>{{servidor}}</h1>
     </mat-card-title>
+    <mat-card-subtitle>
+        Lista de Serviços
+    </mat-card-subtitle>
     <mat-card-content>
-        <mat-table #table [dataSource]="servicoService.pagerComponent.pagedItems">
+        <mat-form-field class="full-width">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+        </mat-form-field>
+
+        <mat-table #table [dataSource]="datasourceServicos">
             <ng-container matColumnDef="Imagem">
-                <mat-header-cell *matHeaderCellDef>Imagem</mat-header-cell>
-                <mat-cell *matCellDef="let row"><i class="material-icons">{{row.glyphicon}}</i></mat-cell>
+                <mat-header-cell *matHeaderCellDef>
+                    <b>Imagem</b>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <i class="material-icons">{{row.glyphicon}}</i>
+                </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Url">
-                <mat-header-cell *matHeaderCellDef>Url</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>
+                    <b>Url</b>
+                </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.url}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Tipo">
-                <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>
+                    <b>Tipo</b>
+                </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.type}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Visualizar">
-                <mat-header-cell *matHeaderCellDef>Detalhar</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>
+                    <b>Detalhar</b>
+                </mat-header-cell>
                 <mat-cell *matCellDef="let row">
                     <button mat-icon-button color="primary" (click)=preVisualizarServico(row)>
                         <i class="material-icons">launch</i>
@@ -61,7 +80,9 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
 
+        <!--
         <mat-paginator [length]="servicoService.pagerComponent.length" pageSize="10" [pageSizeOptions]="pageSizeOptions" (page)="paginar($event)">
         </mat-paginator>
+        -->
     </mat-card-content>
 </mat-card>
