@@ -62,8 +62,10 @@ export class ServicoDetalheComponent implements OnInit {
           this.mimeType = AuthInterceptor.valueHeader;
           AuthInterceptor.keyHeader = '';
           AuthInterceptor.valueHeader = '';
-        }
-        
+        }    
+      },
+      error => {
+          this.response = error;
       }
     );
   }

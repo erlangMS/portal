@@ -4,6 +4,7 @@ import { PagerComponent } from '../paginator/pager.component';
 import { Observable } from 'rxjs/Observable';
 import { Servico } from './servico';
 import { HttpService, AuthInterceptor } from 'ems-oauth2-client';
+import {ErrorHandler} from "@angular/core";
 
 @Injectable()
 export class ServicoService extends ServiceUtil {
