@@ -24,7 +24,9 @@ export class ServicoDetalheComponent implements OnInit {
   public servico: Servico = new Servico();
   public parametrosServico = [];
   public urlExecutada = '';
-  response: Response;
+  response: any = '';
+  status:any = '';
+  contentLength:any = '';
 
   public urlPath: any = '';;
   public mimeType: any = '';
@@ -84,7 +86,9 @@ export class ServicoDetalheComponent implements OnInit {
     this.urlExecutada = url;
     this.servicoService.executar(url, service).subscribe(
       response => {
-        this.response = response;
+        this.response = response.body;
+        this.status = response.status+' '+response.statusText;
+        this.contentLength = response.headers.get('content-length');
         if (AuthInterceptor.valueHeader == 'application/pdf') {
           this.urlPath = this.downloadArquivoAnexo(response);
           this.mimeType = AuthInterceptor.valueHeader;
@@ -92,7 +96,10 @@ export class ServicoDetalheComponent implements OnInit {
           AuthInterceptor.valueHeader = '';
         }    
       },
-      err => { },
+      err => { 
+        this.response = err;
+        this.isLoading.next(false);
+      },
       () => {
         this.isLoading.next(false);
       }

@@ -74,7 +74,8 @@
 <br/>
 
 <mat-card>
-  <h2>Resultado</h2>
+  <mat-card-title>
+     <h2>Resultado <span>{{status}}</span> <span>{{contentLength}}</span></h2>
   </mat-card-title>
   <mat-card-content>
     <div *ngIf="urlExecutada">
