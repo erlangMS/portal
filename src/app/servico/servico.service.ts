@@ -119,7 +119,6 @@ export class ServicoService extends ServiceUtil {
         }
           return response;
       })
-      .catch(this.handleError);
     }
 
 }

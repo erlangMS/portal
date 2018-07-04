@@ -1,7 +1,10 @@
 <mat-card *ngIf="servico">
   <mat-card-title>
-    <h1>Serviço</h1>
+    <h1>{{servico.owner}}</h1>
   </mat-card-title>
+  <mat-card-subtitle>
+    Executar Serviço
+  </mat-card-subtitle>
   <mat-card-content>
     <table class="table table-hover dashboard-task-infos">
       <thead>
@@ -30,9 +33,12 @@
       </tbody>
     </table>
 
+    <h2>Descrição do Serviço</h2>
+    <p>{{servico.comment}}</p>
+
     <!-- Caso o serviço seja parametrizável-->
     <div *ngIf="parametrosServico.length > 0">
-      <h1>Parâmetros</h1>
+      <h2>Parâmetros</h2>
       <mat-list>
         <mat-list-item *ngFor="let parametro of parametrosServico ; let i=index">
           <b mat-Line>{{parametro.nome}} = </b>
@@ -42,7 +48,6 @@
         </mat-list-item>
       </mat-list>
     </div>
-
 
   </mat-card-content>
   <mat-card-actions>
@@ -54,36 +59,18 @@
 </mat-card>
 
 <br/>
-
-<mat-accordion class="example-headers-align">
-  <mat-expansion-panel hideToggle="false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <b>Descrição do Serviço</b>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    {{servico.comment}}
-  </mat-expansion-panel>
-</mat-accordion>
-
-<br/>
 <div *ngIf="(isLoading | async)">
   <br/>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
-<br/>
 
 <mat-card>
   <mat-card-title>
      <h2>Resultado <span>{{status}}</span> <span>{{contentLength}}</span></h2>
   </mat-card-title>
   <mat-card-content>
-    <div *ngIf="urlExecutada">
-      <h3>Url Executada:</h3>
-      <b>{{urlExecutada}}</b>
-    </div>
-
-    <pre *ngIf="servicoService.isJson && !isPdf">{{ response | json }}</pre>
+    <!-- reutiliza a classe btn-danger do bootstrap para avisar erros-->
+    <pre [class]="erro == true ? 'btn-danger' : ''" *ngIf="servicoService.isJson && !isPdf">{{ response | json }}</pre>
     <pre *ngIf="!servicoService.isJson && !isPdf" [innerHTML]="response | safe_html"></pre>
     <div *ngIf="isPdf" [innerHTML]="innerHtml() | safe_html"></div>
   </mat-card-content>
