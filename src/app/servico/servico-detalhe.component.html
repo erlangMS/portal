@@ -25,7 +25,7 @@
           </td>
           <td>{{servico.url}}</td>
           <td>
-            <button mat-fab color="primary" (click)=executar(servico.url,servico)>
+            <button mat-fab color="primary" (click)=executar(servico.url,servico) accesskey="b">
               <i class="material-icons">play_arrow</i>
             </button>
           </td>
@@ -66,12 +66,14 @@
 
 <mat-card>
   <mat-card-title>
-     <h2>Resultado <span>{{status}}</span> <span>{{contentLength}}</span></h2>
+     <h2>Resultado</h2> 
+     <span>{{status}}</span>
   </mat-card-title>
   <mat-card-content>
+    <pre *ngIf="!erro && servicoService.isJson && !isPdf">{{ response | json }}</pre>
+    <pre *ngIf="!erro && !servicoService.isJson && !isPdf" [innerHTML]="response | safe_html"></pre>
+    <div *ngIf="!erro && isPdf" class='btn-warn' [innerHTML]="innerHtml() | safe_html"></div>
     <!-- reutiliza a classe btn-danger do bootstrap para avisar erros-->
-    <pre [class]="erro == true ? 'btn-danger' : ''" *ngIf="servicoService.isJson && !isPdf">{{ response | json }}</pre>
-    <pre *ngIf="!servicoService.isJson && !isPdf" [innerHTML]="response | safe_html"></pre>
-    <div *ngIf="isPdf" [innerHTML]="innerHtml() | safe_html"></div>
+    <pre *ngIf="erro" class='btn-danger'>{{ response | json }} </pre>
   </mat-card-content>
 </mat-card>
