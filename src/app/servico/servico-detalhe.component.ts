@@ -23,9 +23,9 @@ export class ServicoDetalheComponent implements OnInit {
 
   public servico: Servico = new Servico();
   public parametrosServico = [];
-  public urlExecutada = '';
+  public erro = false;
   response: Response;
-
+  
   public urlPath: any = '';;
   public mimeType: any = '';
   public isPdf: boolean = false;
@@ -49,14 +49,12 @@ export class ServicoDetalheComponent implements OnInit {
       .subscribe(
         servico => {
           this.servico = servico
-          console.log(this.servico)
           //extrair os parametros
-
           let regex = /:\w*/gm;
           let parametrosRegex = regex.exec(servico.url)
-          if(parametrosRegex){
+          if (parametrosRegex) {
             parametrosRegex.forEach(parametro => {
-              this.parametrosServico.push({'nome':parametro, 'valor':''})
+              this.parametrosServico.push({ 'nome': parametro, 'valor': '' })
             });
           }
 
@@ -69,19 +67,19 @@ export class ServicoDetalheComponent implements OnInit {
   }
 
   executar(url: string, service: Servico) {
-    if(this.parametrosServico && this.parametrosServico.length > 0){
+    this.erro = false;
+    if (this.parametrosServico && this.parametrosServico.length > 0) {
       // para os casos tipo ":id, :id2, :id3"
       // reverter garante que o valor de :id não seja colocado prematuramente em :id2 e :id3
       this.parametrosServico.reverse;
       this.parametrosServico.forEach(param => {
-        if(param.valor != ''){
+        if (param.valor != '') {
           url = url.replace(param.nome, param.valor)
         }
       });
     }
     this.response = new Response();
     this.isLoading.next(true);
-    this.urlExecutada = url;
     this.servicoService.executar(url, service).subscribe(
       response => {
         this.response = response;
@@ -92,7 +90,11 @@ export class ServicoDetalheComponent implements OnInit {
           AuthInterceptor.valueHeader = '';
         }
       },
-      err => { },
+      err => {
+        this.erro = true
+        this.isLoading.next(false);
+        this.response = err;
+      },
       () => {
         this.isLoading.next(false);
       }

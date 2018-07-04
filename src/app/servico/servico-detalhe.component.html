@@ -63,19 +63,14 @@
   <br/>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
-<br/>
 
 <mat-card>
   <mat-card-title>
     <h2>Resultado</h2>
   </mat-card-title>
   <mat-card-content>
-    <div *ngIf="urlExecutada">
-      <h3>Url Executada:</h3>
-      <b>{{urlExecutada}}</b>
-    </div>
-
-    <pre *ngIf="servicoService.isJson && !isPdf">{{ response | json }}</pre>
+    <!-- reutiliza a classe btn-danger do bootstrap para avisar erros-->
+    <pre [class]="erro == true ? 'btn-danger' : ''" *ngIf="servicoService.isJson && !isPdf">{{ response | json }}</pre>
     <pre *ngIf="!servicoService.isJson && !isPdf" [innerHTML]="response | safe_html"></pre>
     <div *ngIf="isPdf" [innerHTML]="innerHtml() | safe_html"></div>
   </mat-card-content>
