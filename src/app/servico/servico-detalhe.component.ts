@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Servico } from './servico';
 import { ServicoService } from './servico.service';
 import { MatSnackBar } from '@angular/material';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { SafeHtml } from '@angular/platform-browser';
 import { AuthInterceptor } from 'ems-oauth2-client';
 
 @Component({
@@ -24,7 +24,7 @@ export class ServicoDetalheComponent implements OnInit {
   public servico: Servico = new Servico();
   public parametrosServico = [];
 
-  public urlExecutada = '';
+  public urlExecutada = '<html><head></head><body></body></html>';
   response: any = '';
   status: any = '';
 
@@ -39,8 +39,7 @@ export class ServicoDetalheComponent implements OnInit {
     private servicoService: ServicoService,
     private route: ActivatedRoute,
     private location: Location,
-    public mensagem: MatSnackBar,
-    private sanitizer: DomSanitizer
+    public mensagem: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +53,6 @@ export class ServicoDetalheComponent implements OnInit {
       .subscribe(
         servico => {
           this.servico = servico
-          //extrair os parametros
           let regex = /:\w*/gm;
           let parametrosRegex = regex.exec(servico.url)
           if (parametrosRegex) {
@@ -74,8 +72,6 @@ export class ServicoDetalheComponent implements OnInit {
     this.erro = false;
     this.status = '';
     if (this.parametrosServico && this.parametrosServico.length > 0) {
-      // para os casos tipo ":id, :id2, :id3"
-      // reverter garante que o valor de :id não seja colocado prematuramente em :id2 e :id3
       this.parametrosServico.reverse;
       this.parametrosServico.forEach(param => {
         if (param.valor != '') {
