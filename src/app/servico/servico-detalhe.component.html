@@ -67,7 +67,10 @@
 <mat-card>
   <mat-card-title>
      <h2>Resultado</h2> 
-     <span>{{status}}</span>
+     <mat-chip-list>
+        <mat-chip selected="true" [color]="primary">{{respostaStatus}}</mat-chip>
+        <mat-chip selected="true" [color]="none">{{tamanhoRequisicao}}</mat-chip>
+     </mat-chip-list>
   </mat-card-title>
   <mat-card-content>
     <pre *ngIf="!erro && servicoService.isJson && !isPdf">{{ response | json }}</pre>

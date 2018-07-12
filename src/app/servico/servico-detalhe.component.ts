@@ -27,6 +27,8 @@ export class ServicoDetalheComponent implements OnInit {
   public urlExecutada = '<html><head></head><body></body></html>';
   response: any = '';
   status: any = '';
+  public respostaStatus = '';
+  public tamanhoRequisicao = '';
 
   public erro = false;
 
@@ -86,6 +88,8 @@ export class ServicoDetalheComponent implements OnInit {
         this.response = response.body;
         this.status = 'Codigo: ' + response.status + ' ' + response.statusText + 
                       ' Tamanho da Requisição: ' + response.headers.get('content-length');
+        this.respostaStatus = 'Codigo: ' + response.status + ' ' + response.statusText;
+        this.tamanhoRequisicao = 'Tamanho da Requisição: ' + response.headers.get('content-length');
         if (AuthInterceptor.valueHeader == 'application/pdf') {
           this.urlPath = this.downloadArquivoAnexo(response);
           this.mimeType = AuthInterceptor.valueHeader;
