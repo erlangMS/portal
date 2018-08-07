@@ -38,14 +38,19 @@ export class ServicoListaComponent implements OnInit {
         private snackBar: MatSnackBar
     ) { }
 
+    private startsWithHifen = /^-.*/gm;
+
     ngOnInit() {
         let url: string = window.location.href;
         let arrayUrl: any = url.split('/');
-        this.servidor = arrayUrl[5];
+        this.servidor = arrayUrl[arrayUrl.length-1];
         this.carregarServicosServidor(this.servidor);
     }
 
     carregarServicosServidor(servidor: string) {
+        if(this.startsWithHifen.test(servidor)){
+            servidor = servidor.replace('-','');
+        }
         this.filtro.owner = servidor;
         this.lista = this.servicoService.paginar(this.filtro)
         this.isLoading.next(true);
@@ -112,8 +117,8 @@ export class ServicoListaComponent implements OnInit {
     }
 
     applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); 
-        filterValue = filterValue.toLowerCase(); 
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
         this.datasourceServicos.filter = filterValue;
     }
 
