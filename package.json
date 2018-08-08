@@ -28,8 +28,8 @@
     "angular-in-memory-web-api": "~0.5.4",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
-    "ems-oauth2-client": "^2.3.0",
-    "unb-menu-dinamico": "^3.2.2",
+    "ems-oauth2-client": "^3.1.0",
+    "unb-menu-dinamico": "^3.2.3",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
