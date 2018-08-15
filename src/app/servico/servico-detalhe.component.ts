@@ -91,10 +91,9 @@ export class ServicoDetalheComponent implements OnInit {
         this.respostaStatus = 'Codigo: ' + response.status + ' ' + response.statusText;
         this.tamanhoRequisicao = 'Tamanho da Requisição: ' + response.headers.get('content-length');
         if (AuthInterceptor.valueHeader == 'application/pdf') {
-          this.urlPath = this.downloadArquivoAnexo(response);
-          this.mimeType = AuthInterceptor.valueHeader;
-          AuthInterceptor.keyHeader = '';
-          AuthInterceptor.valueHeader = '';
+          this.mimeType = 'application/pdf';
+          this.urlPath = window.URL.createObjectURL(this.response);
+          this.isPdf = true;
         }
         this.isLoading.next(false);
       },
@@ -110,22 +109,6 @@ export class ServicoDetalheComponent implements OnInit {
     );
   }
 
-  downloadArquivoAnexo(documento: any): any {
-    if (!documento) {
-      this.mensagem.open("Nenhum arquivo encontrado.", 'X', { duration: 5000 });
-    } else {
-      var byteCharacters = atob(documento);
-      var byteNumbers = new Array(byteCharacters.length);
-      for (var i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      var byteArray = new Uint8Array(byteNumbers);
-      var blob = new Blob([byteArray], { type: AuthInterceptor.valueHeader });
-      var url = window.URL.createObjectURL(blob);
-      this.isPdf = true;
-      return url;
-    }
-  }
 
   public innerHtml(): SafeHtml {
     console.log('innerHTML')

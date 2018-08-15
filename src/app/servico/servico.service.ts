@@ -103,16 +103,21 @@ export class ServicoService extends ServiceUtil {
         let tipoRetorno:string = '';
         AuthInterceptor.keyHeader = 'content-type';
         AuthInterceptor.valueHeader = service.content_type;
-        if(service.content_type == 'text/plain' || service.content_type == 'text/html'){
+        if(service.content_type == 'text/plain' || service.content_type == 'text/html'|| service.content_type == 'application/xhtml+xml'){
             tipoRetorno = 'text';
             this.isJson = false;
-        } else {
+        } else if ( service.content_type == 'application/pdf'){
+            tipoRetorno = 'blob',
+            this.isJson = false;
+        }
+        else {
             tipoRetorno = 'json';
             this.isJson = true;
         }
 
       return this.http.get(url,tipoRetorno,'response')
       .map(response => {
+          console.log(response)
         if(AuthInterceptor.valueHeader != 'application/pdf'){  
             AuthInterceptor.keyHeader = '';
             AuthInterceptor.valueHeader = '';
