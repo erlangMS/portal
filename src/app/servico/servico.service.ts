@@ -103,7 +103,7 @@ export class ServicoService extends ServiceUtil {
         let tipoRetorno:string = '';
         AuthInterceptor.keyHeader = 'content-type';
         AuthInterceptor.valueHeader = service.content_type;
-        if(service.content_type == 'text/plain'){
+        if(service.content_type == 'text/plain' || service.content_type == 'text/html'){
             tipoRetorno = 'text';
             this.isJson = false;
         } else {
