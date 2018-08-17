@@ -1,2 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.mat-column-image {
+    flex: 0 0 65px !important;
+    white-space: unset !important;
+  }
+
+  .mat-column-url {
+    flex: 0 0 300px !important;
+    white-space: unset !important;
+  }
+
+
+  .mat-column-description {
+    flex: 0 0 600px !important;
+    white-space: unset !important;
+  }
+
+  .mat-column-detail {
+    flex: 0 0 200px !important;
+    white-space: unset !important;
+  }

@@ -43,29 +43,29 @@
 
         <mat-table #table [dataSource]="datasourceServicos">
             <ng-container matColumnDef="Imagem">
-                <mat-header-cell *matHeaderCellDef>
+                <mat-header-cell *matHeaderCellDef class="mat-column-image">
                     <b>Imagem</b>
                 </mat-header-cell>
-                <mat-cell *matCellDef="let row">
+                <mat-cell *matCellDef="let row" class="mat-column-image">
                     <i class="material-icons">{{row.glyphicon}}</i>
                 </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="Url">
+            <ng-container matColumnDef="Url" class="mat-column-url">
                 <mat-header-cell *matHeaderCellDef>
                     <b>Url</b>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.url}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="Tipo">
+            <ng-container matColumnDef="Descricao" class="mat-column-description">
                 <mat-header-cell *matHeaderCellDef>
-                    <b>Tipo</b>
+                    <b>Descirção do Serviço</b>
                 </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.type}} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{row.comment}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="Visualizar">
+            <ng-container matColumnDef="Visualizar" class="mat-column-detail">
                 <mat-header-cell *matHeaderCellDef>
                     <b>Detalhar</b>
                 </mat-header-cell>

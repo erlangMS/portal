@@ -29,7 +29,7 @@ export class ServicoListaComponent implements OnInit {
     private servidor = '';
     private datasourceServicos = new MatTableDataSource();
 
-    displayedColumns = ['Imagem', 'Url', 'Tipo', 'Visualizar'];
+    displayedColumns = ['Imagem', 'Url', 'Descricao', 'Visualizar'];
     pageSizeOptions = [5, 10, 25, 100];
 
     constructor(
