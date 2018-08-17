@@ -9,7 +9,7 @@ import { AuthenticationService } from 'ems-oauth2-client';
 
 export class TopbarComponent implements OnInit {
 
-  title:string = "ems-bus service manager";
+  title:string = "Portal de monitoramento de serviços";
 
   constructor(private authenticationService:AuthenticationService) { }
 

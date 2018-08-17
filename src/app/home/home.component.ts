@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 export class HomeComponent {
 
-  title:string = "ems-bus service manager";
+  title:string = "portal de monitoramento de serviços";
 
   // construtor
   constructor( private router: Router) {

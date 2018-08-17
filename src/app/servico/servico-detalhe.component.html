@@ -12,6 +12,7 @@
           <th>#</th>
           <th>NOME</th>
           <th>URL</th>
+          <th>TIPO</th>
           <th>EXECUTAR</th>
         </tr>
       </thead>
@@ -24,6 +25,7 @@
             </mat-chip-list>
           </td>
           <td>{{servico.url}}</td>
+          <td>{{servico.type}}</td>
           <td>
             <button mat-fab color="primary" (click)=executar(servico.url,servico) accesskey="b">
               <i class="material-icons">play_arrow</i>
