@@ -36,6 +36,39 @@ export class AppComponent {
           console.log(error);
         });
 
+  }
+
+
+  ngAfterContentInit() {
+    if (EventEmitterService.contains('tokenPreenchido')) {
+      this.navBarComponent.carregarMenuDinamico(function (menu) {
+        return true;
+      })
+    }
+
+    EventEmitterService.get('tokenPreenchido').subscribe((preechido: any) => {
+      this.preencherMenu();
+      this.navBarComponent.carregarMenuDinamico(function (menu) {
+        let json = JSON.parse(localStorage.getItem('portal'));
+        let recurso: any = json.resource_owner;
+        let listaPermissao: any = recurso.lista_permission;
+
+        for (let i = 0; i < listaPermissao.length; i++) {
+          let url = listaPermissao[i].url.split('/')
+          AppComponent.getInstanceRouter().config.push({
+            path: url[1], component: ServicoListaComponent, canActivate: [AuthGuard],
+            data: { nome: listaPermissao[i].url }
+          });
+        }
+        return true;
+      });
+
+    })
+
+  }
+
+
+  preencherMenu(){
     if (localStorage.getItem('portal')) {
       let json = JSON.parse(localStorage.getItem('portal'));
       let recurso: any = json.resource_owner;
@@ -55,35 +88,6 @@ export class AppComponent {
         }
       }
     }
-
-  }
-
-
-  ngAfterContentInit() {
-
-    if (EventEmitterService.contains('tokenPreenchido')) {
-      this.navBarComponent.carregarMenuDinamico(function (menu) {
-        return true;
-      })
-    }
-
-    EventEmitterService.get('tokenPreenchido').subscribe((preechido: any) => {
-      this.navBarComponent.carregarMenuDinamico(function (menu) {
-        let json = JSON.parse(localStorage.getItem('portal'));
-        let recurso: any = json.resource_owner;
-        let listaPermissao: any = recurso.lista_permission;
-
-        for (let i = 0; i < listaPermissao.length; i++) {
-          let url = listaPermissao[i].url.split('/')
-          AppComponent.getInstanceRouter().config.push({
-            path: url[1], component: ServicoListaComponent, canActivate: [AuthGuard],
-            data: { nome: listaPermissao[i].url }
-          });
-        }
-        return true;
-      });
-
-    })
 
   }
 
