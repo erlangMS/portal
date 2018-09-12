@@ -87,9 +87,9 @@ export class ServicoDetalheComponent implements OnInit {
       response => {
         this.response = response.body;
         this.status = 'Codigo: ' + response.status + ' ' + response.statusText + 
-                      ' Tamanho da Requisição: ' + response.headers.get('content-length');
+                      ' Tamanho da Requisição: ' + response.body != null ? response.body.length : '';
         this.respostaStatus = 'Codigo: ' + response.status + ' ' + response.statusText;
-        this.tamanhoRequisicao = 'Tamanho da Requisição: ' + response.headers.get('content-length');
+        this.tamanhoRequisicao = 'Tamanho da Requisição: ' + response.body != null ? response.body.length : '';
         if (AuthInterceptor.valueHeader == 'application/pdf') {
           this.mimeType = 'application/pdf';
           this.urlPath = window.URL.createObjectURL(this.response);
