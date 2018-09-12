@@ -27,10 +27,9 @@ export class AppComponent {
   }
 
   ngOnInit() {
-
+    this.preencherMenu();
     this.fileService.startRedirect()
       .subscribe(result => {
-
       },
         error => {
           console.log(error);
